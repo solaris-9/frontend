@@ -11,6 +11,7 @@
 <link rel="stylesheet"  href="css/ag-grid/ag.css" />
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/style_addon.css" rel="stylesheet">
 
 </head>
 <script >
@@ -244,16 +245,21 @@ async function sendPostDelete() {
 } 
  
     
-    function show_div(){
+function show_div(){
         
-        $("#adm").show();        
+    $("#adm").show();        
         
     //if ($.cookie(cookie_level) > '4' && $.cookie(cookie_level) != 'undefined')
     //{      
     // $("#adm").show();
     //}  
     
-    }
+}
+
+window.addEventListener("beforeload",function(e){
+    document.body.className = "page-loading";
+},false);
+
 	</script>
     <script language="javascript">       
         window.onload = show_div();
