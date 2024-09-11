@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="GB2312">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customer_id</title>
+    <link rel="shortcut icon" href="favicon.ico"> 
+	<link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet"  href="css/ag-grid/ag-grid.css" />
+	<link rel="stylesheet"  href="css/ag-grid/ag.css" />
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<script >
+var cookie_name = "username";
+var cookie_mail = "mail";
+var cookie_auth = "encodedAuth";
+var cookie_level = "level";
+var cookie_grade = "grade";
+window.onload = function () {
+  //  alert("Log in status : " + $.cookie(cookie_name) +$.cookie(cookie_mail) );
+if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none' || $.cookie(cookie_level) == 'undefined'  )
+    {     
+    location.href = "login.html?id=Customer_id.html";    
+    }};
+</script>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<form class="form-horizontal" role="form" name="formxl" >
+	<div class="ibox-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox-title">
+                    
+                    <span id="adm"><input type='button' value=' Add ' onClick="location.href='Customer_id_add.html'" class="btn btn-primary btn-sm"></span>&nbsp;&nbsp;<button onclick="onBtExport(); return false;" class='btn btn-info btn-sm'>Export</button>&nbsp;&nbsp;<a class="btn btn-white btn-bitbucket" onClick="location.href='?'"><i class="fa fa-refresh"></i></a>&nbsp;&nbsp;<font size= 4>The data comes from the supply chain system</font><span id="selectedRows"></span>				
+                </div>                       
+            </div>
+        </div>
+    </div>
+            <!--<div class="ibox-content"> -->
+                <div class="row"> 
+				<!--<div class="row row-lg">-->
+                    <div class="col-sm-12">
+                        <div id="myGrid" style="height: 450px; " class="ag-theme-alpine"></div>
+                    </div>
+                </div>          
+    </div>
+</div>
+        <!-- End Panel Columns & Select -->
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+			<i class="icon-double-angle-up icon-only bigger-110"></i>
+		</a>
+    
+    <script src="js/jquery.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+    <script src="bootstrap5/js/bootstrap.min.js"></script>
+    <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ag-grid/ag-grid-enterprise4.js"></script>
+
+<script >
+
+var FR ={};
+var rowData = [];
+
+const columnDefs = [      
+		
+    
+        { field: 'customer_id', width: 200, headerName: 'customer_id' ,
+        onCellDoubleClicked: function(event) {
+	    const selectedRows = gridOptions.api.getSelectedRows();
+        document.querySelector('#selectedRows').innerHTML = selectedRows.length === 1 ? selectedRows[0].customer_id : '';	
+	   location.href = "Customer_id_edit.html?id="+selectedRows[0].customer_id+"="+selectedRows[0].customer_name+"="+selectedRows[0].model;           
+    }}, 
+		{ field: 'customer_name', width: 400, wrapText: true, headerName: 'Customer name'}, 
+        
+        
+];
+
+// let the grid know which columns and what data to use
+const gridOptions = {
+    defaultColDef: {
+    sortable: true,
+    resizable: true,	
+	//wrapText: true,
+	//autoHeight: true, 
+	//floatingFilter: true,
+	autoHeight: true,
+	filter: true,
+	menuTabs: ['filterMenuTab','generalMenuTab','columnsMenuTab'],
+	filterParams: {
+                applyMiniFilterWhileTyping: true,
+            },
+    },
+    rowHeight: 30,
+    suppressMenuHide: true,
+    suppressAutoSize: true,
+    rowSelection: 'single',
+    //rowSelection: 'multiple',
+    //rowMultiSelectWithClick: true,  
+     //onSelectionChanged: onSelectionChanged, 
+   
+ // pagination: true,
+ //paginationAutoPageSize: true,
+   statusBar: {
+	statusPanels: [
+		{
+			statusPanel: 'agTotalAndFilteredRowCountComponent',
+			align: 'left',
+		}
+	]
+},
+    columnDefs: columnDefs,
+    rowData: rowData
+};
+
+function onBtExport() {
+var excelParams = {
+    fileName: 'customer_id.xlsx',
+    sheetName: 'customer_id'	   
+}
+gridOptions.api.exportDataAsExcel(excelParams);
+
+}
+// setup the grid after the page has finished loading
+document.addEventListener('DOMContentLoaded', () => {
+    const gridDiv = document.querySelector('#myGrid');
+    new agGrid.Grid(gridDiv, gridOptions);
+    roles=$.cookie(cookie_grade)
+    $.getJSON("gpi/allocate/customer_id",{customer: "all",roles:roles },function(data){      	
+    $(data.data.items).each(function(){
+    FRT = JSON.stringify(this);	
+    FRT = FRT.replace("[{", "{");
+    FRT = FRT.replace("}]", "}");	
+    FR=JSON.parse(FRT); 
+    rowData.push(FR);
+    })	  
+    gridOptions.api.setRowData(rowData);
+	
+    });
+});
+
+    var p1=document.getElementById("adm");    
+    if ($.cookie(cookie_level) < '5')
+    {
+     p1.style.display='none';
+	 p1.style.visibility='hidden'; 
+    } 
+    
+	</script>
+</form>
+</body>
+</html>
+

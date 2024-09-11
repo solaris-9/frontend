@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="GB2312">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BoENG Request</title>
+<link rel="shortcut icon" href="favicon.ico"> 
+<link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet"  href="css/ag-grid/ag-grid.css" />
+<link rel="stylesheet"  href="css/ag-grid/ag.css" />
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+</head>
+<script >
+var cookie_name = "username";
+var cookie_mail = "mail";
+var cookie_auth = "encodedAuth";
+var cookie_level = "level";
+var cookie_grade = "grade";
+
+window.onload = function () {
+//alert("Log in status : " + $.cookie(cookie_add) +$.cookie(cookie_edit) + $.cookie(cookie_delete)  );
+if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined' )
+    {     
+    location.href = "login.html?id=Request.html";
+        }};
+</script>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+<form class="form-horizontal" role="form" name="formxl" >
+<div class="ibox-content">
+        <div class="row">
+        <div class="col-md-12">
+        <div class="ibox-title">
+            <input type="hidden" class="form-control" name='ID' id='ID' value='' style="height: 30px; width: 160px;">
+            <input type='button' value=' Add ' onClick="location.href='Request_add.html'" class="btn btn-primary btn-sm">&nbsp;<span id="adm"><input class="btn btn-warning btn-sm" type="submit" value='Delete' name='cmd' id='cmd' onClick="deleteitem(); return false;"></span>&nbsp;&nbsp;<button onclick="onBtExport(); return false;" class='btn btn-info btn-sm'>Export</button>&nbsp;&nbsp;<a class="btn btn-white btn-bitbucket" onClick="location.href='?'"><i class="fa fa-refresh"></i></a>&nbsp;&nbsp;<font size= 2>Double click the content of "Customer"  to edit the record</font><span id="selectedRows"></span>
+                
+        </div>                        
+    </div>
+</div>
+</div>
+        <!--<div class="ibox-content"> -->
+            <div class="row"> 
+            <!--<div class="row row-lg">-->
+                <div class="col-sm-12">					
+                
+<div id="myGrid" style="height: 400px; " class="ag-theme-alpine"></div>
+    </div>
+    </div>          
+</div>
+</div>
+</div>
+    <!-- End Panel Columns & Select -->
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+<!-- ȫ��js -->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="bootstrap5/js/bootstrap.min.js"></script>
+<script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+<script src="js/ag-grid/ag-grid-enterprise4.js"></script>
+
+
+<script >
+String.prototype.replaceAll = function (s1, s2) {
+    return this.replace(new RegExp(s1, "gm"), s2);
+};   
+var FR ={};
+var rowData = [];
+const columnDefs = [ 
+    
+    { field: 'customer', width: 220, headerName: 'Customer',
+        headerCheckboxSelection: false,
+        checkboxSelection: true,
+        showDisabledCheckboxes: true,
+		onCellDoubleClicked: function(event) {
+        const selectedRows = gridOptions.api.getSelectedRows();
+        document.querySelector('#selectedRows').innerHTML =
+		selectedRows.length === 1 ? selectedRows[0].ID : '';	
+		location.href = "request_edit.html?id="+selectedRows[0].ID+"="+selectedRows[0].customer.replaceAll(' ','_')+"="+selectedRows[0].customerid+"="+
+        selectedRows[0].customersc+"="+selectedRows[0].country+"="+selectedRows[0].licensetype+"="+selectedRows[0].plateform+"="+selectedRows[0].alivedate+"="+selectedRows[0].region+"="+selectedRows[0].legal+"="+selectedRows[0].multi_region+"="+selectedRows[0].multi_legal+"="+selectedRows[0].tenant_platform+"="+selectedRows[0].traildate+"="+selectedRows[0].trailnumber+"="+selectedRows[0].devicenumber+"="+selectedRows[0].devicenumber3+"="+selectedRows[0].devicenumber6+"="+selectedRows[0].volume+"="+selectedRows[0].area+"="+selectedRows[0].FCC+"="+selectedRows[0].SLAlevel+"="+selectedRows[0].HDM+"="+selectedRows[0].HDMpo+"="+selectedRows[0].fingerprinting+"="+selectedRows[0].response_person+"="+selectedRows[0].WBSnumber+"="+selectedRows[0].device+"="+selectedRows[0].OPID+"="+selectedRows[0].countryid+"="+selectedRows[0].container+"="+selectedRows[0].application+"="+selectedRows[0].SWupdate+"="+selectedRows[0].beaconexp+"="+selectedRows[0].rootbeacon+"="+selectedRows[0].rootbeacon2+"="+selectedRows[0].BoENG+"="+selectedRows[0].BoENG_ACS+"="+selectedRows[0].ACS_URL+"="+selectedRows[0].ACS_username+"="+selectedRows[0].ACS_key+"="+selectedRows[0].additional;
+        }},  
+	   { field: 'customerid', width: 160, suppressSizeToFit: true, headerName: 'Customer ID'}, 
+       { field: 'customersc', width: 350, headerName: 'Name in orders'},
+        { field: 'country', width: 130, headerName: 'Country'},
+        { field: 'licensetype', width: 300, wrapText: true, headerName: 'License type' },
+        { field: 'plateform', width: 350,wrapText: true, headerName: 'plateform'},        
+        { field: 'alivedate', width: 160, headerName: 'alivedate' },
+        { field: 'region', width: 200, headerName: 'region'},
+		{ field: 'legal', width: 160, headerName: 'legal' },
+        { field: 'multi_region', width: 200, headerName: 'multi_region'},		
+		{ field: 'multi_legal', width: 160, headerName: 'multi_legal' },
+        { field: 'tenant_platform', width: 200, headerName: 'tenant_platform'},
+        { field: 'traildate', width: 160, headerName: 'traildate'},        
+		{ field: 'trailnumber', width: 200, headerName: 'trailnumber'},	
+        { field: 'trailplan', width: 160, headerName: 'trailplan'},	
+		{ field: 'devicenumber3', width: 200, headerName: 'devicenumber3'},
+		{ field: 'devicenumber6', width: 160, headerName: 'devicenumber6'},
+		{ field: 'devicenumber', width: 200, headerName: 'devicenumber'},         
+        { field: 'volume', width: 180, headerName: 'volume'},
+        { field: 'area', width: 200, headerName: 'area'},		
+        { field: 'FCC', width: 200, headerName: 'FCC'},
+        { field: 'SLAlevel', width: 160, headerName: 'SLAlevel'},
+		{ field: 'HDM', width: 200, headerName: 'HDM'},
+		{ field: 'HDMpo', width: 160, headerName: 'HDMpo'},
+		{ field: 'fingerprinting', width: 200, headerName: 'fingerprinting'},
+		{ field: 'response_person', width: 160, headerName: 'response_person'},
+		{ field: 'WBSnumber', width: 200, headerName: 'WBSnumber'}, 
+        { field: 'device', width: 180, headerName: 'Device Model'},
+        { field: 'OPID', width: 200, headerName: 'OPID'},		
+		{ field: 'countryid', width: 160, headerName: 'countryid' },
+        { field: 'Container', width: 200, headerName: 'Container'},
+        { field: 'application', width: 160, headerName: 'application'},
+		{ field: 'SWupdate', width: 200, headerName: 'SWupdate'},
+		{ field: 'beaconexp', width: 160, headerName: 'beaconexp'},
+		{ field: 'rootbeacon', width: 200, headerName: 'rootbeacon'},
+		{ field: 'rootbeacon2', width: 160, headerName: 'rootbeacon2'},
+		{ field: 'BoENG', width: 200, headerName: 'BoENG'}, 
+        { field: 'BoENG_ACS', width: 180, headerName: 'BoENG_ACS'},
+        { field: 'ACS_URL', width: 160, headerName: 'ACS_URL'},
+		{ field: 'ACS_username', width: 200, headerName: 'ACS_username'},
+		{ field: 'ACS_key', width: 160, headerName: 'ACS_key'},		 
+        { field: 'additional', width: 180, headerName: 'additional'},
+        { field: 'Creator', width: 200, headerName: 'Creator'},   
+        { field: 'Modifier', width: 200, headerName: 'Modifier'}, 
+        { field: 'RecordTime', width: 130, headerName: 'LastUpdate'},       		
+		{ field: 'REID',width: 120, headerName: 'Item' },
+        { field: 'ID',width: 120, headerName: 'SubItem',colId: 'ID' }
+];
+
+// let the grid know which columns and what data to use
+const gridOptions = {
+defaultColDef: {
+sortable: true,
+resizable: true,	
+//wrapText: true,
+//autoHeight: true, 
+//floatingFilter: true,
+
+autoHeight: true,
+filter: true,
+menuTabs: ['filterMenuTab','generalMenuTab','columnsMenuTab'],
+filterParams: {
+            applyMiniFilterWhileTyping: true,
+        },
+},
+rowHeight: 30,
+
+suppressMenuHide: true,
+suppressAutoSize: true,
+//rowSelection: 'single',
+rowSelection: 'multiple',
+//rowMultiSelectWithClick: true,  
+onSelectionChanged: onSelectionChanged,
+pagination: true,
+paginationAutoPageSize: true,
+
+columnDefs: columnDefs,
+rowData: rowData
+};
+function onSelectionChanged() {
+  var selectedRows = gridOptions.api.getSelectedRows();
+  var selectedRowsString = '';
+  
+  selectedRows.forEach(function (selectedRow, index) {
+    
+    if (index > 0) {
+      selectedRowsString += ',';
+    }
+
+    selectedRowsString += selectedRow.ID;
+  });
+  
+  document.formxl.ID.value =selectedRowsString;
+  
+}
+
+function onBtExport() {
+    var d = new Date();
+    let year=d.getFullYear();                 
+    let month=d.getMonth() + 1;                   
+    let date=d.getDate();
+    let hour=d.getHours();                    
+    let minutes=d.getMinutes();      
+    var excelParams = {
+        fileName: 'BoENG_request-' + year + month + date+ hour + minutes + '.xlsx',
+        sheetName: 'request',	   
+    }
+    gridOptions.api.exportDataAsExcel(excelParams);
+    }
+// setup the grid after the page has finished loading
+document.addEventListener('DOMContentLoaded', () => {
+const gridDiv = document.querySelector('#myGrid');
+new agGrid.Grid(gridDiv, gridOptions);
+    mail = $.cookie(cookie_mail)
+    level = $.cookie(cookie_level)
+    $.getJSON("gpi/allocate/request_info",{mail: mail,level: level},function(data){      	
+    $(data.data.items).each(function(){
+    FRT = JSON.stringify(this);	
+    FRT = FRT.replace("[{", "{");
+    FRT = FRT.replace("}]", "}");	
+    FR=JSON.parse(FRT); 
+    rowData.push(FR);
+    })	  
+    gridOptions.api.setRowData(rowData);
+
+});
+});
+function deleteitem(){ 
+    sendPostDelete()                    
+    }               
+async function sendPostDelete() {
+    mail = $.cookie(cookie_mail)    
+    grade = $.cookie(cookie_grade)
+    level = $.cookie(cookie_level)           
+    if (document.formxl.ID.value == "")
+       {
+         alert ("No item is selected for deleting!")
+       }else{
+         if (confirm("Are you sure you want to delete this information?")) {             
+            Deletelist = document.formxl.ID.value;
+            const url = 'gpi/allocate/request_edit';
+            const data = {                               
+                type: '3',                
+                mail: mail,
+                level: level, 
+                grade: grade,
+                deletelist: Deletelist                
+            };
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });            
+            const result = await response.json();
+            FRT = JSON.stringify(result.data.status);                    
+            if (FRT.indexOf('successful') > 0 ) {
+                alert("Delete successful!");
+                     window.location.reload();	
+                     }else{
+                       alert("Delete failure!");
+                    }
+        } else {
+           alert ("Delete cancel !")
+        }
+    }} 
+ 
+    
+    function show_div(){
+        
+        $("#adm").show();        
+        
+    //if ($.cookie(cookie_level) > '4' && $.cookie(cookie_level) != 'undefined')
+    //{      
+    // $("#adm").show();
+    //}  
+    
+    }
+	</script>
+    <script language="javascript">       
+        window.onload = show_div();
+        
+    </script>
+</form>
+</body>
+</html>
+

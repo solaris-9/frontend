@@ -1,0 +1,106 @@
+<form class="form-horizontal" name="formxl">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User info</title>
+    
+    <link rel="shortcut icon" href="favicon.ico">
+	<link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+     <link href="css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet"  href="css/ag-grid/ag-grid.css" />
+	<link rel="stylesheet"  href="css/ag-grid/ag.css" />
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title" >
+					   <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Update User information</font></h5>
+                    </div>								
+                    <div class="ibox-content"> 					 
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">User Name</label>
+                                <div class="col-sm-4">
+								    <input type="hidden" class='form-control' name="USID" id="USID" style="height: 30px;" value=''>
+                                    <input type="text" class='form-control' name="Name" id="Name" style="height: 30px;" value=''  readonly= "true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Email</label>
+                                   <div class="col-sm-4">
+                                   <input type="text" class='form-control' name="Email" id="Email"  value='' >	
+                                  </div>
+                              </div>
+							<div class="form-group">
+                              <label class="col-sm-2 control-label">Roles</label>
+                                <div class="col-sm-4">
+                                  <select  class='form-control' name="Grade" id="Grade" placeholder="User Grade" >
+                                    <option value='' selected="selected">Select</option>
+                                    <option value="viewer" >viewer</option>
+							        <option value="Administrator" >Administrator</option>
+	                                <option value="FullControl" >FullControl</option>                                    
+                                    <option value="PLM" >PLM</option>
+                                    <option value="R&D" >R&D</option> 
+								  </select> 
+                                </div> 
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Level</label>
+                                       <div class="col-sm-4">
+                                       <input type="text" class='form-control' name="Level" id="Level"  value=''>	
+                                      </div>
+                                  </div>
+                            </div>
+                            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" >
+                                <div class="col-sm-8 col-sm-offset-2">
+								    <input class="btn btn-primary" type="submit" value=' Save ' name='cmd' id='cmd' onClick="saveedit(); return false;">&nbsp;&nbsp;
+                                    <input class='btn btn-info' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
+                                </div>
+                            </div>
+						    
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ȫ��js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.7"></script>
+	<script language="javascript">
+	
+   var tid = location.search;  
+   var S = tid.split('=');
+  
+   document.formxl.USID.value=S[1];
+   document.formxl.Name.value=S[2];
+   document.formxl.Email.value=S[3];   
+   document.formxl.Grade.value=S[4];
+   document.formxl.Level.value=S[5];
+
+   function saveedit() {
+    mail = document.formxl.Email.value;
+    lev = document.formxl.Level.value;
+    grd = document.formxl.Grade.value;
+    //alert(s[1] + lev + grd)
+	$.getJSON("gpi/user/user_edit",{"type": "2","ID": S[1],"Mail": mail,"Level": lev, "Roles": grd}, function (data) {   
+	Result = JSON.stringify(data.data.items[0])
+    alert(Result);
+    location.href = "User_manage.html";
+     });
+   }
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+*{
+	margin:0px;
+	padding:0px;
+	font:normal 20px "微软雅黑";
+}
+
+#cardBox{
+	width:1000px;
+	margin:10px auto;
+}
+
+#cardBox ul{
+	list-style-type:none;
+}
+
+#titleBar{
+	height:52px;
+	border-bottom:2px solid brown;
+}
+
+#titleBar li{
+	display:inline-block;
+	width:400px;
+	line-height:50px;
+	text-align:center;
+	border:2px solid #ccc;
+	border-bottom:none;
+	margin-left:8px;
+}
+
+#titleBar li.checkedTit{
+	border-bottom:2px solid #ccc;
+}
+
+/*光标变化*/
+#titleBar li:hover{
+	cursor:pointer;
+	border-top:2px solid brown;
+}
+
+#cardBox div{
+	border:2px solid #ccc;
+	border-top:none;	
+}
+
+#cardBox div ul li{
+	height:60px;
+	line-height:60px;
+	text-indent:15px;
+}
+/*切记：！！多个类名 可以 用 英文逗号 隔开来同时使用！！*/
+.hidecard{
+	display:none;
+}

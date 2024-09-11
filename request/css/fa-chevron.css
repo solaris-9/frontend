@@ -1,0 +1,13 @@
+/**箭头图标合起来的样式*/
+/** .parent-nav表示父标签 after表示在此后加入字体图标  */
+.parent-nav:after {
+	content: "\f077";/** 箭头向上图标*/
+	font-family: FontAwesome;
+}
+
+/**箭头图标展开式时的样式*/
+/** collapsed是bootstrap的属性，表示父标签展开的时候加入的图标 after表示在此后加入字体图标  */
+.parent-nav.collapsed:after {
+	content: "\f078";/** 箭头向下图标*/
+	font-family: FontAwesome;
+}

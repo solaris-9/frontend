@@ -1,0 +1,108 @@
+<form class="form-horizontal" name="formxl" >
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="GB2312">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User info</title>
+    
+    <link rel="shortcut icon" href="favicon.ico">
+	<link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title" >
+					   <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Add User information</font></h5>
+                    </div>								
+                    <div class="ibox-content">                        
+                      
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">User Name</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class='form-control' name="Name" id="Name" style="height: 30px; " value='' placeholder="User Name" >
+                                </div>
+                                <div class="col-sm-4" id="tdname">
+                                    
+                                </div> 
+                          </div>
+                            
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label">Email</label>
+                                 <div class="col-sm-4">
+								 <input type="text" class='form-control' name="Email" id="Email"  value='' placeholder="User Mail">	
+                                </div>
+                            </div>
+							<div class="form-group">
+                              <label class="col-sm-2 control-label">Roles</label>
+                                <div class="col-sm-4">
+                                  <select  class='form-control' name="Grade" id="Grade"  >
+                                    <option value='' selected="selected">Select</option>
+							        <option value="viewer" >viewer</option>
+                                    <option value="Administrator" >Administrator</option>
+	                                <option value="FullControl" >FullControl</option>                                    
+                                    <option value="PLM" >PLM</option>
+                                    <option value="R&D" >R&D</option>
+								  </select> 
+                                
+                                </div> 
+                                  
+                            </div>
+                            <div class="form-group">                                
+                                    <label class="col-sm-2 control-label">Level</label>
+                                       <div class="col-sm-4">
+                                       <input type="text" class='form-control' name="Level" id="Level"  value='' placeholder="User Level">	
+                                      </div>
+                                 
+
+                            </div>
+							<div id="divCustomers"></div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" >
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input class="btn btn-primary" type="submit" value=' Add ' name='cmd' id='cmd' onClick="saveadd(); return false;">&nbsp;&nbsp;
+									<input class='btn btn-info' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.7"></script>
+	<script language="javascript">
+    
+   function saveadd() {
+    nme = document.formxl.Name.value;
+    mail = document.formxl.Email.value;
+    lev = document.formxl.Level.value;
+    grd = document.formxl.Grade.value;
+    if (nme != '')
+    {
+	$.getJSON("gpi/user/user_edit",{"type": "1","Username": nme,"Mail": mail,"Level": lev, "Roles": grd}, function (data) {
+    
+	Result = JSON.stringify(data.data.items[0])    
+     alert(Result);    
+     })
+    } else {
+        alert('Username can not be empty!');
+    }
+   }
+	</script>
+</body>
+
+</html>

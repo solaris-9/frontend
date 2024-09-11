@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>BBD Request</title>
+    <link rel="shortcut icon" href="favicon.ico">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome2.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style10.css" rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">        
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">                                                    
+                        </div>
+                        <div class="logo-element">
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">Home</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            
+                            <li>
+                                <a class="J_menuItem" href="BoengRule.html">New BoENG Rule</span></a>
+                            </li>  
+                            <li>
+                                <a class="J_menuItem" href="Request.html">New NWCC Tenant</span></a>
+                            </li>  
+                            <li>
+                                <a class="J_menuItem" href="Customer_id.html">Customer ID Reference</span></a>
+                            </li>                           							
+                        </ul>
+                    </li>                 
+                    
+
+                    <li id="admAdministrator">
+                        <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span class="nav-label">Administrator</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="J_menuItem" href="User_manage.html">User Management</span></a>
+                                </li>	
+                                <li>
+                                    <a class="J_menuItem" href="Log.html">Log</span></a>
+                                </li>								
+                            </ul>
+                            
+                    </li>                    
+                </ul>				
+            </div>
+        </nav>
+        
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">                
+                    <div ><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
+                    </div>
+				
+                <ul class="nav navbar-top-links navbar-right"> 
+                        <li class="dropdown hidden-xs">
+                        <a class="right-sidebar-toggle" >
+                                <font size= 4 color=#004C9A ><i class="fa fa-ge"></i>Home Connectivity(V2.0.16 Aug 5,2024)</font>
+                        </a>						
+                        </li>
+                    </ul> 
+            </div>
+
+            <div class="row content-tabs">
+
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+					
+                        <a href="javascript:;" class="active J_menuTab" data-id="BBD.html">Home</a>
+                    </div>
+                </nav>
+
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown"><font color=#004C9A >Close<span class="caret"></span></font>
+
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">                        
+                        <li role="menuitem" class="divider"></li>
+                        <li role="menuitem" class="J_tabCloseAll"><a>Close all tabs</a>
+                        </li>
+                        <li role="menuitem" class="J_tabCloseOther"><a>Close other tabs</a>
+                        </li>
+                    </ul>
+                </div>                
+                <a href="logout.html" class="roll-nav roll-right J_tabExit"><font color=#004C9A ><i class="fa fa fa-sign-out">Logout</i></font> </a>
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="BBD.html" frameborder="0" data-id="BBD.html" seamless></iframe>
+            </div>
+            
+        </div>
+       
+    <script src="js/jquery.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="js/plugins/layer/layer.js"></script>
+
+    
+    <script src="js/angel-ui.min.js"></script>
+    <script type="text/javascript" src="js/angel-main_tab.min.js"></script>
+   
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script >
+    
+    function show_div(){       
+        $("#admAdministrator").hide(); 
+        if ($.cookie(cookie_level) > '7' && $.cookie(cookie_level) != 'undefined')
+        { 
+            $("#admAdministrator").show();
+        } 
+    }
+</script>
+<script language="javascript">
+var cookie_name = "username";
+var cookie_auth = "encodedAuth";
+var cookie_pw = "pw";
+var cookie_mail = "mail";
+var cookie_level = "level";
+var cookie_grade = "grade";
+    if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined'  )
+    {     
+    location.href = "login.html?id=index.html";      
+        }; 
+    window.onload = show_div();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="GB2312">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="shortcut icon" href="favicon.ico"> 
+	<link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet"  href="css/ag-grid/ag-grid.css" />
+	<link rel="stylesheet"  href="css/ag-grid/ag.css" />
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<script >
+var cookie_name = "username";
+ 
+ window.onload = function () {
+          
+		   if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  )
+		   {
+             location.href = "login.html?id=User_manage.html";
+		   }else{              
+           //  alert('Log in already' );
+		   }		   
+       };
+
+ </script>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+	<form class="form-horizontal" role="form" name="formxl" >
+	<div class="ibox-content">
+	     <div class="row">
+            <div class="col-md-12">
+			<div class="ibox-title">
+			     
+					<input type='button' value=' Add ' onClick="location.href='User_add.html'" class="btn btn-primary btn-sm">&nbsp;&nbsp;<button onclick="onBtExport(); return false;" class='btn btn-info btn-sm'>Export</button>&nbsp;&nbsp;<a class="btn btn-white btn-bitbucket" onClick="location.href='?'"><i class="fa fa-refresh"></i></a><span id="selectedRows"></span>
+					
+          </div>                        
+	  </div>
+	</div>
+   </div>
+            <!--<div class="ibox-content"> -->
+             
+                <div class="row"> 
+				<!--<div class="row row-lg">-->
+                    <div class="col-sm-12">					
+					
+ <div id="myGrid" style="height: 300px; " class="ag-theme-alpine"></div>
+       </div>
+     </div>
+     
+    
+   </div>
+   
+ </div>
+ <style>
+  table {
+    text-align: center;
+  }
+  th, td {
+    padding: 8px;
+    text-align: center;
+  }
+</style>
+        <!-- End Panel Columns & Select -->
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+			<i class="icon-double-angle-up icon-only bigger-110"></i>
+		</a>
+    <!-- ȫ��js -->
+    <script src="js/jquery.min.js"></script> 
+	<script src="js/jquery.cookie.js"></script>
+    <script src="bootstrap5/js/bootstrap.min.js"></script>
+    <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ag-grid/ag-grid-enterprise4.js"></script>
+ 
+
+  <script >
+ 
+   var FR ={};
+   var rowData = [];
+ 
+   
+const columnDefs = [      
+		
+        { field: 'ID', width: 80, suppressSizeToFit: true, headerName: 'ID',
+		onCellDoubleClicked: function(event) {
+	    const selectedRows = gridOptions.api.getSelectedRows();
+        document.querySelector('#selectedRows').innerHTML =
+       selectedRows.length === 1 ? selectedRows[0].ID : '';	
+	   location.href = "User_edit.html?id="+selectedRows[0].ID+"="+selectedRows[0].Username+"="+selectedRows[0].Email+"="+selectedRows[0].Roles+"="+selectedRows[0].Level;
+            }
+		},
+        { field: 'Username', width: 120, suppressSizeToFit: true, headerName: 'User Name',
+		onCellDoubleClicked: function(event) {
+	    const selectedRows = gridOptions.api.getSelectedRows();
+        document.querySelector('#selectedRows').innerHTML =
+       selectedRows.length === 1 ? selectedRows[0].ID : '';	
+	   location.href = "User_edit.html?id="+selectedRows[0].ID+"="+selectedRows[0].Username+"="+selectedRows[0].Email+"="+selectedRows[0].Roles+"="+selectedRows[0].Level;
+            }
+		},      	
+			
+		{ field: 'Email', width: 200, headerName: 'Email'},
+		{ field: 'Roles', width: 140, headerName: 'Roles'},
+		{ field: 'Level', width: 180, headerName: 'Level'},
+		{ field: 'FirstName', width: 110, headerName: 'FirstName'},
+        { field: 'LastName', width: 100, headerName: 'LastName'},
+        { field: 'FullName', width: 140, headerName: 'FullName'},
+		{ field: 'LastLogin', width: 200, headerName: 'Last login'},
+		
+	//	{ field: 'View', width:100,
+	 //   onCellClicked: function(event) { 
+	 //  const selectedRows = gridOptions.api.getSelectedRows();
+     //  document.querySelector('#selectedRows').innerHTML =
+     //  selectedRows.length === 1 ? selectedRows[0].USID : '';	
+	 //  location.href = "user_edit.asp?id="+selectedRows[0].USID;
+     //       },
+	 //   cellRenderer: function(params) {
+     //     return '<span><i class="btn btn-info btn-sm">Detail</i>' + '</span>'
+     //    }
+	//   }
+];
+
+// let the grid know which columns and what data to use
+const gridOptions = {
+    defaultColDef: {
+    sortable: true,
+    resizable: true,	
+	//wrapText: true,
+	//autoHeight: true, 
+	//floatingFilter: true,
+	autoHeight: true,
+	filter: true,
+	menuTabs: ['filterMenuTab','generalMenuTab','columnsMenuTab'],
+	filterParams: {
+                applyMiniFilterWhileTyping: true,
+            },
+  },
+  rowHeight: 30,
+  
+  suppressMenuHide: true,
+  suppressAutoSize: true,
+  rowSelection: 'single',
+  //pagination: true,
+  //paginationAutoPageSize: true,
+  statusBar: {
+	statusPanels: [
+		{
+			statusPanel: 'agTotalAndFilteredRowCountComponent',
+			align: 'left',
+		}
+	]
+},
+  columnDefs: columnDefs,
+  rowData: rowData
+};
+
+function onBtExport() {
+    var d = new Date();
+    let year=d.getFullYear();                 
+    let month=d.getMonth()+1;                   
+    let date=d.getDate();
+    let hour=d.getHours();                    
+    let minutes=d.getMinutes();
+   var excelParams = {
+       fileName: 'User Info-' + year + month + date+ hour + minutes + '.xlsx',
+    sheetName: 'User_List',	   
+  }
+  gridOptions.api.exportDataAsExcel(excelParams);
+
+}
+// setup the grid after the page has finished loading
+document.addEventListener('DOMContentLoaded', () => {
+    const gridDiv = document.querySelector('#myGrid');
+    new agGrid.Grid(gridDiv, gridOptions);
+    sendPostRequest();    
+});
+async function sendPostRequest() {
+            
+            const url = 'gpi/user/user_manage';
+            const data = {                               
+                username: 'all'                
+            };
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });            
+            const result = await response.json(); 
+            $(result.data.items).each(function(){
+             FRT = JSON.stringify(this);	
+             FRT = FRT.replace("[{", "{");
+             FRT = FRT.replace("}]", "}");            	
+            FR=JSON.parse(FRT); 
+            rowData.push(FR);
+            })	  
+            gridOptions.api.setRowData(rowData); 
+    }
+	</script>
+</form>
+</body>
+</html>
+

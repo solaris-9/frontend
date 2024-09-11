@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Request info</title>
+
+<link rel="shortcut icon" href="favicon.ico">
+<link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+<link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="css/animate.css" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap-select.css">
+<link href="css/style1.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title" >
+					<h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Input information</font></h5>
+				</div>	
+											
+				<div class="ibox-content"> 
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Customer&nbsp;<font color="#465CD5"><span
+							class="glyphicon glyphicon-info-sign" rel="drevil"
+							data-container="body" data-toggle="popover" data-placement="bottom"
+							data-content="Customer name is not mandatory to submit the request, please leave it blank if you cannot find the customer name in the drop down list. We will add it according to the Customer (ID) filled."></span></font></label>
+						<div class="col-sm-5">
+							<select  class='form-control' name="Customer" id="Customer" placeholder="Customer"  style="height: 34px; width: 395px;" >
+							<option value=""></option> 
+							</select>
+						</div>
+						<div class="col-sm-4" id="cusd"></div>	
+					</div>
+					<div class="form-group">							
+						<label class="col-sm-2 control-label">Customer (ID)&nbsp;<font color="#FF0000">*</font>&nbsp;<font color="#465CD5"><span
+							class="glyphicon glyphicon-info-sign" rel="drevil"
+							data-container="body" data-toggle="popover" data-placement="bottom"
+							data-content="10 digits ID to get customer shipment data in supply chain database. If invalid customer ID, please contact dandan.yu@nokia-sbell.com to add."></span></font></label>
+						<div class="col-sm-6">
+							<select id="Customerid" name="Customerid" data-width="118%" class="selectpicker dropup" data-width="auto" data-size="6" multiple="multiple" data-live-search="true" title="Please select"></select>
+							<input type="text" class="form-control" name="Cusid" id="Cusid"  value=''  style="height: 34px; width: 480px;">								
+						</div>			
+																									
+					</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Name in purchase orders&nbsp;<font color="#465CD5"><span
+								class="glyphicon glyphicon-info-sign" rel="drevil"
+								data-container="body" data-toggle="popover" data-placement="bottom"
+								data-content="Automatically shown based on the customer ID filled for check."></span></font></label>
+							
+									<div class="col-sm-4">
+										<textarea type='text' class='form_textbox_normal' name="Customersc" id="Customersc" cols="88" rows="3" readonly= "true"></textarea>
+									</div>	
+															
+						</div>						
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">Country</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="country" id="country" value=''  > 
+								</div>                            
+								<label class="col-sm-2 control-label">License type</label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='licensetype' id='licensetype' style="height: 30px; width: 340px;">
+										<option value='' selected="selected">Select</option>
+										<option value="L1" >L1</option>
+										<option value="L1 + L2" >L1 + L2</option>             
+										</select>
+							</div>							
+							</div>
+						    <div class="form-group">                            
+								<label class="col-sm-2 control-label">Platform  alive date&nbsp;<font color="#FF0000">*</font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Until what date is the platform expected to stay alive? (minimum 1 year from start date)"></span></font></label>
+								<div class="col-sm-3">
+								<input type="text" class="form-control" name="alivedate" id="alivedate" value=''  > 
+								</div>                            
+								<label class="col-sm-2 control-label">Type of Home Controller platform</label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='plateform' id='plateform' style="height: 30px; width: 340px;">
+										<option value='' selected="selected">Select</option>
+										<option value="Dedicated (default AWS, if other platform needs, contact cPLM)" >Dedicated (default AWS, if other platform needs, contact cPLM)</option>
+										<option value="new tenant in multi-tenant platform" >new tenant in multi-tenant platform</option>
+										<option value="Trial" >Trial</option>             
+										</select>
+							</div>							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">Hosting region&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Dependent of selected service in 8 the options can be different."></span></font></label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='region' id='region' style="height: 30px; width: 240px;">
+										<option value='' selected="selected">Select</option>
+										<option value="NAR" >NAR</option>
+										<option value="Europe (Ireland)" >Europe (Ireland)</option>
+										<option value="Other" >Other</option>             
+										</select>
+								</div>                            
+								<label class="col-sm-4 control-label">Legal clearance outside of the country&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Was legal clearance of the customer received to host data outside of the country?"></span></font></label>
+								<div class="col-sm-2">
+									<select class="input-sm" name='legal' id='legal' style="height: 30px; width: 160px;">
+										<option value='' selected="selected">Select</option>
+										<option value="Yes" >Yes</option>
+										<option value="No" >No</option>             
+										</select>
+							</div>							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">Multi-tenant Hosting region&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Here the different multi-tenant options are shown"></span></font></label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='multi_region' id='multi_region' style="height: 30px; width: 240px;">
+										<option value='' selected="selected">Select</option>
+										<option value="NAR (North Virginia)" >NAR (North Virginia)</option>
+										<option value="Europe/APAC (Ireland)" >Europe/APAC (Ireland)</option>
+										            
+										</select>
+								</div>
+								<label class="col-sm-4 control-label">Multi-tenant Legal clearance outside of the country&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Was legal clearance of the customer received to host data outside of the country?"></span></font></label>
+								<div class="col-sm-2">
+									<select class="input-sm" name='multi_legal' id='multi_legal' style="height: 30px; width: 160px;">
+										<option value='' selected="selected">Select</option>
+										<option value="Yes" >Yes</option>
+										<option value="No" >No</option>             
+										</select>
+							    </div> 							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">Platform&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="On which platform do you want the tenant to be created?"></span></font></label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='tenant_platform' id='tenant_platform' style="height: 30px; width: 240px;">
+										<option value='' selected="selected">Select</option>
+										<option value="demo2 (Default)" >demo2 (Default)</option>										
+										<option value="Other" >Other</option>             
+										</select>
+								</div>                             
+								<label class="col-sm-4 control-label">The trail instance expected to stay up date&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Until what date is the trail instance expected to stay up? (Max 60 days from start)"></span></font></label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="traildate" id="traildate" value=''  >
+							</div>							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">Number of devices to trial instance&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Expected number of devices that will be connecting to this trial instance."></span></font></label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="trailnumber" id="trailnumber" value=''  > 
+								</div>                            
+								<label class="col-sm-4 control-label">Number of devices to Home Controller next 3 months&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Expected number of devices connecting to the Home Controller in the next 3 months."></span></font></label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="devicenumber3" id="devicenumber3" value=''  > 
+								</div> 							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">Number of devices next 6 months&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Expected number of devices connecting to the Home Controller in the next 6 months."></span></font></label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="devicenumber6" id="devicenumber6" value=''  > 
+								</div>                            
+								<label class="col-sm-4 control-label">Number of devices to Home Controller next year&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Expected number of devices connecting to the Home Controller in the next year."></span></font></label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="devicenumber" id="devicenumber" value=''  > 
+								</div> 							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">Committed volume&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Committed first year volume"></span></font></label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="volume" id="volume" value=''  > 
+								</div>                            
+								<label class="col-sm-4 control-label">Region and area of the deployment&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Geographical region and area of the deployment (f.e. South-America / Argentina, USA / North-Carolina, North-Carolina / Raleigh),Only required for L2 deployments"></span></font></label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="area" id="area" value=''  > 
+								</div> 							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">FCC required&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="FCC compliance (RDOF) required? (Only required for US)"></span></font></label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='FCC' id='FCC' style="height: 30px; width: 240px;">
+										<option value='' selected="selected">Select</option>
+										<option value="Yes" >Yes</option>
+										<option value="No" >No</option>             
+										</select>
+								</div>                            
+								<label class="col-sm-4 control-label">Support level SLA</label>
+								<div class="col-sm-2">
+									<select class="input-sm" name='SLAlevel' id='SLAlevel' style="height: 30px; width: 160px;">
+										<option value='' selected="selected">Select</option>
+										<option value="Premium" >Premium</option>
+										<option value="Standard" >Standard</option>             
+										</select>
+							</div>							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">HDM integration&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="HDM integration with the Corteca Controller?"></span></font></label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='HDM' id='HDM' style="height: 30px; width: 240px;">
+										<option value='' selected="selected">Select</option>
+										<option value="Yes" >Yes</option>
+										<option value="No" >No</option>             
+										</select>
+								</div>                            
+								<label class="col-sm-4 control-label">PO number for HDM&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Share the PO number for HDM licenses (not required for trial instances)"></span></font></label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="HDMpo" id="HDMpo" value=''  > 
+								</div>						
+							</div>
+							<div class="form-group">        
+								<label class="col-sm-2 control-label">Device fingerprinting&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Advanced device fingerprinting"></span></font></label>
+								<div class="col-sm-3">
+									<select class="input-sm" name='fingerprinting' id='fingerprinting' style="height: 30px; width: 240px;">
+										<option value='' selected="selected">Select</option>
+										<option value="Disabled (default)" >Disabled (default)</option>
+										<option value="Yes, Home Controller fingerprinting" >Yes, Home Controller fingerprinting</option> 
+										<option value="Yes, application based fingerprinting" >Yes, application based fingerprinting</option>             
+										</select>
+							</div>
+							<label class="col-sm-2 control-label">Project responsible&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+								class="glyphicon glyphicon-info-sign" rel="drevil"
+								data-container="body" data-toggle="popover" data-placement="bottom"
+								data-content="Nokia customer project responsible.This person is responsible for the WBS billing and will receive confirmation when new operational actions are taken for this customer."></span></font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="response_person" id="response_person" value=''  > 
+								</div>							
+							</div>
+							<div class="form-group">                            
+								<label class="col-sm-2 control-label">WBS number&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="WBS number to bill project on"></span></font></label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" name="WBSnumber" id="WBSnumber" value=''  > 
+								</div>                            
+														
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Device Model&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="dropdown of all devices, flow needs to be slightly adapted to take into account extenders and different root device types (Beacon, ONT, FWA)"></span></font></label>
+								<div class="col-sm-3">
+									<select  class='form-control' name="device" id="device" placeholder="device"  style="height: 34px; width: 240px;" >
+									<option value=""></option> 
+									</select>													
+								</div>
+								<label class="col-sm-2 control-label">Operator ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Can this come from the device supported OPIDs?"></span></font></label>
+								<div class="col-sm-1">
+									<input type="text" class="form-control" name="OPID" id="OPID" value=''  > 
+								</div>
+								<label class="col-sm-2 control-label">Country ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="this and last questions could be handled by providing variant selection as in BTM"></span></font></label>
+								<div class="col-sm-1">
+									<input type="text" class="form-control" name="countryid" id="countryid" value=''  > 
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Container applications&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Container applications enabled by default"></span></font></label>
+								<div class="col-sm-2">									
+										<select class="input-sm" name='container' id='container' style="height: 30px; width: 140px;">
+											<option value="Yes" >Yes</option>
+										    <option value="No" >No</option>             
+											</select>													
+								</div>
+								<label class="col-sm-2 control-label">Container type&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Which container applications need to be enabled on this device by default?"></span></font></label>
+								<div class="col-sm-2">									
+										<select class="input-sm" name='application' id='application' style="height: 30px; width: 140px;">
+											<option value='' selected="selected">Select</option>
+											<option value="Fingerprint" >Fingerprint</option>
+											<option value="F-secure" >F-secure</option> 
+											<option value="Other" >Other</option>             
+											</select>													
+								</div>
+								<label class="col-sm-2 control-label">SW updates&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Do you want automatic SW updates twice a year? Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer."></span></font></label>
+								<div class="col-sm-2">									
+										<select class="input-sm" name='SWupdate' id='SWupdate' style="height: 30px; width: 140px;">
+											<option value='' selected="selected">Select</option>
+											<option value="Yes" >Yes</option>
+										    <option value="No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)" >No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</option>             
+											</select>													
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Used as extender&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Will this Beacon also be used as extender to other Beacon types than itself?"></span></font></label>
+								<div class="col-sm-2">									
+										<select class="input-sm" name='beaconexp' id='beaconexp' style="height: 30px; width: 140px;">
+											<option value='' selected="selected">Select</option>
+											<option value="Yes" >Yes</option>
+										    <option value="No" >No</option>             
+											</select>													
+								</div>
+								<label class="col-sm-2 control-label">Root Beacon&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+								<div class="col-sm-2">									
+									<select  class='form-control' name="rootbeacon" id="rootbeacon" placeholder="device"  style="height: 34px; width: 140px;" >
+										<option value=""></option> 
+										</select>												
+								</div>
+								<label class="col-sm-2 control-label">Anther Root Beacon&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+								<div class="col-sm-2">									
+									<select  class='form-control' name="rootbeacon2" id="rootbeacon2" placeholder="device"  style="height: 34px; width: 140px;" >
+										<option value=""></option> 
+										</select>												
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Create BoENG rules&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Do you want to automatically create BoENG rules that will connect devices to this instance? All devices will be whitelisted to this BoENG rule based on the serial numbers in shipment reports for this customer ID."></span></font></label>
+								<div class="col-sm-2">									
+										<select class="input-sm" name='BoENG' id='BoENG' style="height: 30px; width: 140px;">
+											<option value='' selected="selected">Select</option>
+											<option value="Yes" >Yes</option>
+										    <option value="No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately" >No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately</option>             
+											</select>													
+								</div>
+								<label class="col-sm-2 control-label">Connect to ACS&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Does the BoENG rule also need to connect the device to an ACS?"></span></font></label>
+								<div class="col-sm-2">									
+										<select class="input-sm" name='BoENG_ACS' id='BoENG_ACS' style="height: 30px; width: 140px;">
+											<option value='' selected="selected">Select</option>
+											<option value="Yes" >Yes</option>
+										    <option value="No" >No</option>             
+											</select>													
+								</div>
+								<label class="col-sm-1 control-label">ACS URL</label>
+								<div class="col-sm-3">									
+									<input type="text" class="form-control" name="ACS_URL" id="ACS_URL" value=''  >													
+								</div>	
+							</div>
+							<div class="form-group">
+								
+								<label class="col-sm-2 control-label">ACS username</label>
+								<div class="col-sm-3">									
+									<input type="text" class="form-control" name="ACS_username" id="ACS_username" value=''  >													
+								</div>
+								<label class="col-sm-1 control-label">ACS key</label>
+								<div class="col-sm-3">									
+									<input type="text" class="form-control" name="ACS_key" id="ACS_key" value=''  >													
+								</div>
+								<label class="col-sm-1 control-label"></label>
+                                    <div class="col-sm-2">
+                                        <input class='btn btn-info btn-xs' type="button" name="AddExt1" value="More Device" onClick="addext1('Ext')">&nbsp;&nbsp;
+                                        <input class='btn btn-primary btn-xs' type="button" name="DelExt1" value="Hidden" onClick="delext1('Ext')">
+										<input type="hidden" class="form-control" name="Flag1" id="Flag1" value=''  >
+                                    </div> 	
+							</div>
+							<div class="ibox-content" id="Ext1">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Device Model&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="dropdown of all devices, flow needs to be slightly adapted to take into account extenders and different root device types (Beacon, ONT, FWA)"></span></font></label>
+									<div class="col-sm-3">
+										<select  class='form-control' name="device1" id="device1" placeholder="device"  style="height: 34px; width: 240px;" >
+										<option value=""></option> 
+										</select>													
+									</div>
+									<label class="col-sm-2 control-label">Operator ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this come from the device supported OPIDs?"></span></font></label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" name="OPID1" id="OPID1" value=''  > 
+									</div>
+									<label class="col-sm-2 control-label">Country ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="this and last questions could be handled by providing variant selection as in BTM"></span></font></label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" name="countryid1" id="countryid1" value=''  > 
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Container applications&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Container applications enabled by default"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='container1' id='container1' style="height: 30px; width: 140px;">
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Container type&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Which container applications need to be enabled on this device by default?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='application1' id='application1' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Fingerprint" >Fingerprint</option>
+												<option value="F-secure" >F-secure</option> 
+												<option value="Other" >Other</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">SW updates&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Do you want automatic SW updates twice a year? Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer."></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='SWupdate1' id='SWupdate1' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)" >No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</option>             
+												</select>													
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Used as extender&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Will this Beacon also be used as extender to other Beacon types than itself?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='beaconexp1' id='beaconexp1' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Root Beacon&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+									<div class="col-sm-2">									
+										<select  class='form-control' name="rootbeacon1" id="rootbeacon1" placeholder="device"  style="height: 34px; width: 140px;" >
+											<option value=""></option> 
+											</select>												
+									</div>
+									<label class="col-sm-2 control-label">Anther Root Beacon&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+									<div class="col-sm-2">									
+										<select  class='form-control' name="rootbeacon21" id="rootbeacon21" placeholder="device"  style="height: 34px; width: 140px;" >
+											<option value=""></option> 
+											</select>												
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Create BoENG rules&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Do you want to automatically create BoENG rules that will connect devices to this instance? All devices will be whitelisted to this BoENG rule based on the serial numbers in shipment reports for this customer ID."></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='BoENG1' id='BoENG1' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately" >No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Connect to ACS&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Does the BoENG rule also need to connect the device to an ACS?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='BoENG_ACS1' id='BoENG_ACS1' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-1 control-label">ACS URL</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_URL1" id="ACS_URL1" value=''  >													
+									</div>	
+								</div>
+								<div class="form-group">
+									
+									<label class="col-sm-2 control-label">ACS username</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_username1" id="ACS_username1" value=''  >													
+									</div>
+									<label class="col-sm-1 control-label">ACS key</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_key1" id="ACS_key1" value=''  >													
+									</div>
+									<label class="col-sm-1 control-label"></label>
+										<div class="col-sm-2">
+											<input class='btn btn-info btn-xs' type="button" name="AddExt2" value="More Device" onClick="addext2('Ext')">&nbsp;&nbsp;
+											<input class='btn btn-primary btn-xs' type="button" name="DelExt2" value="Hidden" onClick="delext2('Ext')">
+											<input type="hidden" class="form-control" name="Flag2" id="Flag2" value=''  >
+										</div> 	
+								</div>	
+							</div>
+							<div class="ibox-content" id="Ext2">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Device Model&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="dropdown of all devices, flow needs to be slightly adapted to take into account extenders and different root device types (Beacon, ONT, FWA)"></span></font></label>
+									<div class="col-sm-3">
+										<select  class='form-control' name="device2" id="device2" placeholder="device"  style="height: 34px; width: 240px;" >
+										<option value=""></option> 
+										</select>													
+									</div>
+									<label class="col-sm-2 control-label">Operator ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this come from the device supported OPIDs?"></span></font></label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" name="OPID2" id="OPID2" value=''  > 
+									</div>
+									<label class="col-sm-2 control-label">Country ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="this and last questions could be handled by providing variant selection as in BTM"></span></font></label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" name="countryid2" id="countryid2" value=''  > 
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Container applications&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Container applications enabled by default"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='container2' id='container2' style="height: 30px; width: 140px;">
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Container type&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Which container applications need to be enabled on this device by default?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='application2' id='application2' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Fingerprint" >Fingerprint</option>
+												<option value="F-secure" >F-secure</option> 
+												<option value="Other" >Other</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">SW updates&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Do you want automatic SW updates twice a year? Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer."></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='SWupdate2' id='SWupdate2' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)" >No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</option>             
+												</select>													
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Used as extender&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Will this Beacon also be used as extender to other Beacon types than itself?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='beaconexp2' id='beaconexp2' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Root Beacon&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+									<div class="col-sm-2">									
+										<select  class='form-control' name="rootbeacon12" id="rootbeacon12" placeholder="device"  style="height: 34px; width: 140px;" >
+											<option value=""></option> 
+											</select>												
+									</div>
+									<label class="col-sm-2 control-label">Anther Root Beacon&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+									<div class="col-sm-2">									
+										<select  class='form-control' name="rootbeacon22" id="rootbeacon22" placeholder="device"  style="height: 34px; width: 140px;" >
+											<option value=""></option> 
+											</select>												
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Create BoENG rules&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Do you want to automatically create BoENG rules that will connect devices to this instance? All devices will be whitelisted to this BoENG rule based on the serial numbers in shipment reports for this customer ID."></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='BoENG2' id='BoENG2' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately" >No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Connect to ACS&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Does the BoENG rule also need to connect the device to an ACS?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='BoENG_ACS2' id='BoENG_ACS2' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-1 control-label">ACS URL</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_URL2" id="ACS_URL2" value=''  >													
+									</div>	
+								</div>
+								<div class="form-group">
+									
+									<label class="col-sm-2 control-label">ACS username</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_username2" id="ACS_username2" value=''  >													
+									</div>
+									<label class="col-sm-1 control-label">ACS key</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_key2" id="ACS_key2" value=''  >													
+									</div>
+									<label class="col-sm-1 control-label"></label>
+										<div class="col-sm-2">
+											<input class='btn btn-info btn-xs' type="button" name="AddExt3" value="More Device" onClick="addext3('Ext')">&nbsp;&nbsp;
+											<input class='btn btn-primary btn-xs' type="button" name="DelExt3" value="Hidden" onClick="delext3('Ext')">
+											<input type="hidden" class="form-control" name="Flag3" id="Flag3" value=''  >
+										</div> 	
+								</div>	
+							</div>
+							<div class="ibox-content" id="Ext3">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Device Model&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="dropdown of all devices, flow needs to be slightly adapted to take into account extenders and different root device types (Beacon, ONT, FWA)"></span></font></label>
+									<div class="col-sm-3">
+										<select  class='form-control' name="device3" id="device3" placeholder="device"  style="height: 34px; width: 240px;" >
+										<option value=""></option> 
+										</select>													
+									</div>
+									<label class="col-sm-2 control-label">Operator ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this come from the device supported OPIDs?"></span></font></label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" name="OPID3" id="OPID3" value=''  > 
+									</div>
+									<label class="col-sm-2 control-label">Country ID&nbsp;<font color="#FF0000"></font>&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="this and last questions could be handled by providing variant selection as in BTM"></span></font></label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" name="countryid3" id="countryid3" value=''  > 
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Container applications&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Container applications enabled by default"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='container3' id='container3' style="height: 30px; width: 140px;">
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Container type&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Which container applications need to be enabled on this device by default?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='application3' id='application3' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Fingerprint" >Fingerprint</option>
+												<option value="F-secure" >F-secure</option> 
+												<option value="Other" >Other</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">SW updates&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Do you want automatic SW updates twice a year? Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer."></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='SWupdate3' id='SWupdate3' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)" >No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</option>             
+												</select>													
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Used as extender&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Will this Beacon also be used as extender to other Beacon types than itself?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='beaconexp3' id='beaconexp3' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Root Beacon&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+									<div class="col-sm-2">									
+										<select  class='form-control' name="rootbeacon3" id="rootbeacon3" placeholder="device"  style="height: 34px; width: 140px;" >
+											<option value=""></option> 
+											</select>												
+									</div>
+									<label class="col-sm-2 control-label">Anther Root Beacon&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Can this be obtained for mesh compatibility matrix? "></span></font></label>
+									<div class="col-sm-2">									
+										<select  class='form-control' name="rootbeacon23" id="rootbeacon23" placeholder="device"  style="height: 34px; width: 140px;" >
+											<option value=""></option> 
+											</select>												
+									</div>	
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Create BoENG rules&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Do you want to automatically create BoENG rules that will connect devices to this instance? All devices will be whitelisted to this BoENG rule based on the serial numbers in shipment reports for this customer ID."></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='BoENG3' id='BoENG3' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately" >No, not all devices that are shipped to this customer need to be connected to this Home Controller instance. BoENG rules will be requested seperately</option>             
+												</select>													
+									</div>
+									<label class="col-sm-2 control-label">Connect to ACS&nbsp;<font color="#465CD5"><span
+										class="glyphicon glyphicon-info-sign" rel="drevil"
+										data-container="body" data-toggle="popover" data-placement="bottom"
+										data-content="Does the BoENG rule also need to connect the device to an ACS?"></span></font></label>
+									<div class="col-sm-2">									
+											<select class="input-sm" name='BoENG_ACS3' id='BoENG_ACS3' style="height: 30px; width: 140px;">
+												<option value='' selected="selected">Select</option>
+												<option value="Yes" >Yes</option>
+												<option value="No" >No</option>             
+												</select>													
+									</div>
+									<label class="col-sm-1 control-label">ACS URL</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_URL3" id="ACS_URL3" value=''  >													
+									</div>	
+								</div>
+								<div class="form-group">
+									
+									<label class="col-sm-2 control-label">ACS username</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_username3" id="ACS_username3" value=''  >													
+									</div>
+									<label class="col-sm-1 control-label">ACS key</label>
+									<div class="col-sm-3">									
+										<input type="text" class="form-control" name="ACS_key3" id="ACS_key3" value=''  >													
+									</div>
+										
+								</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Additional information&nbsp;<font color="#465CD5"><span
+									class="glyphicon glyphicon-info-sign" rel="drevil"
+									data-container="body" data-toggle="popover" data-placement="bottom"
+									data-content="Additional information for this Home Controller request (whitelabel mobile app) "></span></font></label>
+								<div class="col-sm-10">	
+									<input type="text" class="form-control" name="additional" id="additional" value=''  >													
+								</div>	
+							</div>						
+							</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group" >
+							<div class="col-sm-4 col-sm-offset-2">
+								<input class="btn btn-primary" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="saveadd(); return false;">&nbsp;&nbsp;
+								
+								<input class='btn btn-info' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/bootstrap.min.js?v=3.3.7"></script>
+<script src="js/bootstrap-select.js"></script>
+
+<script >   
+var cookie_name = "username";
+var cookie_mail = "mail"; 
+var flag = 0
+String.prototype.replaceAll = function (s1, s2) {
+    return this.replace(new RegExp(s1, "gm"), s2);
+};
+function show_div(){ 	         
+        $("#Ext1").hide();
+        $("#Ext2").hide();
+        $("#Ext3").hide();        
+        document.formxl.Flag1.value='hide';
+		document.formxl.Flag2.value='hide';
+		document.formxl.Flag3.value='hide';
+		
+    }
+window.onload = SearchCustomer();
+    function SearchCustomer(){
+    $.getJSON("gpi/allocate/customer_list",{"type": "4","customer":"ALL"}, function (data) {
+    //alert('Result' + JSON.stringify(data));
+     
+    for(var i = 0; i < data.data.items.length; i++){
+    //alert('Item ' + data.data.items[i])	   
+    for(let value of Object.values(data.data.items[i])){       
+    document.formxl.Customer.options[document.formxl.Customer.length]=
+    new Option( value );
+    }
+    }   
+    });
+    } 
+	$(function(){
+      $("#Customer").blur(function(){ 	
+		cs = document.formxl.Customer.value;
+		if (cs !=''){
+			$("#cusd span").remove();		
+			$.getJSON("gpi/allocate/request_edit",{type:'4',Customer: cs},function(data){ 
+			flag = 0
+			if ( data.status == 'successful'){
+			$("#cusd").append("<span style='color:red'>Customer already exists,do not add again</span>")
+			flag = 1
+			}			
+			});	
+		}
+	});
+	});
+
+	var cusData = [];
+    
+	window.onload = Searchcusid();     
+	function Searchcusid(){
+		
+	  $.getJSON("gpi/allocate/customerid",{"type": "3"},function(data){      	
+		$(data.data.items).each(function(){
+			//console.log(this)
+		FRT = JSON.stringify(this);	
+		FRT = FRT.replace("[{", "{");
+		FRT = FRT.replace("}]", "}");
+		//alert(FRT)
+		FR=JSON.parse(FRT);
+		cusData.push(FR);
+		//alert(cusData[0]["Customerid"])		
+		})
+		
+		$("#Customerid").empty(); 
+		  i=0,
+          	    
+		$(cusData).each(function(){
+			
+			Cus_name = cusData[i]["Namesc"]
+			Cus_id= cusData[i]["Customerid"]
+				
+				var html2 = "<option value="+Cus_id+">"+Cus_name+"</option>"
+				//console.log(html2)					
+				   $("#Customerid").append($(html2));
+				   i+=1
+		})
+					  
+		$('.selectpicker').selectpicker('refresh'); 
+	});  
+	}
+	$("#Customerid").change(function(){	
+	document.formxl.Cusid.value=($("#Customerid").val()) 
+	csid = document.formxl.Cusid.value;
+		$.getJSON("gpi/allocate/customerid",{type:'4',customerid:csid},function(data){   
+		Cus="" 	
+		
+		$(data.data.items).each(function(){			
+		FRT = JSON.stringify(this);	
+		FRT = FRT.replace("[{", "{");
+		FRT = FRT.replace("}]", "}");
+		//alert(FRT)	
+		FR=JSON.parse(FRT); 		
+		Cus=Cus + FR["Customerid"] + '\r\n'
+		})	  
+		document.formxl.Customersc.value= Cus;		
+		});	 
+})
+var rowData = [];
+window.onload = Searchdevice();     
+function Searchdevice(){
+	mail = $.cookie(cookie_mail)        
+  $.getJSON("gpi/allocate/devicelist",{"type": "0"},function(data){
+	document.formxl.device.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon2.options[0]=new Option("Select","");
+	document.formxl.device1.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon1.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon21.options[0]=new Option("Select","");
+	document.formxl.device2.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon12.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon22.options[0]=new Option("Select","");
+	document.formxl.device3.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon3.options[0]=new Option("Select",""); 
+	document.formxl.rootbeacon23.options[0]=new Option("Select","");       	
+	for(var i = 0; i < data.data.items.length; i++){
+    //alert('Item ' + Object.data.data.items[i])	   
+    for(let value of Object.values(data.data.items[i])){       
+    document.formxl.device.options[document.formxl.device.length]=
+    new Option( value );
+	document.formxl.rootbeacon.options[document.formxl.rootbeacon.length]=
+    new Option( value );
+	document.formxl.rootbeacon2.options[document.formxl.rootbeacon2.length]=
+    new Option( value );
+	document.formxl.device1.options[document.formxl.device1.length]=
+    new Option( value );
+	document.formxl.rootbeacon1.options[document.formxl.rootbeacon1.length]=
+    new Option( value );
+	document.formxl.rootbeacon21.options[document.formxl.rootbeacon21.length]=
+    new Option( value );
+	document.formxl.device2.options[document.formxl.device2.length]=
+    new Option( value );
+	document.formxl.rootbeacon12.options[document.formxl.rootbeacon12.length]=
+    new Option( value );
+	document.formxl.rootbeacon22.options[document.formxl.rootbeacon22.length]=
+    new Option( value );
+	document.formxl.device3.options[document.formxl.device3.length]=
+    new Option( value );
+	document.formxl.rootbeacon3.options[document.formxl.rootbeacon3.length]=
+    new Option( value );
+	document.formxl.rootbeacon23.options[document.formxl.rootbeacon23.length]=
+    new Option( value );
+    }
+    }   	
+    })
+}     
+
+$(function(){
+      $("#Customerid").blur(function(){ 	
+		csid = document.formxl.Cusid.value;
+		//cs = csid.split(',').length
+		$("#cusd span").remove();
+		$.getJSON("gpi/allocate/customerid",{type:'4',customerid:csid},function(data){   
+		Cus="" 	
+		
+		$(data.data.items).each(function(){			
+		FRT = JSON.stringify(this);	
+		FRT = FRT.replace("[{", "{");
+		FRT = FRT.replace("}]", "}");
+		//alert(FRT)	
+		FR=JSON.parse(FRT); 		
+		Cus=Cus + FR["Customerid"] + '\r\n'
+		})	  
+		document.formxl.Customersc.value= Cus;		
+		});	
+       });
+	});
+	function saveadd() {
+    sendPostAdd()
+    }
+    async function sendPostAdd() {
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = String(today.getMonth() + 1).padStart(2, '0');
+    let day = String(today.getDate()).padStart(2, '0');    
+    mail = $.cookie(cookie_mail)    
+    customerid = document.formxl.Cusid.value;
+	customersc=document.formxl.Customersc.value;	
+    customer = document.formxl.Customer.value;
+	if (customer.indexOf('selected') >= 0){
+		customer = ''
+	}
+	
+	country=document.formxl.country.value;
+	licensetype=document.formxl.licensetype.value;
+	plateform=document.formxl.plateform.value;
+	alivedate=document.formxl.alivedate.value;
+	region=document.formxl.region.value;
+	legal=document.formxl.legal.value;
+	multi_region=document.formxl.multi_region.value;
+	multi_legal=document.formxl.multi_legal.value;
+	tenant_platform=document.formxl.tenant_platform.value;
+	traildate=document.formxl.traildate.value;
+	trailnumber=document.formxl.trailnumber.value;	
+	devicenumber=document.formxl.devicenumber.value;
+	devicenumber3=document.formxl.devicenumber3.value;
+	devicenumber6=document.formxl.devicenumber6.value;
+	volume=document.formxl.volume.value;
+	area=document.formxl.area.value;
+	FCC=document.formxl.FCC.value;
+	SLAlevel=document.formxl.SLAlevel.value;
+	HDM=document.formxl.HDM.value;
+	HDMpo=document.formxl.HDMpo.value;
+	fingerprinting=document.formxl.fingerprinting.value;
+	response_person=document.formxl.response_person.value;
+	WBSnumber=document.formxl.WBSnumber.value;
+	device=document.formxl.device.value;
+	OPID=document.formxl.OPID.value;
+	countryid=document.formxl.countryid.value;
+	container=document.formxl.container.value;
+	application=document.formxl.application.value;
+	SWupdate=document.formxl.SWupdate.value;
+	beaconexp=document.formxl.beaconexp.value;
+	rootbeacon=document.formxl.rootbeacon.value;
+	rootbeacon2=document.formxl.rootbeacon2.value;
+	BoENG=document.formxl.BoENG.value;
+	BoENG_ACS=document.formxl.BoENG_ACS.value;
+	ACS_URL=document.formxl.ACS_URL.value;
+	ACS_username=document.formxl.ACS_username.value;
+	ACS_key=document.formxl.ACS_key.value;
+
+	device1=document.formxl.device1.value;
+	OPID1=document.formxl.OPID1.value;
+	countryid1=document.formxl.countryid1.value;
+	container1=document.formxl.container1.value;
+	application1=document.formxl.application1.value;
+	SWupdate1=document.formxl.SWupdate1.value;
+	beaconexp1=document.formxl.beaconexp1.value;
+	rootbeacon1=document.formxl.rootbeacon1.value;
+	rootbeacon21=document.formxl.rootbeacon21.value;
+	BoENG1=document.formxl.BoENG1.value;
+	BoENG_ACS1=document.formxl.BoENG_ACS1.value;
+	ACS_URL1=document.formxl.ACS_URL1.value;
+	ACS_username1=document.formxl.ACS_username1.value;
+	ACS_key1=document.formxl.ACS_key1.value;
+
+	device2=document.formxl.device2.value;
+	OPID2=document.formxl.OPID2.value;
+	countryid2=document.formxl.countryid2.value;
+	container2=document.formxl.container2.value;
+	application2=document.formxl.application2.value;
+	SWupdate2=document.formxl.SWupdate2.value;
+	beaconexp2=document.formxl.beaconexp2.value;
+	rootbeacon12=document.formxl.rootbeacon12.value;
+	rootbeacon22=document.formxl.rootbeacon22.value;
+	BoENG2=document.formxl.BoENG2.value;
+	BoENG_ACS2=document.formxl.BoENG_ACS2.value;
+	ACS_URL2=document.formxl.ACS_URL2.value;
+	ACS_username2=document.formxl.ACS_username2.value;
+	ACS_key2=document.formxl.ACS_key2.value;
+
+	device3=document.formxl.device3.value;
+	OPID3=document.formxl.OPID3.value;
+	countryid3=document.formxl.countryid3.value;
+	container3=document.formxl.container3.value;
+	application3=document.formxl.application3.value;
+	SWupdate3=document.formxl.SWupdate3.value;
+	beaconexp3=document.formxl.beaconexp3.value;
+	rootbeacon3=document.formxl.rootbeacon3.value;
+	rootbeacon23=document.formxl.rootbeacon23.value;
+	BoENG3=document.formxl.BoENG3.value;
+	BoENG_ACS3=document.formxl.BoENG_ACS3.value;
+	ACS_URL3=document.formxl.ACS_URL3.value;
+	ACS_username3=document.formxl.ACS_username3.value;
+	ACS_key3=document.formxl.ACS_key3.value;
+	additional=document.formxl.additional.value;
+
+    if (flag == 0 )
+    {
+            const url = 'gpi/allocate/request_edit';
+			const data = {                               
+                type: '10',                
+                mail: mail,
+                customer:customer,
+				customersc:customersc,
+				customerid:customerid,
+				country:country,
+				licensetype:licensetype,
+				plateform:plateform,
+				alivedate:alivedate,
+				region:region,
+				legal:legal,
+				multi_region:multi_region,
+				multi_legal:multi_legal,
+				tenant_platform:tenant_platform,
+				traildate:traildate,
+				trailnumber:trailnumber,				
+				devicenumber:devicenumber,
+				devicenumber3:devicenumber3,
+				devicenumber6:devicenumber6,
+				volume:volume,
+				area:area,
+				FCC:FCC,
+				SLAlevel:SLAlevel,
+				HDM:HDM,
+				HDMpo:HDMpo,
+				fingerprinting:fingerprinting,
+				response_person:response_person,
+				WBSnumber:WBSnumber,
+				device:device,
+				OPID:OPID,
+				countryid:countryid,
+				container:container,
+				application:application,
+				SWupdate:SWupdate,
+				beaconexp:beaconexp,
+				rootbeacon:rootbeacon,
+				rootbeacon2:rootbeacon2,
+				BoENG:BoENG,
+				BoENG_ACS:BoENG_ACS,
+				ACS_URL:ACS_URL,
+				ACS_username:ACS_username,
+				ACS_key:ACS_key,				
+				additional:additional
+            }
+			const data1 = {
+				device1:device1,
+				OPID1:OPID1,
+				countryid1:countryid1,
+				container1:container1,
+				application1:application1,
+				SWupdate1:SWupdate1,
+				beaconexp1:beaconexp1,
+				rootbeacon1:rootbeacon1,
+				rootbeacon21:rootbeacon21,
+				BoENG1:BoENG1,
+				BoENG_ACS1:BoENG_ACS1,
+				ACS_URL1:ACS_URL1,
+				ACS_username1:ACS_username1,
+				ACS_key1:ACS_key1				
+            }
+			const data2 = {
+				device2:device2,
+				OPID2:OPID2,
+				countryid2:countryid2,
+				container2:container2,
+				application2:application2,
+				SWupdate2:SWupdate2,
+				beaconexp2:beaconexp2,
+				rootbeacon12:rootbeacon12,
+				rootbeacon22:rootbeacon22,
+				BoENG2:BoENG2,
+				BoENG_ACS2:BoENG_ACS2,
+				ACS_URL2:ACS_URL2,
+				ACS_username2:ACS_username2,
+				ACS_key2:ACS_key2
+            }	
+			const data3 = {
+				device3:device3,
+				OPID3:OPID3,
+				countryid3:countryid3,
+				container3:container3,
+				application3:application3,
+				SWupdate3:SWupdate3,
+				beaconexp3:beaconexp3,
+				rootbeacon3:rootbeacon3,
+				rootbeacon23:rootbeacon23,
+				BoENG3:BoENG3,
+				BoENG_ACS3:BoENG_ACS3,
+				ACS_URL3:ACS_URL3,
+				ACS_username3:ACS_username3,
+				ACS_key3:ACS_key3	
+			}
+			    newdata = data;
+			if (document.formxl.Flag1.value == 'hide'  ){
+							 
+		   }else{
+				if (document.formxl.Flag2.value == 'hide'  ){ 					
+				const typed = {type: '11'}		
+				newdata = Object.assign({}, data, data1,typed);			
+		  }else{	
+				if (document.formxl.Flag3.value == 'hide' ){ 	
+					const typed = {type: '12'}		
+					newdata = Object.assign({}, data, data1,data2, typed);			
+		   }else{				 	
+			const typed = {type: '13'}		
+			newdata = Object.assign({}, data, data1,data2,data3,typed);			
+		    }}
+			};
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newdata)
+            });            
+            const result = await response.json();
+            FRT = JSON.stringify(result.data.status);                    
+            if (FRT.indexOf('successful') > 0) {
+                alert("Add successful!");
+                     window.location.reload();	
+                     }else{
+                       alert(FRT);
+                       location.href = "Request.html";
+                    }
+    } else {
+        if (flag == 1){
+            alert('The Customer already exists,do not add again')
+        }else{
+             alert('Items with a red asterisk cannot be empty!');
+        }}
+    }	
+	function addext1(EXT){
+        
+	if (EXT == 'Ext')
+	{
+	    document.formxl.Flag1.value='show';
+        $("#Ext1").show(); 
+	}}
+    
+  function delext1(EXT){
+	if (EXT == 'Ext')
+	{
+        document.formxl.Flag1.value='hide';
+        $("#Ext1").hide();
+		$("#Ext2").hide();
+		$("#Ext3").hide();         
+	}}
+	function addext2(EXT){
+        
+		if (EXT == 'Ext')
+		{			  
+			document.formxl.Flag2.value='show';
+			$("#Ext2").show(); 
+		}}
+		
+	  function delext2(EXT){
+		if (EXT == 'Ext')
+		{
+			document.formxl.Flag2.value='hide';
+			$("#Ext2").hide();
+			$("#Ext3").hide();       
+		}}
+		function addext3(EXT){
+        
+		if (EXT == 'Ext')
+		{			
+			document.formxl.Flag3.value='show';
+			$("#Ext3").show(); 
+		}}
+		
+	  function delext3(EXT){
+		if (EXT == 'Ext')
+		{		    
+			document.formxl.Flag3.value='hide';
+			$("#Ext3").hide();         
+		}}	
+$(function () { $("[data-toggle='popover']").popover(); });
+
+$("[rel=drevil]").popover({
+    trigger:'manual',
+    html: 'true', 
+    animation: false
+}).on("mouseenter", function () {
+    var _this = this;
+    $(this).popover("show");
+    $(this).siblings(".popover").on("mouseleave", function () {
+        $(_this).popover('hide');
+    });
+}).on("mouseleave", function () {
+    var _this = this;
+    setTimeout(function () {
+        if (!$(".popover:hover").length) {
+            $(_this).popover("hide")
+        }
+    }, );
+});
+</script>
+<script language="javascript">       
+	window.onload = show_div();
+</script>
+</body>
+
+</html>
