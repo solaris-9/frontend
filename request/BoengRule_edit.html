@@ -637,11 +637,19 @@ function HasQuote(str)
 function saveedit() {
     sendPostEdit()
 };
+
+function get_ts() {
+    let d = new Date();
+    let ret = d.getFullYear() + '-' +
+        (d.getMonth() + 1).toString().padStart(2, '0') + '-' +
+        d.getDate().toString().padStart(2, '0') + ' ' +
+        d.getHours().toString().padStart(2, '0') + ':' +
+        d.getMinutes().toString().padStart(2, '0') + ':' +
+        d.getSeconds().toString().padStart(2, '0')
+
+    return ret
+}
 async function sendPostEdit() {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = String(today.getMonth() + 1).padStart(2, '0');
-    let day = String(today.getDate()).padStart(2, '0');    
     mail = $.cookie(cookie_mail);
     username = $.cookie(cookie_name);    
     const url = 'gpi/allocate/new_boeng_edit';
@@ -704,7 +712,9 @@ async function sendPostEdit() {
         root_beacon_model: root_beacon_model.join('###'),
         ota_yes_4: $("#ota_yes_4").is(':hidden'),
         additional: document.formxl.additional.value,
-        B_ID: b_id
+        B_ID: b_id,
+        modifier: mail,
+        modifiedon: get_ts()
     };
     const response = await fetch(url, {
         method: 'POST',

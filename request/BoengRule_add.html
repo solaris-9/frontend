@@ -660,11 +660,18 @@ function Searchdevice(){
         sendPostAdd()
     }
 
+    function get_ts() {
+        let d = new Date();
+        let ret = d.getFullYear() + '-' +
+            (d.getMonth() + 1).toString().padStart(2, '0') + '-' +
+            d.getDate().toString().padStart(2, '0') + ' ' +
+            d.getHours().toString().padStart(2, '0') + ':' +
+            d.getMinutes().toString().padStart(2, '0') + ':' +
+            d.getSeconds().toString().padStart(2, '0')
+
+        return ret
+    }
     async function sendPostAdd() {
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = String(today.getMonth() + 1).padStart(2, '0');
-        let day = String(today.getDate()).padStart(2, '0');    
         var mail = $.cookie(cookie_mail);  
         
         const url = 'gpi/allocate/new_boeng_edit';
@@ -726,7 +733,9 @@ function Searchdevice(){
             root_beacon_flags: root_beacon_flags.join('###'),
             root_beacon_model: root_beacon_model.join('###'),
             ota_yes_4: $("#ota_yes_4").is(':hidden'),
-            additional: document.formxl.additional.value
+            additional: document.formxl.additional.value,
+            creator: mail,
+            createon: get_ts()
         };
 
         const response = await fetch(url, {
