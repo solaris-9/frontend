@@ -72,7 +72,7 @@ if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cook
 <script src="bootstrap5/js/bootstrap.min.js"></script>
 <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
 <script src="js/ag-grid/ag-grid-enterprise4.js"></script>
-
+<script src="js/addon.js"></script>
 
 <script >
 String.prototype.replaceAll = function (s1, s2) {
@@ -81,7 +81,10 @@ String.prototype.replaceAll = function (s1, s2) {
 var FR ={};
 var rowData = [];
 const columnDefs = [ 
-    { field: 'Customer', width: 220, headerName: 'Customer Name',
+    { 
+        field: 'Customer', 
+        width: 220, 
+        headerName: 'Customer Name',
         headerCheckboxSelection: false,
         checkboxSelection: true,
         showDisabledCheckboxes: true,
@@ -90,6 +93,7 @@ const columnDefs = [
             document.querySelector('#selectedRows').innerHTML =
 		        selectedRows.length === 1 ? selectedRows[0].ID : '';	
 		    location.href = "BoengRule_edit.html?B_ID="+selectedRows[0].B_ID;
+            document.body.style.cursor = 'wait';
         }
     },  
     { field: 'device', width: 160, headerName: 'Device Model'}, 

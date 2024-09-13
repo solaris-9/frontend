@@ -33,7 +33,7 @@
                             data-container="body" data-toggle="popover" data-placement="bottom"
                             data-content="Customer name is mandatory."></span></font></label>
                         <div class="col-sm-5">
-                            <select  class='form-control' name="Customer" id="Customer" placeholder="Customer"  style="height: 34px; width: 395px;" >
+                            <select  class='form-control' name="Customer" id="Customer" style="height: 34px; width: 395px;" >
                             <option value=""></option> 
                             </select>
                         </div>
@@ -44,7 +44,7 @@
                             data-container="body" data-toggle="popover" data-placement="bottom"
                             data-content="dropdown of all devices"></span></font></label>
                         <div class="col-sm-5">
-                            <select  class='form-control' name="device" id="device" placeholder="device"  style="height: 34px; width: 240px;" >
+                            <select  class='form-control' name="device" id="device" style="height: 34px; width: 240px;" >
                             <option value=""></option> 
                             </select>                                                    
                         </div>
@@ -388,357 +388,329 @@
 <script src="js/jquery.cookie.js"></script>
 <script src="js/bootstrap.min.js?v=3.3.7"></script>
 <script src="js/bootstrap-select.js"></script>
+<script src="js/addon.js"></script>
 
 <script >
 	String.prototype.replaceAll = function (s1, s2) {
-    return this.replace(new RegExp(s1, "gm"), s2);
-};  
-function show_div(){ 	         
-    hide_whitelisting_elements();
-    hide_boeng_option_elements();
-    hide_auto_ota();
-} 
-
-var cookie_name = "username";
-var cookie_mail = "mail"; 
-var flag = 0
-var b_id = decode_bid(location.search);
-function decode_bid(ss) {
-    var id = decodeURI(ss).split('=')[1];
-    return id
-}
-
-window.onload = fetch_boengrule_info();
-function fetch_boengrule_info() {
-    $.getJSON("gpi/allocate/fetch_boengrule",{"B_ID": b_id, 'type': '0'}, function (data) {
-        $("#Customer").prop('value', data.data.items[0].Customer)
-        $("#device").prop('value', data.data.items[0].device)
-
-        $("#OPID").prop('value', data.data.items[0].OPID)
-        $("#whitelistmethod").prop('value', data.data.items[0].whitelistmethod)
-        if (data.data.items[0].country_id) {
-            $("#country_id").hide();
-        } else {
-            $("#country_id").show();
-        }
-        $("#countryid").prop('value', data.data.items[0].countryid)
-        if (data.data.items[0].ip_range) {
-            $("#ip_range").hide();
-        }  else {
-            $("#ip_range").show();
-        }
-        $("#iprange").prop('value', data.data.items[0].iprange)
-        if (data.data.items[0].serial_number) {
-            $("#serial_number").hide();
-        } else {
-            $("#serial_number").show();
-        }
-        $("#customer_name").prop('value', data.data.items[0].customer_name)
-        $("#csv_file").prop('value', data.data.items[0].csv_file)
-        if (data.data.items[0].tr069) {
-            $("#tr069").prop('checked', true);
-        }
-        if (data.data.items[0].home_controller) {
-            $("#home_controller").prop('checked', true);
-        }
-        if (data.data.items[0].rd_party_controller) {
-            $("#rd_party_controller").prop('checked', true);
-        }
-        if (data.data.items[0].tr069_acs) {
-            $("#tr069_acs").hide();
-        } else {
-            $("#tr069_acs").show();
-        }
-        $("#acs_url").prop('value', data.data.items[0].acs_url);
-        $("#acs_username").prop('value', data.data.items[0].acs_username);
-        $("#acs_password").prop('value', data.data.items[0].acs_password);
-        if (data.data.items[0].home_controller_usp) {
-            $("#home_controller_usp").hide();
-        } else {
-            $("#home_controller_usp").show();
-        }
-        $("#tenant_ref").prop('value', data.data.items[0].tenant_ref);
-        if (data.data.items[0].rd_party_usp) {
-            $("#rd_party_usp").hide();
-        } else {
-            $("#rd_party_usp").show();
-        }
-        $("#usp_addr").prop('value', data.data.items[0].usp_addr);
-        $("#usp_port").prop('value', data.data.items[0].usp_port);
-        if (data.data.items[0].auto_upgrade) {
-            $("#auto_upgrade_1").prop('checked', true);
-        } else {
-            $("#auto_upgrade_2").prop('checked', true);
-        }
-        if (data.data.items[0].ota_yes_1) {
-            $("#ota_yes_1").hide();
-        } else {
-            $("#ota_yes_1").show();
-        }
-        if (data.data.items[0].separate_license) {
-            $("#separate_license").prop('value', 'Yes');
-        } else {
-            $("#separate_license").prop('value', 'No');
-        }
-        if (data.data.items[0].ota_yes_2) {
-            $("#ota_yes_2").hide();
-        } else {
-            $("#ota_yes_2").show();
-        }
-        if (data.data.items[0].used_as_extender) {
-            $("#used_as_extender_y").prop('checked', true);
-        } else {
-            $("#used_as_extender_n").prop('checked', true);
-        }
-        root_beacon_flags = data.data.items[0].root_beacon_flags.split('###')
-        root_beacon_model = data.data.items[0].root_beacon_model.split('###')
-
-        for (let i = 0; i < root_beacon_flags.length; i++) {
-            if (root_beacon_flags[i] == '0') {
-                let item_flag = "#root_beacon_" + (i+1)
-                let item_value = "#root_beacon_model" + (i+1)
-                $(item_flag).show();
-                $(item_value).prop('value', root_beacon_model[i])
-            };
-        }
-        /*if (root_beacon_flags[0] == '0') {
-            $("#root_beacon_1").show();
-            $("#root_beacon_model").prop('value', root_beacon_model[0])
-        };
-        if (root_beacon_flags[1] == '0') {
-            $("#root_beacon_2").show();
-            $("#root_beacon_model2").prop('value', root_beacon_model[1])
-        };
-        if (root_beacon_flags[2] == '0') {
-            $("#root_beacon_3").show();
-            $("#root_beacon_model3").prop('value', root_beacon_model[2])
-        };
-        if (root_beacon_flags[3] == '0') {
-            $("#root_beacon_4").show();
-            $("#root_beacon_model4").prop('value', root_beacon_model[3])
-        };
-        if (root_beacon_flags[4] == '0') {
-            $("#root_beacon_5").show();
-            $("#root_beacon_model5").prop('value', root_beacon_model[4])
-        };
-        if (root_beacon_flags[5] == '0') {
-            $("#root_beacon_6").show();
-            $("#root_beacon_model6").prop('value', root_beacon_model[5])
-        };
-        if (root_beacon_flags[6] == '0') {
-            $("#root_beacon_7").show();
-            $("#root_beacon_model7").prop('value', root_beacon_model[6])
-        };
-        if (root_beacon_flags[7] == '0') {
-            $("#root_beacon_8").show();
-            $("#root_beacon_model8").prop('value', root_beacon_model[7])
-        };
-        if (root_beacon_flags[8] == '0') {
-            $("#root_beacon_9").show();
-            $("#root_beacon_model9").prop('value', root_beacon_model[8])
-        };
-        if (root_beacon_flags[9] == '0') {
-            $("#root_beacon_10").show();
-            $("#root_beacon_model10").prop('value', root_beacon_model[9]);
-            $("#add_beacon").attr('disabled', 'disabled');
-        };*/
-        // if (data.data.items[0].ota_yes_3) {
-        //     $("#ota_yes_3").hide();
-        // } else {
-        //     $("#ota_yes_3").show();
-        // }
-        // if (data.data.items[0].ota_yes_4) {
-        //     $("#ota_yes_4").hide();
-        //     $("#add_beacon").prop('value', 'Add 2nd Root Beacon')
-        // }  else {
-        //     $("#ota_yes_4").show();
-        //     $("#add_beacon").prop('value', 'Hide 2nd Root Beacon');
-        // }
-        $("#additional").prop('value', data.data.items[0].additional);
-    });
-}
-
-window.onload = SearchCustomer();
-    function SearchCustomer(){
-    $.getJSON("gpi/allocate/customer_list",{"type": "4","customer":"ALL"}, function (data) {
-    //alert('Result' + JSON.stringify(data));
-     
-        for(var i = 0; i < data.data.items.length; i++){
-            //alert('Item ' + data.data.items[i])	   
-            for(let value of Object.values(data.data.items[i])){       
-                document.formxl.Customer.options[document.formxl.Customer.length]=new Option( value );
-            }
-        }   
-    });
-}
-     
-$(function(){
-    $("#Customer").blur(function(){	
-        cs = document.formxl.Customer.value;
-        
-        $("#cusd span").remove();		
-        $.getJSON("gpi/allocate/request_edit",{type:'4',Customer: cs},function(data){ 
-            flag = 0
-            if ( data.status == 'successful' && CusET != cs){
-                $("#cusd").append("<span style='color:red'>Customer already exists,do not create again</span>")
-                flag = 1
-            }			
-        });	
-    });
-});
-  
-
-window.onload = Searchdevice();     
-function Searchdevice(){
-	mail = $.cookie(cookie_mail)        
-    $.getJSON("gpi/allocate/devicelist",{"type": "0"},function(data){      	
-        for(var i = 0; i < data.data.items.length; i++){
-            //alert('Item ' + data.data.items[i])	   
-            for(let value of Object.values(data.data.items[i])){       
-                document.formxl.device.options[document.formxl.device.length]=new Option( value );
-            }
-        }   	
-    })
-};
-
-$(function(){
-      $("#Customerid").blur(function(){ 	
-		cusid = document.formxl.Customerid.value;
-		cs = cusid.split(',').length
-		$("#cusd span").remove();
-		
-		$.getJSON("gpi/allocate/customerid",{type:'4',customerid:cusid},function(data){   
-		Cus=""  
-		flag = 0
-		if (cs > data.data.items.length){
-		$("#cusd").append("<span style='color:red'>Customer ID is illegal</span>")
-		flag = 1
-	    }	
-		$(data.data.items).each(function(){			
-		FRT = JSON.stringify(this);	
-		FRT = FRT.replace("[{", "{");
-		FRT = FRT.replace("}]", "}");
-		//alert(FRT)	
-		FR=JSON.parse(FRT); 		
-		Cus=Cus + FR["Customerid"] + '\n'
-		})	  
-		document.formxl.Customersc.value= Cus;		
-		});	
-       });
-	});
-
-	
-function HasQuote(str)
-{
-	if (str.indexOf ("'") >0 ) return true
-	if (str.indexOf ("’") >0 ) return true
-	return false;
-};
-function saveedit() {
-    sendPostEdit()
-};
-
-function get_ts() {
-    let d = new Date();
-    let ret = d.getFullYear() + '-' +
-        (d.getMonth() + 1).toString().padStart(2, '0') + '-' +
-        d.getDate().toString().padStart(2, '0') + ' ' +
-        d.getHours().toString().padStart(2, '0') + ':' +
-        d.getMinutes().toString().padStart(2, '0') + ':' +
-        d.getSeconds().toString().padStart(2, '0')
-
-    return ret
-}
-async function sendPostEdit() {
-    mail = $.cookie(cookie_mail);
-    username = $.cookie(cookie_name);    
-    const url = 'gpi/allocate/new_boeng_edit';
-    const root_beacon_model = [
-        document.formxl.root_beacon_model1.value,
-        document.formxl.root_beacon_model2.value,
-        document.formxl.root_beacon_model3.value,
-        document.formxl.root_beacon_model4.value,
-        document.formxl.root_beacon_model5.value,
-        document.formxl.root_beacon_model6.value,
-        document.formxl.root_beacon_model7.value,
-        document.formxl.root_beacon_model8.value,
-        document.formxl.root_beacon_model9.value,
-        document.formxl.root_beacon_model10.value,
-    ]
-    const root_beacon_flags = [
-        ($("#root_beacon_1").is(':hidden'))?'1':'0',
-        ($("#root_beacon_2").is(':hidden'))?'1':'0',
-        ($("#root_beacon_3").is(':hidden'))?'1':'0',
-        ($("#root_beacon_4").is(':hidden'))?'1':'0',
-        ($("#root_beacon_5").is(':hidden'))?'1':'0',
-        ($("#root_beacon_6").is(':hidden'))?'1':'0',
-        ($("#root_beacon_7").is(':hidden'))?'1':'0',
-        ($("#root_beacon_8").is(':hidden'))?'1':'0',
-        ($("#root_beacon_9").is(':hidden'))?'1':'0',
-        ($("#root_beacon_10").is(':hidden'))?'1':'0',
-    ];
-    const data = {
-        type: '2',
-        mail: mail,
-        Customer: document.formxl.Customer.value,
-        device: document.formxl.device.value,
-        OPID: document.formxl.OPID.value,
-        whitelistmethod: document.formxl.whitelistmethod.value,
-        country_id: $("#country_id").is(':hidden'),
-        countryid: document.formxl.countryid.value,
-        ip_range: $("#ip_range").is(':hidden'),
-        iprange: document.formxl.iprange.value,
-        serial_number: $("#serial_number").is(':hidden'),
-        customer_name: document.formxl.customer_name.value,
-        csv_file: document.formxl.csv_file.value,
-        tr069: $("#tr069").is(':checked'),
-        home_controller: $("#home_controller").is(':checked'),
-        rd_party_controller: $("#rd_party_controller").is(':checked'),
-        tr069_acs: $("#tr069_acs").is(':hidden'),
-        acs_url: document.formxl.acs_url.value,
-        acs_username: document.formxl.acs_username.value,
-        acs_password: document.formxl.acs_password.value,
-        home_controller_usp: $("#home_controller_usp").is(':hidden'),
-        tenant_ref: document.formxl.tenant_ref.value,
-        rd_party_usp: $("#rd_party_usp").is(':hidden'),
-        usp_addr: document.formxl.usp_addr.value,
-        usp_port: document.formxl.usp_port.value,
-        auto_upgrade: $("#auto_upgrade_1").is(':checked'),
-        ota_yes_1: $("#ota_yes_1").is(':hidden'),
-        separate_license: (document.formxl.separate_license.value == "Yes")? true:false,
-        ota_yes_2: $("#ota_yes_2").is(':hidden'),
-        used_as_extender: $("#used_as_extender_y").is(':checked'),
-        root_beacon_flags: root_beacon_flags.join('###'),
-        root_beacon_model: root_beacon_model.join('###'),
-        ota_yes_4: $("#ota_yes_4").is(':hidden'),
-        additional: document.formxl.additional.value,
-        B_ID: b_id,
-        modifier: mail,
-        modifiedon: get_ts()
+        return this.replace(new RegExp(s1, "gm"), s2);
     };
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });            
-    const result = await response.json();
-    resp = result.data.status;                    
-    if (resp.includes('successful')) {
-        alert("Modify successful!");
-        //location.href = "Devicetype.html";	
-    }else{
-        alert(resp);
-        //location.href = "Devicetype.html";
+    
+    
+
+    function show_div(){ 	         
+        hide_whitelisting_elements();
+        hide_boeng_option_elements();
+        hide_auto_ota();
+    } 
+
+    var cookie_name = "username";
+    var cookie_mail = "mail"; 
+    var flag = 0
+    var b_id = decode_bid(location.search);
+    function decode_bid(ss) {
+        var id = decodeURI(ss).split('=')[1];
+        return id
     }
 
-};      
+    window.onload = initialize_page();
+
+    function initialize_page() {
+        //document.body.style.cursor='wait';
+        show_div();
+        fetch_customer();
+        fetch_device();
+        fetch_boengrule_info();
+        //document.body.style.cursor='default';
+    }
+    function fetch_boengrule_info() {
+        $.getJSON("gpi/allocate/fetch_boengrule",{"B_ID": b_id, 'type': '0'}, function (data) {
+            //$("#Customer").prop('value', data.data.items[0].Customer)
+            //$("#device").prop('value', data.data.items[0].device);
+            document.formxl.Customer.value = data.data.items[0].Customer;
+            const l_device = String(data.data.items[0].device);
+            document.formxl.device.value = l_device;
+            // console.log('l_device=',l_device,'l_device.length=',l_device.length)
+            // $("#device").val(l_device);
+
+            $("#OPID").prop('value', data.data.items[0].OPID)
+            $("#whitelistmethod").prop('value', data.data.items[0].whitelistmethod)
+            if (data.data.items[0].country_id) {
+                $("#country_id").hide();
+            } else {
+                $("#country_id").show();
+            }
+            $("#countryid").prop('value', data.data.items[0].countryid)
+            if (data.data.items[0].ip_range) {
+                $("#ip_range").hide();
+            }  else {
+                $("#ip_range").show();
+            }
+            $("#iprange").prop('value', data.data.items[0].iprange)
+            if (data.data.items[0].serial_number) {
+                $("#serial_number").hide();
+            } else {
+                $("#serial_number").show();
+            }
+            $("#customer_name").prop('value', data.data.items[0].customer_name)
+            $("#csv_file").prop('value', data.data.items[0].csv_file)
+            if (data.data.items[0].tr069) {
+                $("#tr069").prop('checked', true);
+            }
+            if (data.data.items[0].home_controller) {
+                $("#home_controller").prop('checked', true);
+            }
+            if (data.data.items[0].rd_party_controller) {
+                $("#rd_party_controller").prop('checked', true);
+            }
+            if (data.data.items[0].tr069_acs) {
+                $("#tr069_acs").hide();
+            } else {
+                $("#tr069_acs").show();
+            }
+            $("#acs_url").prop('value', data.data.items[0].acs_url);
+            $("#acs_username").prop('value', data.data.items[0].acs_username);
+            $("#acs_password").prop('value', data.data.items[0].acs_password);
+            if (data.data.items[0].home_controller_usp) {
+                $("#home_controller_usp").hide();
+            } else {
+                $("#home_controller_usp").show();
+            }
+            $("#tenant_ref").prop('value', data.data.items[0].tenant_ref);
+            if (data.data.items[0].rd_party_usp) {
+                $("#rd_party_usp").hide();
+            } else {
+                $("#rd_party_usp").show();
+            }
+            $("#usp_addr").prop('value', data.data.items[0].usp_addr);
+            $("#usp_port").prop('value', data.data.items[0].usp_port);
+            if (data.data.items[0].auto_upgrade) {
+                $("#auto_upgrade_1").prop('checked', true);
+            } else {
+                $("#auto_upgrade_2").prop('checked', true);
+            }
+            if (data.data.items[0].ota_yes_1) {
+                $("#ota_yes_1").hide();
+            } else {
+                $("#ota_yes_1").show();
+            }
+            if (data.data.items[0].separate_license) {
+                $("#separate_license").prop('value', 'Yes');
+            } else {
+                $("#separate_license").prop('value', 'No');
+            }
+            if (data.data.items[0].ota_yes_2) {
+                $("#ota_yes_2").hide();
+            } else {
+                $("#ota_yes_2").show();
+            }
+            if (data.data.items[0].used_as_extender) {
+                $("#used_as_extender_y").prop('checked', true);
+            } else {
+                $("#used_as_extender_n").prop('checked', true);
+            }
+            root_beacon_flags = data.data.items[0].root_beacon_flags.split('###')
+            root_beacon_model = data.data.items[0].root_beacon_model.split('###')
+
+            for (let i = 0; i < root_beacon_flags.length; i++) {
+                if (root_beacon_flags[i] == '0') {
+                    let item_flag = "#root_beacon_" + (i+1)
+                    let item_value = "#root_beacon_model" + (i+1)
+                    $(item_flag).show();
+                    $(item_value).prop('value', root_beacon_model[i])
+                };
+            }
+
+            $("#additional").prop('value', data.data.items[0].additional);
+        });
+    }
+
+    function fetch_customer(){
+        $.ajaxSetup({
+            async: false
+        });       
+        
+        $.getJSON("gpi/allocate/customer_list", {"type": "4","customer":"ALL"}, function (data) {
+        //alert('Result' + JSON.stringify(data));
+        
+            for(var i = 0; i < data.data.items.length; i++){
+                //alert('Item ' + data.data.items[i])	   
+                for(let value of Object.values(data.data.items[i])){       
+                    document.formxl.Customer.options[document.formxl.Customer.length]=new Option( value );
+                }
+            }   
+        });
+        $.ajaxSetup({
+            async: true
+        });       
+    }
+     
+    // $(function(){
+    //     $("#Customer").blur(function(){	
+    //         cs = document.formxl.Customer.value;
+            
+    //         $("#cusd span").remove();		
+    //         $.getJSON("gpi/allocate/request_edit",{type:'4',Customer: cs},function(data){ 
+    //             flag = 0
+    //             if ( data.status == 'successful' && CusET != cs){
+    //                 $("#cusd").append("<span style='color:red'>Customer already exists,do not create again</span>")
+    //                 flag = 1
+    //             }			
+    //         });	
+    //     });
+    // });
+    
+ 
+    function fetch_device(){
+        mail = $.cookie(cookie_mail)
+        $.ajaxSetup({
+            async: false
+        });       
+        $.getJSON("gpi/allocate/devicelist", {"type": "0"},function(data){      	
+            for(var i = 0; i < data.data.items.length; i++){
+                //alert('Item ' + data.data.items[i])	   
+                for(let value of Object.values(data.data.items[i])){     
+                    //console.log("value=",value.trim(),'length=',value.trim().length) 
+                    document.formxl.device.options[document.formxl.device.length]=new Option( value.trim() );
+                }
+            }   	
+        })
+        $.ajaxSetup({
+            async: true
+        });       
+
+    };
+
+    // $(function(){
+    //     $("#Customerid").blur(function(){ 	
+    //         cusid = document.formxl.Customerid.value;
+    //         cs = cusid.split(',').length
+    //         $("#cusd span").remove();
+            
+    //         $.getJSON("gpi/allocate/customerid",{type:'4',customerid:cusid},function(data){   
+    //         Cus=""  
+    //         flag = 0
+    //         if (cs > data.data.items.length){
+    //         $("#cusd").append("<span style='color:red'>Customer ID is illegal</span>")
+    //         flag = 1
+    //         }	
+    //         $(data.data.items).each(function(){			
+    //         FRT = JSON.stringify(this);	
+    //         FRT = FRT.replace("[{", "{");
+    //         FRT = FRT.replace("}]", "}");
+    //         //alert(FRT)	
+    //         FR=JSON.parse(FRT); 		
+    //         Cus=Cus + FR["Customerid"] + '\n'
+    //         })	  
+    //         document.formxl.Customersc.value= Cus;		
+    //         });	
+    //     });
+	// });
+
+	
+    function HasQuote(str)
+    {
+        if (str.indexOf ("'") >0 ) return true
+        if (str.indexOf ("’") >0 ) return true
+        return false;
+    };
+    function saveedit() {
+        sendPostEdit()
+    };
 
 
-$(function () { $("[data-toggle='popover']").popover(); });
+    async function sendPostEdit() {
+        mail = $.cookie(cookie_mail);
+        username = $.cookie(cookie_name);    
+        const url = 'gpi/allocate/new_boeng_edit';
+        const root_beacon_model = [
+            document.formxl.root_beacon_model1.value,
+            document.formxl.root_beacon_model2.value,
+            document.formxl.root_beacon_model3.value,
+            document.formxl.root_beacon_model4.value,
+            document.formxl.root_beacon_model5.value,
+            document.formxl.root_beacon_model6.value,
+            document.formxl.root_beacon_model7.value,
+            document.formxl.root_beacon_model8.value,
+            document.formxl.root_beacon_model9.value,
+            document.formxl.root_beacon_model10.value,
+        ]
+        const root_beacon_flags = [
+            ($("#root_beacon_1").is(':hidden'))?'1':'0',
+            ($("#root_beacon_2").is(':hidden'))?'1':'0',
+            ($("#root_beacon_3").is(':hidden'))?'1':'0',
+            ($("#root_beacon_4").is(':hidden'))?'1':'0',
+            ($("#root_beacon_5").is(':hidden'))?'1':'0',
+            ($("#root_beacon_6").is(':hidden'))?'1':'0',
+            ($("#root_beacon_7").is(':hidden'))?'1':'0',
+            ($("#root_beacon_8").is(':hidden'))?'1':'0',
+            ($("#root_beacon_9").is(':hidden'))?'1':'0',
+            ($("#root_beacon_10").is(':hidden'))?'1':'0',
+        ];
+        const data = {
+            type: '2',
+            mail: mail,
+            Customer: document.formxl.Customer.value,
+            device: document.formxl.device.value,
+            OPID: document.formxl.OPID.value,
+            whitelistmethod: document.formxl.whitelistmethod.value,
+            country_id: $("#country_id").is(':hidden'),
+            countryid: document.formxl.countryid.value,
+            ip_range: $("#ip_range").is(':hidden'),
+            iprange: document.formxl.iprange.value,
+            serial_number: $("#serial_number").is(':hidden'),
+            customer_name: document.formxl.customer_name.value,
+            csv_file: document.formxl.csv_file.value,
+            tr069: $("#tr069").is(':checked'),
+            home_controller: $("#home_controller").is(':checked'),
+            rd_party_controller: $("#rd_party_controller").is(':checked'),
+            tr069_acs: $("#tr069_acs").is(':hidden'),
+            acs_url: document.formxl.acs_url.value,
+            acs_username: document.formxl.acs_username.value,
+            acs_password: document.formxl.acs_password.value,
+            home_controller_usp: $("#home_controller_usp").is(':hidden'),
+            tenant_ref: document.formxl.tenant_ref.value,
+            rd_party_usp: $("#rd_party_usp").is(':hidden'),
+            usp_addr: document.formxl.usp_addr.value,
+            usp_port: document.formxl.usp_port.value,
+            auto_upgrade: $("#auto_upgrade_1").is(':checked'),
+            ota_yes_1: $("#ota_yes_1").is(':hidden'),
+            separate_license: (document.formxl.separate_license.value == "Yes")? true:false,
+            ota_yes_2: $("#ota_yes_2").is(':hidden'),
+            used_as_extender: $("#used_as_extender_y").is(':checked'),
+            root_beacon_flags: root_beacon_flags.join('###'),
+            root_beacon_model: root_beacon_model.join('###'),
+            ota_yes_4: $("#ota_yes_4").is(':hidden'),
+            additional: document.formxl.additional.value,
+            B_ID: b_id,
+            modifier: mail,
+            modifiedon: get_ts()
+        };
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });            
+        const result = await response.json();
+        resp = result.data.status;                    
+        if (resp.includes('successful')) {
+            alert("Modify successful!");
+            if ('referrer' in document) {
+                window.location = document.referrer
+            } else {
+                window.location.reload(history.back());
+            }
+        }else{
+            alert(resp);
+        }
 
-$("#whitelistmethod").change(function(){    
+    };      
+
+
+    $(function () { $("[data-toggle='popover']").popover(); });
+
+    $("#whitelistmethod").change(function(){    
         var list_method = ($("#whitelistmethod").val());
         switch(list_method) {
             case "":
@@ -811,79 +783,69 @@ $("#whitelistmethod").change(function(){
         }
     })
 
-function hide_whitelisting_elements() {
-    $("#country_id").hide();
-    $("#ip_range").hide();
-    $("#serial_number").hide();
-}
-
-function hide_boeng_option_elements() {
-    $("#tr069_acs").hide();
-    $("#home_controller_usp").hide();
-    $("#rd_party_usp").hide();
-}
-
-function hide_auto_ota() {
-    $("#ota_yes_1").hide();
-    $("#ota_yes_2").hide();
-    for (let i=1; i<=10; i++) {
-        let elem = "#root_beacon_" + i;
-        $(elem).hide();
+    function hide_whitelisting_elements() {
+        $("#country_id").hide();
+        $("#ip_range").hide();
+        $("#serial_number").hide();
     }
-    // $("#root_beacon_1").hide();
-    // $("#root_beacon_2").hide();
-    // $("#root_beacon_3").hide();
-    // $("#root_beacon_4").hide();
-    // $("#root_beacon_5").hide();
-    // $("#root_beacon_6").hide();
-    // $("#root_beacon_7").hide();
-    // $("#root_beacon_8").hide();
-    // $("#root_beacon_9").hide();
-    // $("#root_beacon_10").hide();
-}
 
-function add_root_beacon() {
-    if ($("#root_beacon_2").is(":hidden")) {
-        $("#root_beacon_2").show();
-    } else if ($("#root_beacon_3").is(":hidden")) {
-        $("#root_beacon_3").show();
-    } else if ($("#root_beacon_4").is(":hidden")) {
-        $("#root_beacon_4").show();
-    } else if ($("#root_beacon_5").is(":hidden")) {
-        $("#root_beacon_5").show();
-    } else if ($("#root_beacon_6").is(":hidden")) {
-        $("#root_beacon_6").show();
-    } else if ($("#root_beacon_7").is(":hidden")) {
-        $("#root_beacon_7").show();
-    } else if ($("#root_beacon_8").is(":hidden")) {
-        $("#root_beacon_8").show();
-    } else if ($("#root_beacon_9").is(":hidden")) {
-        $("#root_beacon_9").show();
-    } else if ($("#root_beacon_10").is(":hidden")) {
-        $("#root_beacon_10").show();
-        $("#add_beacon").attr('disabled', 'disabled')
+    function hide_boeng_option_elements() {
+        $("#tr069_acs").hide();
+        $("#home_controller_usp").hide();
+        $("#rd_party_usp").hide();
     }
-}
 
-
-$("[rel=drevil]").popover({
-    trigger:'manual',
-    html: 'true', 
-    animation: false
-}).on("mouseenter", function () {
-    var _this = this;
-    $(this).popover("show");
-    $(this).siblings(".popover").on("mouseleave", function () {
-        $(_this).popover('hide');
-    });
-}).on("mouseleave", function () {
-    var _this = this;
-    setTimeout(function () {
-        if (!$(".popover:hover").length) {
-            $(_this).popover("hide")
+    function hide_auto_ota() {
+        $("#ota_yes_1").hide();
+        $("#ota_yes_2").hide();
+        for (let i=1; i<=10; i++) {
+            let elem = "#root_beacon_" + i;
+            $(elem).hide();
         }
-    }, );
-});
+    }
+
+    function add_root_beacon() {
+        if ($("#root_beacon_2").is(":hidden")) {
+            $("#root_beacon_2").show();
+        } else if ($("#root_beacon_3").is(":hidden")) {
+            $("#root_beacon_3").show();
+        } else if ($("#root_beacon_4").is(":hidden")) {
+            $("#root_beacon_4").show();
+        } else if ($("#root_beacon_5").is(":hidden")) {
+            $("#root_beacon_5").show();
+        } else if ($("#root_beacon_6").is(":hidden")) {
+            $("#root_beacon_6").show();
+        } else if ($("#root_beacon_7").is(":hidden")) {
+            $("#root_beacon_7").show();
+        } else if ($("#root_beacon_8").is(":hidden")) {
+            $("#root_beacon_8").show();
+        } else if ($("#root_beacon_9").is(":hidden")) {
+            $("#root_beacon_9").show();
+        } else if ($("#root_beacon_10").is(":hidden")) {
+            $("#root_beacon_10").show();
+            $("#add_beacon").attr('disabled', 'disabled')
+        }
+    }
+
+
+    $("[rel=drevil]").popover({
+        trigger:'manual',
+        html: 'true', 
+        animation: false
+    }).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(this).siblings(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+                $(_this).popover("hide")
+            }
+        }, );
+    });
 </script>
 
 <script language="javascript">       

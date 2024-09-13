@@ -388,6 +388,7 @@
 <script src="js/jquery.cookie.js"></script>
 <script src="js/bootstrap.min.js?v=3.3.7"></script>
 <script src="js/bootstrap-select.js"></script>
+<script src="js/addon.js"></script>
 
 <script >   
     var cookie_name = "username";
@@ -660,17 +661,6 @@ function Searchdevice(){
         sendPostAdd()
     }
 
-    function get_ts() {
-        let d = new Date();
-        let ret = d.getFullYear() + '-' +
-            (d.getMonth() + 1).toString().padStart(2, '0') + '-' +
-            d.getDate().toString().padStart(2, '0') + ' ' +
-            d.getHours().toString().padStart(2, '0') + ':' +
-            d.getMinutes().toString().padStart(2, '0') + ':' +
-            d.getSeconds().toString().padStart(2, '0')
-
-        return ret
-    }
     async function sendPostAdd() {
         var mail = $.cookie(cookie_mail);  
         
@@ -749,12 +739,15 @@ function Searchdevice(){
         resp = result.data.status;                    
         if (resp.includes('successful')) {
             alert("Add successful!");
-            //window.location.reload();    
+            if ('referrer' in document) {
+                window.location = document.referrer
+            } else {
+                window.location.reload(history.back());
+            }
         }else{
             alert(resp);
-            //location.href = "Request.html";
+
         }
-        //alert(JSON.stringify(data));
     }
    
 $(function () { $("[data-toggle='popover']").popover(); });
