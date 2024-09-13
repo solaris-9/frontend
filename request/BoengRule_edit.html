@@ -373,7 +373,7 @@
                     <div class="hr-line-dashed"></div>
                         <div class="form-group" >
                             <div class="col-sm-4 col-sm-offset-2">
-                                <input class="btn btn-primary" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="saveedit(); return false;">
+                                <input class="btn btn-primary" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="save(); return false;">
                                 
                                 <input class='btn btn-info' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
                             </div>
@@ -407,6 +407,7 @@
     var cookie_mail = "mail"; 
     var flag = 0
     var b_id = decode_bid(location.search);
+    //alert(b_id)
     function decode_bid(ss) {
         var id = decodeURI(ss).split('=')[1];
         return id
@@ -419,7 +420,9 @@
         show_div();
         fetch_customer();
         fetch_device();
-        fetch_boengrule_info();
+        if (b_id.length > 0) {
+            fetch_boengrule_info();
+        }
         //document.body.style.cursor='default';
     }
     function fetch_boengrule_info() {
@@ -544,22 +547,6 @@
         });       
     }
      
-    // $(function(){
-    //     $("#Customer").blur(function(){	
-    //         cs = document.formxl.Customer.value;
-            
-    //         $("#cusd span").remove();		
-    //         $.getJSON("gpi/allocate/request_edit",{type:'4',Customer: cs},function(data){ 
-    //             flag = 0
-    //             if ( data.status == 'successful' && CusET != cs){
-    //                 $("#cusd").append("<span style='color:red'>Customer already exists,do not create again</span>")
-    //                 flag = 1
-    //             }			
-    //         });	
-    //     });
-    // });
-    
- 
     function fetch_device(){
         mail = $.cookie(cookie_mail)
         $.ajaxSetup({
@@ -580,48 +567,9 @@
 
     };
 
-    // $(function(){
-    //     $("#Customerid").blur(function(){ 	
-    //         cusid = document.formxl.Customerid.value;
-    //         cs = cusid.split(',').length
-    //         $("#cusd span").remove();
-            
-    //         $.getJSON("gpi/allocate/customerid",{type:'4',customerid:cusid},function(data){   
-    //         Cus=""  
-    //         flag = 0
-    //         if (cs > data.data.items.length){
-    //         $("#cusd").append("<span style='color:red'>Customer ID is illegal</span>")
-    //         flag = 1
-    //         }	
-    //         $(data.data.items).each(function(){			
-    //         FRT = JSON.stringify(this);	
-    //         FRT = FRT.replace("[{", "{");
-    //         FRT = FRT.replace("}]", "}");
-    //         //alert(FRT)	
-    //         FR=JSON.parse(FRT); 		
-    //         Cus=Cus + FR["Customerid"] + '\n'
-    //         })	  
-    //         document.formxl.Customersc.value= Cus;		
-    //         });	
-    //     });
-	// });
-
-	
-    function HasQuote(str)
-    {
-        if (str.indexOf ("'") >0 ) return true
-        if (str.indexOf ("’") >0 ) return true
-        return false;
-    };
-    function saveedit() {
-        sendPostEdit()
-    };
-
-
-    async function sendPostEdit() {
+    function save() {
         mail = $.cookie(cookie_mail);
-        username = $.cookie(cookie_name);    
-        const url = 'gpi/allocate/new_boeng_edit';
+        const url = 'gpi/allocate/new_boeng_edit';;
         const root_beacon_model = [
             document.formxl.root_beacon_model1.value,
             document.formxl.root_beacon_model2.value,
@@ -633,7 +581,7 @@
             document.formxl.root_beacon_model8.value,
             document.formxl.root_beacon_model9.value,
             document.formxl.root_beacon_model10.value,
-        ]
+        ];
         const root_beacon_flags = [
             ($("#root_beacon_1").is(':hidden'))?'1':'0',
             ($("#root_beacon_2").is(':hidden'))?'1':'0',
@@ -646,8 +594,8 @@
             ($("#root_beacon_9").is(':hidden'))?'1':'0',
             ($("#root_beacon_10").is(':hidden'))?'1':'0',
         ];
-        const data = {
-            type: '2',
+        
+        var data = {
             mail: mail,
             Customer: document.formxl.Customer.value,
             device: document.formxl.device.value,
@@ -680,11 +628,30 @@
             root_beacon_flags: root_beacon_flags.join('###'),
             root_beacon_model: root_beacon_model.join('###'),
             ota_yes_4: $("#ota_yes_4").is(':hidden'),
-            additional: document.formxl.additional.value,
-            B_ID: b_id,
-            modifier: mail,
-            modifiedon: get_ts()
+            additional: document.formxl.additional.value
         };
+
+        var action = ''
+        if (b_id.length > 0) {
+            // Edit mode
+            data.type = '2';
+            data.B_ID = b_id;
+            data.modifier = mail;
+            data.modifiedon = get_ts();
+            action = 'Modify'
+        } else {
+            // Add mode
+            data.type = '10';
+            data.creator = mail;
+            data.createon = get_ts();
+            action = 'Add'
+        }
+        
+        sendPost(url, data, action);
+    };
+
+
+    async function sendPost(url, data, action) {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -695,7 +662,7 @@
         const result = await response.json();
         resp = result.data.status;                    
         if (resp.includes('successful')) {
-            alert("Modify successful!");
+            alert(action + " OK!");
             if ('referrer' in document) {
                 window.location = document.referrer
             } else {
@@ -706,7 +673,6 @@
         }
 
     };      
-
 
     $(function () { $("[data-toggle='popover']").popover(); });
 
