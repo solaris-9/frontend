@@ -17,7 +17,14 @@
 </head>
 
 <body class="gray-bg">
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="loader-container" id="preloader">
+    <div class="bouncing-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>
+<div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
     <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
     <div class="row">
         <div class="col-sm-12">
@@ -417,12 +424,16 @@
 
     function initialize_page() {
         //document.body.style.cursor='wait';
+
         show_div();
         fetch_customer();
         fetch_device();
         if (b_id.length > 0) {
             fetch_boengrule_info();
+            $("#preloader").hide();
+            $("#mainpart").show();
         }
+
         //document.body.style.cursor='default';
     }
     function fetch_boengrule_info() {
@@ -816,6 +827,18 @@
 
 <script language="javascript">       
     window.onload = show_div();
+</script>
+<script>
+    var myVar;
+    
+    function myFunction() {
+      myVar = setTimeout(showPage, 3000);
+    }
+    
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("myDiv").style.display = "block";
+    }
 </script>
 </body>
 

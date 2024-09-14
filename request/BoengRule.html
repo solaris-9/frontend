@@ -15,42 +15,48 @@
 
 </head>
 <script >
-var cookie_name = "username";
-var cookie_mail = "mail";
-var cookie_auth = "encodedAuth";
-var cookie_level = "level";
-var cookie_grade = "grade";
+    var cookie_name = "username";
+    var cookie_mail = "mail";
+    var cookie_auth = "encodedAuth";
+    var cookie_level = "level";
+    var cookie_grade = "grade";
 
-window.onload = function () {
-//alert("Log in status : " + $.cookie(cookie_add) +$.cookie(cookie_edit) + $.cookie(cookie_delete)  );
-if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined' )
-    {     
-    location.href = "login.html?id=Boeng.html";
+    window.onload = function () {
+        //alert("Log in status : " + $.cookie(cookie_add) +$.cookie(cookie_edit) + $.cookie(cookie_delete)  );
+        if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined' ) {     
+            location.href = "login.html?id=Boeng.html";
         }};
 </script>
 <body class="gray-bg">
-<div class="wrapper wrapper-content animated fadeInRight">
-<form class="form-horizontal" role="form" name="formxl" >
-<div class="ibox-content">
-        <div class="row">
-        <div class="col-md-12">
-        <div class="ibox-title">
-            <input type="hidden" class="form-control" name='ID' id='ID' value='' style="height: 30px; width: 160px;">
-            <input type='button' value=' Add ' onClick="location.href='BoengRule_edit.html?B_ID='" class="btn btn-primary btn-sm">&nbsp;
-            <span id="adm">
-                <input class="btn btn-warning btn-sm" type="submit" value='Delete' name='cmd' id='cmd' onClick="deleteitem(); return false;">
-            </span>&nbsp;&nbsp;
-            <button onclick="onBtExport(); return false;" class='btn btn-info btn-sm'>Export</button>&nbsp;&nbsp;
-            <a class="btn btn-white btn-bitbucket" onClick="location.href='?'">
-                <i class="fa fa-refresh"></i>
-            </a>&nbsp;&nbsp;
-            <font size= 2>Double click the content of "Customer"  to edit the record</font>
-            <span id="selectedRows"></span>
-                
-        </div>                        
+    <div class="loader-container" id="preloader">
+        <div class="bouncing-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
     </div>
-</div>
-</div>
+    <div class="wrapper wrapper-content animated fadeInRight" id="mainpart" style="display:none;">
+    <form class="form-horizontal" role="form" name="formxl" >
+    <div class="ibox-content">
+            <div class="row">
+            <div class="col-md-12">
+            <div class="ibox-title">
+                <input type="hidden" class="form-control" name='ID' id='ID' value='' style="height: 30px; width: 160px;">
+                <input type='button' value=' Add ' onClick="location.href='BoengRule_edit.html?B_ID='" class="btn btn-primary btn-sm">&nbsp;
+                <span id="adm">
+                    <input class="btn btn-warning btn-sm" type="submit" value='Delete' name='cmd' id='cmd' onClick="deleteitem(); return false;">
+                </span>&nbsp;&nbsp;
+                <button onclick="onBtExport(); return false;" class='btn btn-info btn-sm'>Export</button>&nbsp;&nbsp;
+                <a class="btn btn-white btn-bitbucket" onClick="location.href='?'">
+                    <i class="fa fa-refresh"></i>
+                </a>&nbsp;&nbsp;
+                <font size= 2>Double click the content of "Customer"  to edit the record</font>
+                <span id="selectedRows"></span>
+                    
+            </div>                        
+        </div>
+    </div>
+    </div>
         <!--<div class="ibox-content"> -->
             <div class="row"> 
             <!--<div class="row row-lg">-->
@@ -197,6 +203,10 @@ const gridDiv = document.querySelector('#myGrid');
 new agGrid.Grid(gridDiv, gridOptions);
     mail = $.cookie(cookie_mail)
     level = $.cookie(cookie_level)
+    $.ajaxSetup({
+            async: false
+        });       
+        
     $.getJSON("gpi/allocate/new_boeng_info",{mail: mail,level: level},function(data){      	
         $(data.data.items).each(function(){
             FRT = JSON.stringify(this);	
@@ -208,6 +218,12 @@ new agGrid.Grid(gridDiv, gridOptions);
         gridOptions.api.setRowData(rowData);
 
     });
+    $.ajaxSetup({
+            async: true
+        });       
+        
+    $("#preloader").hide();
+    $("#mainpart").show();
 });
 
 function deleteitem(){ 
