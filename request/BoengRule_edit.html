@@ -202,6 +202,9 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model2" id="root_beacon_model2" value=''  > 
                                             </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model2' onClick="delete_root_beceacon(this.id); return false;"> 
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12" name="root_beacon_3" id="root_beacon_3">
@@ -209,6 +212,9 @@
                                             <label class="col-sm-2 control-label">Root Beacon model#3<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model3" id="root_beacon_model3" value=''  > 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model3' onClick="delete_root_beceacon(this.id); return false;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -218,6 +224,9 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model4" id="root_beacon_model4" value=''  > 
                                             </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model4' onClick="delete_root_beceacon(this.id); return false;"> 
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12" name="root_beacon_5" id="root_beacon_5">
@@ -225,6 +234,9 @@
                                             <label class="col-sm-2 control-label">Root Beacon model#5<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model5" id="root_beacon_model5" value=''  > 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model5' onClick="delete_root_beceacon(this.id); return false;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -234,6 +246,9 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model6" id="root_beacon_model6" value=''  > 
                                             </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model6' onClick="delete_root_beceacon(this.id); return false;"> 
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12" name="root_beacon_7" id="root_beacon_7">
@@ -241,6 +256,9 @@
                                             <label class="col-sm-2 control-label">Root Beacon model#7<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model7" id="root_beacon_model7" value=''  > 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model7' onClick="delete_root_beceacon(this.id); return false;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -250,6 +268,9 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model8" id="root_beacon_model8" value=''  > 
                                             </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model8' onClick="delete_root_beceacon(this.id); return false;"> 
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12" name="root_beacon_9" id="root_beacon_9">
@@ -258,6 +279,9 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model9" id="root_beacon_model9" value=''  > 
                                             </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model9' onClick="delete_root_beceacon(this.id); return false;"> 
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12" name="root_beacon_10" id="root_beacon_10">
@@ -265,6 +289,9 @@
                                             <label class="col-sm-2 control-label">Root Beacon model#10<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="root_beacon_model10" id="root_beacon_model10" value=''  > 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model10' onClick="delete_root_beceacon(this.id); return false;"> 
                                             </div>
                                         </div>
                                     </div>
@@ -598,21 +625,21 @@
         var list_method = ($("#whitelistmethod").val());
         switch(list_method) {
             case "":
-                hide_whitelisting_elements();
+                hide_whitelisting_elements("");
                 break;
             case "Dedicated OPID":
-                hide_whitelisting_elements();
+                hide_whitelisting_elements("");
                 break;
             case "Country ID":
-                hide_whitelisting_elements();
+                hide_whitelisting_elements("country_id");
                 $("#country_id").show();
                 break;
             case "IP based":
-                hide_whitelisting_elements();
+                hide_whitelisting_elements("ip_range");
                 $("#ip_range").show();
                 break;
             case "Serial number":
-                hide_whitelisting_elements();
+                hide_whitelisting_elements("serial_number");
                 $("#serial_number").show();
                 break;
         }
@@ -623,6 +650,14 @@
         if(this.checked) {
             $("#tr069_acs").show();
         } else {
+            $("acs_url").val(null);
+            // $("acs_url").prop("value", " ");
+            // $("acs_url").val('xyz');
+            document.formxl.acs_url.value = "";
+            document.formxl.acs_username.value = "";
+            document.formxl.acs_password.value = "";
+            $("acs_username").val('');
+            $("acs_password").val('');
             $("#tr069_acs").hide();
         }
     })
@@ -630,12 +665,16 @@
         if(this.checked) {
             $("#home_controller_usp").show();
             if ($("#auto_upgrade_1").is(':checked')) {
-                $("#ota_yes_1").show();
+                $("#ota_yes_1").hide();
+                document.formxl.separate_license.value = "Select";
+                $("#separate_license").prop("value", "");
             }
         } else {
             $("#home_controller_usp").hide();
+            document.formxl.tenant_ref.value = "";
+            $("#tenant_ref").prop("value", "");
             if ($("#auto_upgrade_1").is(':checked')) {
-                $("#ota_yes_1").hide();
+                $("#ota_yes_1").show();
             }
         }
     })
@@ -644,33 +683,81 @@
             $("#rd_party_usp").show();
         } else {
             $("#rd_party_usp").hide();
+            document.formxl.usp_addr.value = "";
+            document.formxl.usp_port.value = "";
+            $("#usp_addr").prop("value", "");
+            $("#usp_port").prop("value", "");
         }
     })
     $(".otaradio").change(function(){
         //alert($("#home_controller").is(':checked'));
         if(this.id == "auto_upgrade_1") {
-            if ($("#home_controller").is(':checked')) {
+            if (!($("#home_controller").is(':checked'))) {
                 $("#ota_yes_1").show();
             }
             $("#ota_yes_2").show();
         } else {
             $("#ota_yes_1").hide();
             $("#ota_yes_2").hide();
+            document.formxl.separate_license.value = "Select";
+            $("#used_as_extender_y").prop('checked', false);
+            $("#used_as_extender_n").prop('checked', false);
+            clear_all_root_beacon_models();
         }
     })
+    function clear_all_root_beacon_models() {
+        for (let i=1; i<=10; i++) {
+            let item_value = "root_beacon_model" + i;
+            let item_flag = "#root_beacon_" + i;
+            document.formxl[item_value].value = "";
+            $(item_value).prop("value", "");
+            $(item_flag).hide();
+        }
+        $("#add_beacon").attr('disabled', false);
+    }
     $(".extenderradio").change(function(){
         //alert($("#home_controller").is(':checked'));
         if(this.id == "used_as_extender_y") {
             $("#root_beacon_1").show();
         } else {
-            $("#root_beacon_1").hide();
+            // $("#root_beacon_1").hide();
+            // document.formxl.root_beacon_model1.value = "";
+            clear_all_root_beacon_models();
         }
     })
 
-    function hide_whitelisting_elements() {
+    function hide_whitelisting_elements(elem) {
         $("#country_id").hide();
         $("#ip_range").hide();
         $("#serial_number").hide();
+        switch (elem) {
+            case "":
+                document.formxl.countryid.value = "";
+                document.formxl.iprange.value = "";
+                document.formxl.customer_name.value = "";
+                $("#countryid").prop("value", "");
+                $("#iprange").prop("value", "");
+                $("#customer_name").prop("value", "");
+                break;
+            case "country_id":
+                document.formxl.iprange.value = "";
+                document.formxl.customer_name.value = "";
+                $("#iprange").prop("value", "");
+                $("#customer_name").prop("value", "");
+                break;
+            case "ip_range":
+                document.formxl.countryid.value = "";
+                document.formxl.customer_name.value = "";
+                $("#countryid").prop("value", "");
+                $("#customer_name").prop("value", "");
+                break;
+            case "serial_number":
+                document.formxl.countryid.value = "";
+                document.formxl.iprange.value = "";
+                $("#countryid").prop("value", "");
+                $("#iprange").prop("value", "");
+                break;
+        }
     }
 
     function hide_boeng_option_elements() {
@@ -711,6 +798,25 @@
         }
     }
 
+    function delete_root_beceacon(id) {
+        let iid = parseInt(id.replace('delete_model', ''));
+        for (let i=iid; i<=10; i++) {
+            let item_value = "root_beacon_model" + i;
+            let item_value_next = "root_beacon_model" + (i+1);
+            let item_flag = "#root_beacon_" + i;
+            let item_flag_next = "#root_beacon_" + (i+1);
+            if (((i+1) > 10) || $(item_flag_next).is(":hidden")) {
+                document.formxl[item_value].value = "";
+                $(item_value).prop("value", "");
+                $(item_flag).hide();
+                break;
+            } else {
+                document.formxl[item_value].value = document.formxl[item_value_next].value;
+                $(item_value).prop("value", document.formxl[item_value_next].value);
+            }
+            
+        }
+    }
 
     $("[rel=drevil]").popover({
         trigger:'manual',
