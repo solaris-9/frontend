@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Customer<font color="#FF0000"></font></label>
                         <div class="col-sm-5">
-                            <select  class='form-control' name="Customer" id="Customer" style="height: 34px; width: 395px;" >
+                            <select  class='form-control boengDropDown' name="Customer" id="Customer">
                             <option value=""></option> 
                             </select>
                         </div>
@@ -45,7 +45,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Device Model<font color="#FF0000"></font></label>
                         <div class="col-sm-5">
-                            <select  class='form-control' name="device" id="device" style="height: 34px; width: 240px;" >
+                            <select  class='form-control boengDropDown' name="device" id="device" >
                             <option value=""></option> 
                             </select>                                                    
                         </div>
@@ -53,13 +53,15 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Operator ID<font color="#FF0000"></font></label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="OPID" id="OPID" value=''  > 
+                            <select  class='form-control boengDropDown' name="OPID" id="OPID">
+                                <option value=""></option> 
+                            </select> 
                         </div>
                     </div>
                     <div class="form-group">                            
                         <label class="col-sm-2 control-label">Whitelisting method<font color="#FF0000"></font></label>
                         <div class="col-sm-3">
-                            <select class="input-sm" name='whitelistmethod' id='whitelistmethod' style="height: 30px; width: 240px;">
+                            <select class="input-sm boengDropDown" name='whitelistmethod' id='whitelistmethod'>
                                 <option value='' selected="selected">Select</option>
                                 <option value="Dedicated OPID" >Dedicated OPID</option>
                                 <option value="Country ID" >Country ID</option>
@@ -130,8 +132,10 @@
                         <div class="col-sm-12" name="home_controller_usp" id="home_controller_usp">
                             <label class="col-sm-2 control-label">Reference to tenant hosting ticket or golden copy rule in database (filtered by customer name)<font color="#FF0000"></font></label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="tenant_ref" id="tenant_ref" value=''  > 
-                            </div>
+                                <select  class='form-control boengDropDown' name="tenant_ref" id="tenant_ref">
+                                    <option value=""></option> 
+                                </select> 
+                                </div>
                         </div>
                     </div>
 
@@ -149,21 +153,22 @@
                     </div>                      
                     <div class="form-group">                            
                         <label class="col-sm-2 control-label">Automatic SW updates with OTA?<font color="#FF0000"></font></label>
-                        
-                        <div class="input-group mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_1">
-                                <label class="form-check-label" for="auto_upgrade_1">Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</label>
-                            </div>                            
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_2">
-                                <label class="form-check-label" for="auto_upgrade_2">No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</label>
-                            </div>                            
+                        <div class="col-sm-10">
+                            <!-- <div class="input-group mb-3"> -->
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_1">
+                                    <label class="form-check-label" for="auto_upgrade_1">Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</label>
+                                </div>                            
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_2">
+                                    <label class="form-check-label" for="auto_upgrade_2">No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</label>
+                                </div>                            
+                            <!-- </div> -->
                         </div>
                         <div class="col-sm-12" name="ota_yes_1" id="ota_yes_1">
                             <label class="col-sm-2 control-label">Is there a separate license for OTA included or explicit BBD approval to allow OTA for this product?<font color="#FF0000"></font></label>
                             <div class="col-sm-3">
-                                <select class="input-sm" name='separate_license' id='separate_license' style="height: 30px; width: 240px;">
+                                <select class="input-sm boengDropDown" name='separate_license' id='separate_license'>
                                     <option value='' selected="selected">Select</option>
                                     <option value="Yes" >Yes</option>
                                     <option value="No" >No</option>
@@ -172,13 +177,13 @@
                         </div>                            
                         <div class="col-sm-12" name="ota_yes_2" id="ota_yes_2">
                             <label class="col-sm-2 control-label">Will this device also be used as extender to other root Beacons?<font color="#FF0000"></font></label>
-                            <div class="input-group mb-3">
+                            <div class="input-group col-sm-10">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_y">
+                                    &nbsp;&nbsp;<input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_y">
                                     <label class="form-check-label" for="used_as_extender_y">Yes</label>
                                 </div>                            
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_n">
+                                    &nbsp;&nbsp;<input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_n">
                                     <label class="form-check-label" for="used_as_extender_n">No</label>
                                 </div>                            
                             </div>
@@ -188,7 +193,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#1<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model1">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model1">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -202,7 +207,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#2<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model2">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model2">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -215,7 +220,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#3<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model3">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model3">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -228,7 +233,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#4<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model4">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model4">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -241,7 +246,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#5<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model5">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model5">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -254,7 +259,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#6<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model6">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model6">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -267,7 +272,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#7<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model7">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model7">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -280,7 +285,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#8<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model8">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model8">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -293,7 +298,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#9<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model9">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model9">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -306,7 +311,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Root Beacon model#10<font color="#FF0000"></font></label>
                                             <div class="col-sm-8">
-                                                <select  class='form-control' name="root_beacon_model" id="root_beacon_model10">
+                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model10">
                                                     <option value=""></option> 
                                                 </select>
                                             </div>
@@ -361,8 +366,11 @@
 
     var cookie_name = "username";
     var cookie_mail = "mail"; 
-    var flag = 0
+    var flag = 0;
     var b_id = decode_bid(location.search);
+
+    var nwcc_saas = new Map();
+
     //alert(b_id)
     function decode_bid(ss) {
         var id = decodeURI(ss).split('=')[1];
@@ -377,6 +385,8 @@
         show_div();
         fetch_customer();
         fetch_device();
+        fetch_nwcc_saas();
+        fetch_opid();
         if (b_id.length > 0) {
             fetch_boengrule_info();
         }
@@ -389,14 +399,16 @@
         $.getJSON("gpi/allocate/fetch_boengrule",{"B_ID": b_id, 'type': '0'}, function (data) {
             //$("#Customer").prop('value', data.data.items[0].Customer)
             //$("#device").prop('value', data.data.items[0].device);
-            document.formxl.Customer.value = data.data.items[0].Customer;
+            let customer = data.data.items[0].Customer;
+            document.formxl.Customer.value = customer;
             const l_device = String(data.data.items[0].device);
             document.formxl.device.value = l_device;
             // console.log('l_device=',l_device,'l_device.length=',l_device.length)
             // $("#device").val(l_device);
 
-            $("#OPID").prop('value', data.data.items[0].OPID)
-            $("#whitelistmethod").prop('value', data.data.items[0].whitelistmethod)
+            render_nwcc(customer);            
+            $("#OPID").prop('value', data.data.items[0].OPID);
+            $("#whitelistmethod").prop('value', data.data.items[0].whitelistmethod);
             if (data.data.items[0].country_id) {
                 $("#country_id").hide();
             } else {
@@ -510,7 +522,7 @@
         $.ajaxSetup({
             async: true
         });       
-    }
+    };
      
     function fetch_device(){
         mail = $.cookie(cookie_mail)
@@ -535,6 +547,48 @@
         });       
 
     };
+
+    function fetch_nwcc_saas(){
+        $.ajaxSetup({
+            async: false
+        });       
+        $.getJSON("gpi/allocate/nwcc_list", {"type": "4"}, function (data) {
+            for(let i=0; i<data.data.items.length; i++){
+                 let Customer = data.data.items[i]['Customer'];
+                 let Platform = data.data.items[i]['Platform'];
+                 if (nwcc_saas.has(Customer)) {
+                    if (!nwcc_saas.get(Customer).Platform.includes(Platform)) {
+                        nwcc_saas.get(Customer).Platform.push(Platform)
+                    }
+                 } else {
+                    nwcc_saas.set(Customer,{
+                        Platform: [Platform]
+                    });
+                 }
+            };  
+        });
+        $.ajaxSetup({
+            async: true
+        });
+    }
+
+    function fetch_opid(){
+        $.ajaxSetup({
+            async: false
+        });       
+        $.getJSON("gpi/allocate/opid_list", {"type": "4"}, function (data) {
+            for(let i=0; i<data.data.items.length; i++){
+                document.formxl.OPID.options[document.formxl.OPID.length]=new Option(
+                    data.data.items[i]['OPID'].trim()
+                );
+            };  
+        });
+        $.ajaxSetup({
+            async: true
+        });
+    }
+
+
 
     function save() {
         mail = $.cookie(cookie_mail);
@@ -645,6 +699,32 @@
 
     $(function () { $("[data-toggle='popover']").popover(); });
 
+    function removeOptions(elem) {
+        for (let i=elem.options.length-1; i>0; i--) {
+            elem.remove(i);
+        }
+    };
+
+    function render_nwcc(cus) {
+        if (nwcc_saas.has(cus)) {
+            for (let i=0; i<nwcc_saas.get(cus).Platform.length; i++) {
+                if (nwcc_saas.get(cus).Platform[i] != "") {
+                    document.formxl.tenant_ref.options[document.formxl.tenant_ref.length]=new Option(
+                        nwcc_saas.get(cus).Platform[i]
+                    );
+                }
+            };
+        } 
+    };
+
+    $("#Customer").change(function(){    
+        var customer = ($("#Customer").val());
+
+        removeOptions(document.formxl.tenant_ref);
+        render_nwcc(customer);
+    });
+
+
     $("#whitelistmethod").change(function(){    
         var list_method = ($("#whitelistmethod").val());
         switch(list_method) {
@@ -668,7 +748,7 @@
                 break;
         }
   
-    })
+    });
 
     $("#tr069").change(function(){    
         if(this.checked) {

@@ -5,7 +5,7 @@
  *
 */
 
-/* load #1*/
+/* loader #1*/
 @keyframes page-load {
     from {
         background-color: #ffc422;
@@ -134,3 +134,8 @@
   .danger {background-color: #f44336;} /* Red */
   .other {background-color: #e7e7e7; color: black;} /* Gray */
 
+
+  .boengDropDown {
+    height: 34px; 
+    width: 500px;
+  }
