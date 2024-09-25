@@ -84,12 +84,16 @@
                     </div>
                     <div class="form-group col-sm-12" name="serial_number" id="serial_number">
                         <label class="col-sm-2 control-label">Customer name as used in deployment reports for automated whitelisting<font color="#FF0000"></font></label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <input type="text" class="form-control" name="customer_name" id="customer_name" value=''  > 
                         </div>
                         <label class="col-sm-2 control-label">CSV file with serial numbers to be whitelisted in case of trial instance or automated whitelisting is not possible<font color="#FF0000"></font></label>
                         <div class="col-sm-3">
-                            <input type="file" class="form-control-file" name="csv_file" id="csv_file" > 
+                            <input type="file" class="form-control-file" name="csv_file" id="csv_file" style="display: none;" accept=".csv">
+                            <label for="csv_file" class="info whitetext" id="csv_file_label">Click to upload CSV</label> 
+                        </div>
+                        <div class="col-sm-1">
+                            <div id="csv_url"></div>
                         </div>
                     </div>
 
@@ -370,6 +374,7 @@
     var b_id = decode_bid(location.search);
 
     var nwcc_saas = new Map();
+    var global_csv_file = '';
 
     //alert(b_id)
     function decode_bid(ss) {
@@ -428,6 +433,12 @@
             }
             $("#customer_name").prop('value', data.data.items[0].customer_name)
             //$("#csv_file").prop('value', data.data.items[0].csv_file)
+            global_csv_file = data.data.items[0].csv_file;
+            var html = '<p><a href="gpi/allocate/download?file=' +
+                global_csv_file + '">' + global_csv_file + '</a></p>';
+            if (data.data.items[0].csv_file.length > 0) {
+                $("#csv_url").html(html);
+            };
             if (data.data.items[0].tr069) {
                 $("#tr069").prop('checked', true);
             }
@@ -588,7 +599,36 @@
         });
     }
 
+    $("#csv_file").change(function(e){
+        //alert("CSV file");
+        upload();
+    });
 
+    function upload() {
+        var csv=$("#csv_file")[0].files[0];
+        if (csv.name.length <= 0) {
+            return;
+        }
+        var data = new FormData();
+        data.append('file', csv);
+        global_csv_file = csv.name;
+        var html = '<p><a href="gpi/allocate/download?file=' +
+            global_csv_file + '">' + global_csv_file + '</a></p>';
+
+        $.ajax({
+            url: "gpi/allocate/csv_upload",
+            type: "POST",
+            data: data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(msg) {
+                $("#csv_url").html(html);
+                $("#csv_file_label").text(global_csv_file + " uploaded OK.");
+            }
+        });
+
+    };
 
     function save() {
         mail = $.cookie(cookie_mail);
@@ -618,6 +658,10 @@
             ($("#root_beacon_10").is(':hidden'))?'1':'0',
         ];
         
+        // let csv_file = "";
+        // if ($("#csv_file").length > 0) {
+        //     csv_file = $("#csv_file")[0].files[0].name;
+        // };
         var data = {
             mail: mail,
             Customer: document.formxl.Customer.value,
@@ -630,7 +674,7 @@
             iprange: document.formxl.iprange.value,
             serial_number: $("#serial_number").is(':hidden'),
             customer_name: document.formxl.customer_name.value,
-            csv_file: document.formxl.csv_file.value,
+            csv_file: global_csv_file,
             tr069: $("#tr069").is(':checked'),
             home_controller: $("#home_controller").is(':checked'),
             rd_party_controller: $("#rd_party_controller").is(':checked'),
@@ -921,6 +965,13 @@
             
         }
     }
+
+    // $("#csv_file").fileupload({
+    //     add: function(e, data) {
+    //         alert(data.files[0].name);
+    //         var jqXHR = data.submit();
+    //     }
+    // });
 
     $("[rel=drevil]").popover({
         trigger:'manual',
