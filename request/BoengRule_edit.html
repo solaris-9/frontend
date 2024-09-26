@@ -35,11 +35,12 @@
                                             
                 <div class="ibox-content"> 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Customer<font color="#FF0000"></font></label>
+                        <label class="col-sm-2 control-label">Customer<span id="alert_Customer"></span></label>
                         <div class="col-sm-5">
                             <select  class='form-control boengDropDown' name="Customer" id="Customer">
                             <option value=""></option> 
                             </select>
+                            <div class="errorValidation" id="error_Customer">Customer is required</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -47,7 +48,8 @@
                         <div class="col-sm-5">
                             <select  class='form-control boengDropDown' name="device" id="device" >
                             <option value=""></option> 
-                            </select>                                                    
+                            </select>
+                            <div class="errorValidation" id="error_device">Device Model is required</div>                                                  
                         </div>
                     </div>
                     <div class="form-group">
@@ -55,37 +57,42 @@
                         <div class="col-sm-3">
                             <select  class='form-control boengDropDown' name="OPID" id="OPID">
                                 <option value=""></option> 
-                            </select> 
+                            </select>
+                            <div class="errorValidation" id="error_OPID">Operator ID is required</div> 
                         </div>
                     </div>
                     <div class="form-group">                            
                         <label class="col-sm-2 control-label">Whitelisting method<font color="#FF0000"></font></label>
                         <div class="col-sm-3">
                             <select class="input-sm boengDropDown" name='whitelistmethod' id='whitelistmethod'>
-                                <option value='' selected="selected">Select</option>
+                                <option value='' selected="selected"></option>
                                 <option value="Dedicated OPID" >Dedicated OPID</option>
                                 <option value="Country ID" >Country ID</option>
                                 <option value="IP based" >IP based</option>             
                                 <option value="Serial number" >Serial number</option>    
                             </select>
+                            <div class="errorValidation" id="error_whitelistmethod">Whitelisting method is required</div>
                         </div>
                         <div name="country_id" id="country_id">
                             <label class="col-sm-2 control-label">Country ID<font color="#FF0000"></font></label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="countryid" id="countryid" value=''  > 
+                                <input type="text" class="form-control" name="countryid" id="countryid" value=''  >
+                                <div class="errorValidation" id="error_countryid">Country ID is required</div>
                             </div>
                         </div>
                         <div name="ip_range" id="ip_range">
                             <label class="col-sm-2 control-label">IP ranges<font color="#FF0000"></font></label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="iprange" id="iprange" value=''  > 
+                                <input type="text" class="form-control" name="iprange" id="iprange" value=''  >
+                                <div class="errorValidation" id="error_iprange">IP ranges is required</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-sm-12" name="serial_number" id="serial_number">
                         <label class="col-sm-2 control-label">Customer name as used in deployment reports for automated whitelisting<font color="#FF0000"></font></label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="customer_name" id="customer_name" value=''  > 
+                            <input type="text" class="form-control" name="customer_name" id="customer_name" value=''  >
+                            <div class="errorValidation" id="error_customer_name">Either Customer or CSV file is required</div>
                         </div>
                         <label class="col-sm-2 control-label">CSV file with serial numbers to be whitelisted in case of trial instance or automated whitelisting is not possible<font color="#FF0000"></font></label>
                         <div class="col-sm-3">
@@ -112,6 +119,7 @@
                                 <input class="form-check-input" type="checkbox" id="rd_party_controller">
                                 <label class="form-check-label" for="flexSwitchCheckDefault">3rd party USP Controller</label>
                             </div>
+                            <div class="errorValidation" id="error_boeng_option">At least one BoENG Option is required</div>
                         </div>
                     </div>
 
@@ -119,15 +127,18 @@
                         <div class="col-sm-12" name="tr069_acs" id="tr069_acs">
                             <label class="col-sm-2 control-label">ACS URL<font color="#FF0000"></font></label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="acs_url" id="acs_url" value=''  > 
+                                <input type="text" class="form-control" name="acs_url" id="acs_url" value=''  >
+                                <div class="errorValidation" id="error_acs_url">ACS URL is required</div>
                             </div>
                             <label class="col-sm-2 control-label">ACS username<font color="#FF0000"></font></label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" name="acs_username" id="acs_username" value=''  > 
+                                <input type="text" class="form-control" name="acs_username" id="acs_username" value=''  >
+                                <div class="errorValidation" id="error_acs_username">ACS User Name is required</div> 
                             </div>
                             <label class="col-sm-2 control-label">ACS password<font color="#FF0000"></font></label>
                             <div class="col-sm-1">
-                                <input type="text" class="form-control" name="acs_password" id="acs_password" value=''  > 
+                                <input type="text" class="form-control" name="acs_password" id="acs_password" value=''  >
+                                <div class="errorValidation" id="error_acs_password">ACS Password is required</div>
                             </div>
                         </div>
                     </div>
@@ -138,8 +149,9 @@
                             <div class="col-sm-10">
                                 <select  class='form-control boengDropDown' name="tenant_ref" id="tenant_ref">
                                     <option value=""></option> 
-                                </select> 
-                                </div>
+                                </select>
+                                <div class="errorValidation" id="error_tenant_ref">Platform is required</div>
+                            </div>
                         </div>
                     </div>
 
@@ -147,11 +159,13 @@
                         <div class="col-sm-12" name="rd_party_usp" id="rd_party_usp">
                             <label class="col-sm-2 control-label">USP Controller address<font color="#FF0000"></font></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="usp_addr" id="usp_addr" value=''  > 
+                                <input type="text" class="form-control" name="usp_addr" id="usp_addr" value=''  >
+                                <div class="errorValidation" id="error_usp_addr">USP Addr is required</div> 
                             </div>
                             <label class="col-sm-2 control-label">USP Controller port<font color="#FF0000"></font></label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="usp_port" id="usp_port" value=''  > 
+                                <input type="text" class="form-control" name="usp_port" id="usp_port" value=''  >
+                                <div class="errorValidation" id="error_usp_port">USP Port is required</div>
                             </div>
                         </div>
                     </div>                      
@@ -166,17 +180,19 @@
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_2">
                                     <label class="form-check-label" for="auto_upgrade_2">No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</label>
-                                </div>                            
+                                </div>
+                                <div class="errorValidation" id="error_OTA">OTA option is required</div>                          
                             <!-- </div> -->
                         </div>
                         <div class="col-sm-12" name="ota_yes_1" id="ota_yes_1">
                             <label class="col-sm-2 control-label">Is there a separate license for OTA included or explicit BBD approval to allow OTA for this product?<font color="#FF0000"></font></label>
                             <div class="col-sm-3">
                                 <select class="input-sm boengDropDown" name='separate_license' id='separate_license'>
-                                    <option value='' selected="selected">Select</option>
+                                    <option value='' selected="selected"></option>
                                     <option value="Yes" >Yes</option>
                                     <option value="No" >No</option>
                                 </select>
+                                <div class="errorValidation" id="error_separate_license">Separate license is required</div>
                             </div>
                         </div>                            
                         <div class="col-sm-12" name="ota_yes_2" id="ota_yes_2">
@@ -189,7 +205,8 @@
                                 <div class="form-check form-check-inline">
                                     &nbsp;&nbsp;<input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_n">
                                     <label class="form-check-label" for="used_as_extender_n">No</label>
-                                </div>                            
+                                </div>
+                                <div class="errorValidation" id="error_extender">Extender option is required</div>                            
                             </div>
                             <div class="col-sm-12" name="root_beacon_1" id="root_beacon_1">
                                 <div class="form-group">
@@ -200,6 +217,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model1">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model1">Root Beacon model#1 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn btn-sm whitetext info" type="button" name="add_beacon" id="add_beacon" value="Add Another Root Beacon" onClick="add_root_beacon()">
@@ -214,6 +232,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model2">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model2">Root Beacon model#2 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model2' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -227,6 +246,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model3">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model3">Root Beacon model#3 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model3' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -240,6 +260,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model4">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model4">Root Beacon model#4 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model4' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -253,6 +274,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model5">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model5">Root Beacon model#5 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model5' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -266,6 +288,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model6">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model6">Root Beacon model#6 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model6' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -279,6 +302,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model7">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model7">Root Beacon model#7 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model7' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -292,6 +316,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model8">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model8">Root Beacon model#8 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model8' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -305,6 +330,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model9">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model9">Root Beacon model#9 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model9' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -318,6 +344,7 @@
                                                 <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model10">
                                                     <option value=""></option> 
                                                 </select>
+                                                <div class="errorValidation" id="error_root_beacon_model10">Root Beacon model#10 is required</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <input class="btn whitetext danger" type="button" value='Delete' id='delete_model10' onClick="delete_root_beceacon(this.id); return false;"> 
@@ -336,10 +363,11 @@
 
                     </div>
                     <div class="hr-line-dashed"></div>
+                    <div class="errorValidation" id="error_all"></div>
+
                         <div class="form-group" >
                             <div class="col-sm-4 col-sm-offset-2">
                                 <input class="btn whitetext success" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="save(); return false;">
-                                
                                 <input class='btn whitetext warning' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
                             </div>
                         </div>
@@ -630,7 +658,176 @@
 
     };
 
+    function pre_validation() {
+        // make sure all input are not empty and valid
+        // const alert_html = '<font color="#FF0000" size="4">*</font>';
+        // const pass_html = '';
+        var count = 0;
+        if (document.formxl.Customer.value.trim().length <= 0) {
+            $("#error_Customer").show();
+            count++;
+        } else {
+            $("#error_Customer").hide();
+        };
+        if (document.formxl.device.value.trim().length <= 0) {
+            $("#error_device").show();
+            count++;
+        } else {
+            $("#error_device").hide();
+        };
+        if (document.formxl.OPID.value.trim().length <= 0) {
+            $("#error_OPID").show();
+            count++;
+        } else {
+            $("#error_OPID").hide();
+        };
+        if (document.formxl.whitelistmethod.value.trim().length <= 0) {
+            $("#error_whitelistmethod").show();
+            count++;
+        } else {
+            $("#error_whitelistmethod").hide();
+        };
+
+        if (!($("#country_id").is(':hidden'))) {
+            if (document.formxl.countryid.value.trim().length <= 0) {
+                $("#error_countryid").show();
+                count++;
+            } else {
+                $("#error_countryid").hide();
+            };
+        };
+
+        if (!($("#ip_range").is(':hidden'))) {
+            if (document.formxl.iprange.value.trim().length <= 0) {
+                $("#error_iprange").show();
+                count++;
+            } else {
+                $("#error_iprange").hide();
+            };
+        };
+
+        if (!($("#serial_number").is(':hidden'))) {
+            if (!(document.formxl.customer_name.value.trim().length > 0 || 
+                document.formxl.csv_file.value.trim().length > 0 ||
+                global_csv_file.trim().length > 0
+                )) {
+                $("#error_customer_name").show();
+                count++;
+            } else {
+                $("#error_customer_name").hide();
+            };
+        };
+
+        if (!($("#tr069").is(':checked') || $("#home_controller").is(':checked') || $("#rd_party_controller").is(':checked'))) {
+            $("#error_boeng_option").show();
+            count++;
+        } else {
+            $("#error_boeng_option").hide();
+        };
+
+        if (!($("#tr069_acs").is(':hidden'))) {
+            if (document.formxl.acs_url.value.trim().length <= 0) {
+                $("#error_acs_url").show();
+                count++;
+            } else {
+                $("#error_acs_url").hide();
+            };
+            if (document.formxl.acs_username.value.trim().length <= 0) {
+                $("#error_acs_username").show();
+                count++;
+            } else {
+                $("#error_acs_username").hide();
+            };
+            if (document.formxl.acs_password.value.trim().length <= 0) {
+                $("#error_acs_password").show();
+                count++;
+            } else {
+                $("#error_acs_password").hide();
+            };
+        };
+
+        if (!($("#home_controller_usp").is(':hidden'))) {
+            if (document.formxl.tenant_ref.value.trim().length <= 0) {
+                $("#error_tenant_ref").show();
+                count++;
+            } else {
+                $("#error_tenant_ref").hide();
+            };
+        };
+
+        if (!($("#rd_party_usp").is(':hidden'))) {
+            if (document.formxl.usp_addr.value.trim().length <= 0) {
+                $("#error_usp_addr").show();
+                count++;
+            } else {
+                $("#error_usp_addr").hide();
+            };
+            if (document.formxl.usp_port.value.trim().length <= 0) {
+                $("#error_usp_port").show();
+                count++;
+            } else {
+                $("#error_usp_port").hide();
+            };
+        };
+
+        if (!($("#auto_upgrade_1").is(':checked') || $("#auto_upgrade_2").is(':checked'))) {
+            $("#error_OTA").show();
+            count++;
+        } else {
+            $("#error_OTA").hide();
+        };
+
+        if (!($("#ota_yes_1").is(':hidden'))) {
+            if (document.formxl.separate_license.value.trim().length <= 0) {
+                $("#error_separate_license").show();
+                count++;
+            } else {
+                $("#error_separate_license").hide();
+            };
+        };
+
+        if (!($("#ota_yes_2").is(':hidden'))) {
+            if (!($("#used_as_extender_y").is(':checked') || $("#used_as_extender_n").is(':checked'))) {
+                $("#error_extender").show();
+                count++;
+            } else {
+                $("#error_extender").hide();
+            };
+
+            if ($("#used_as_extender_y").is(':checked')) {
+                for (let i=1; i<=10; i++) {
+                    let flag_div = "#root_beacon_" + i;
+                    let value_div = "root_beacon_model" + i;
+                    let error_div = "#error_root_beacon_model" + i;
+                    //console.log(flag_div + ", is.hidden = " + $(flag_div).is(":hidden"));
+                    if (!($(flag_div).is(":hidden"))) {
+                        if (document.formxl[value_div].value.trim().length <= 0) {
+                            $(error_div).show();
+                            count++;
+                        } else {
+                            $(error_div).hide();
+                        };
+                    };
+                };
+            };
+        };
+
+        if (count > 0) {
+            $("#error_all").text("You have " + count + " error(s) in this form!");
+            $("#error_all").show();
+            return false;
+        } else {
+            $("#error_all").text("");
+            $("#error_all").hide();
+            return true;
+        };
+    };
+
     function save() {
+        let res = pre_validation();
+        if (!res) {
+            return;
+        };
         mail = $.cookie(cookie_mail);
         const url = 'gpi/allocate/new_boeng_edit';;
         const root_beacon_model = [
@@ -814,7 +1011,7 @@
             $("#home_controller_usp").show();
             if ($("#auto_upgrade_1").is(':checked')) {
                 $("#ota_yes_1").hide();
-                document.formxl.separate_license.value = "Select";
+                document.formxl.separate_license.value = "";
                 $("#separate_license").prop("value", "");
             }
         } else {
@@ -847,7 +1044,7 @@
         } else {
             $("#ota_yes_1").hide();
             $("#ota_yes_2").hide();
-            document.formxl.separate_license.value = "Select";
+            document.formxl.separate_license.value = "";
             $("#used_as_extender_y").prop('checked', false);
             $("#used_as_extender_n").prop('checked', false);
             clear_all_root_beacon_models();

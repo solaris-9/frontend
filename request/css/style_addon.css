@@ -139,3 +139,10 @@
     height: 34px; 
     width: 500px;
   }
+
+  .errorValidation {
+    font-size: 80%; 
+    color: red;
+    display: none;
+  }  
+  
