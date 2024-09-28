@@ -6,381 +6,402 @@
 <title>Add BoENG Rule</title>
 
 <link rel="shortcut icon" href="favicon.ico">
-<link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+<!-- <link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet"> -->
+<link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
 <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet">
-<link rel="stylesheet" href="css/bootstrap-select.css">
+<!-- <link rel="stylesheet" href="css/bootstrap-select.css"> -->
 <link href="css/style1.css" rel="stylesheet">
 <link href="css/style_addon.css" rel="stylesheet">
 
 </head>
 
 <body class="gray-bg">
-<div class="loader-container" id="preloader">
-    <div class="bouncing-dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+    <div class="loader-container" id="preloader">
+        <div class="bouncing-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
     </div>
-</div>
-<div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
-    <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-sm-12">
+    <div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
+        <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
             <div class="ibox float-e-margins">
                 <div class="ibox-title" >
                     <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Input information</font></h5>
                 </div>    
-                                            
-                <div class="ibox-content"> 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Customer<span id="alert_Customer"></span></label>
-                        <div class="col-sm-5">
-                            <select  class='form-control boengDropDown' name="Customer" id="Customer">
+                <div class="ibox-content">
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Customer">Customer</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="Customer" id="Customer">
                             <option value=""></option> 
                             </select>
                             <div class="errorValidation" id="error_Customer">Customer is required</div>
                         </div>
+                        <div class="col-2">
+                            <a role="button" class="btn btn-sm whitetext info" data-bs-toggle="modal" data-bs-target="#customerModal" id="btnModal">Add New Customer</a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Device Model<font color="#FF0000"></font></label>
-                        <div class="col-sm-5">
-                            <select  class='form-control boengDropDown' name="device" id="device" >
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="device">Device Model</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="device" id="device" >
                             <option value=""></option> 
                             </select>
                             <div class="errorValidation" id="error_device">Device Model is required</div>                                                  
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Operator ID<font color="#FF0000"></font></label>
-                        <div class="col-sm-3">
-                            <select  class='form-control boengDropDown' name="OPID" id="OPID">
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="OPID">Operator ID</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="OPID" id="OPID">
                                 <option value=""></option> 
                             </select>
                             <div class="errorValidation" id="error_OPID">Operator ID is required</div> 
                         </div>
                     </div>
-                    <div class="form-group">                            
-                        <label class="col-sm-2 control-label">Whitelisting method<font color="#FF0000"></font></label>
-                        <div class="col-sm-3">
-                            <select class="input-sm boengDropDown" name='whitelistmethod' id='whitelistmethod'>
+                    <div class="form-group row p-1">                            
+                        <label class="col-2 col-form-label text-end fw-bold" for="whitelistmethod">Whitelisting Method</label>
+                        <div class="col-4">
+                            <select class="form-select" name='whitelistmethod' id='whitelistmethod'>
                                 <option value='' selected="selected"></option>
                                 <option value="Dedicated OPID" >Dedicated OPID</option>
-                                <option value="Country ID" >Country ID</option>
+                                <!-- <option value="Country ID" >Country ID</option> -->
                                 <option value="IP based" >IP based</option>             
                                 <option value="Serial number" >Serial number</option>    
                             </select>
                             <div class="errorValidation" id="error_whitelistmethod">Whitelisting method is required</div>
                         </div>
-                        <div name="country_id" id="country_id">
-                            <label class="col-sm-2 control-label">Country ID<font color="#FF0000"></font></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="countryid" id="countryid" value=''  >
-                                <div class="errorValidation" id="error_countryid">Country ID is required</div>
-                            </div>
+                        <!-- <div name="country_id" id="country_id" class="col-6"> -->
+                            <!-- <div class="row"> -->
+                        <label class="col-2 col-form-label text-end fw-bold" for="countryid">Country ID</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="countryid" id="countryid" value=''  >
+                            <div class="errorValidation" id="error_countryid">Country ID is required</div>
                         </div>
-                        <div name="ip_range" id="ip_range">
+                            <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- <div name="ip_range" id="ip_range">
                             <label class="col-sm-2 control-label">IP ranges<font color="#FF0000"></font></label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" name="iprange" id="iprange" value=''  >
                                 <div class="errorValidation" id="error_iprange">IP ranges is required</div>
                             </div>
+                        </div> -->
+                    </div>
+                    <div class="form-group row p-1" name="ip_range" id="ip_range">
+                        <label class="col-2 col-form-label text-end fw-bold" for="iprange">IP Ranges</label>
+                        <div class="col-10">
+                            <textarea class="form-control" rows="2" maxlength="100" name="iprange" id="iprange" value=''></textarea>
+                            <div class="fieldComment" id="comment_ip_range">Both IPv4 and IPv6 ranges can be entered. Use ; to separate entries. Example: 15.14.13.12/24; 3af2:12345::/48.</div>
+                            <div class="errorValidation" id="error_iprange">IP ranges is required</div>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12" name="serial_number" id="serial_number">
-                        <label class="col-sm-2 control-label">Customer name as used in deployment reports for automated whitelisting<font color="#FF0000"></font></label>
-                        <div class="col-sm-3">
+                    <div class="form-group row p-1" name="serial_number" id="serial_number">
+                        <label class="col-2 col-form-label text-end fw-bold" for="customer_name">Customer ID as used in deployment reports for automated whitelisting (10 digits numberical identifier starting with 10)</label>
+                        <div class="col-3">
                             <input type="text" class="form-control" name="customer_name" id="customer_name" value=''  >
                             <div class="errorValidation" id="error_customer_name">Either Customer or CSV file is required</div>
                         </div>
-                        <label class="col-sm-2 control-label">CSV file with serial numbers to be whitelisted in case of trial instance or automated whitelisting is not possible<font color="#FF0000"></font></label>
-                        <div class="col-sm-3">
+                        <label class="col-2 col-form-label text-end fw-bold" for="csv_file">CSV file with serial numbers to be whitelisted in case of trial instance or automated whitelisting is not possible</label>
+                        <div class="col-3">
                             <input type="file" class="form-control-file" name="csv_file" id="csv_file" style="display: none;" accept=".csv">
                             <label for="csv_file" class="info whitetext" id="csv_file_label">Click to upload CSV</label> 
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-1">
                             <div id="csv_url"></div>
                         </div>
                     </div>
 
-                    <div class="form-group">                            
-                        <label class="col-sm-2 control-label">BoENG Options<font color="#FF0000"></font></label>
-                        <div class="input-group col-sm-5">
-                            <div class="form-check form-check-inline">
+                    <div class="form-group row p-1">                            
+                        <label class="col-2 col-form-label text-end fw-bold" for="iprange">BoENG Options<font color="#FF0000"></font></label>
+                        <div class="col-5">
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="tr069">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">TR-069/ACS</label>
+                                <label class="form-check-label" for="tr069">TR-069/ACS</label>
                             </div>                            
-                            <div class="form-check form-check-inline">
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="home_controller">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Home Controller USP Agent</label>
+                                <label class="form-check-label" for="home_controller">Home Controller USP Agent</label>
                             </div>                            
-                            <div class="form-check form-check-inline">
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="rd_party_controller">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">3rd party USP Controller</label>
+                                <label class="form-check-label" for="rd_party_controller">3rd party USP Controller</label>
                             </div>
                             <div class="errorValidation" id="error_boeng_option">At least one BoENG Option is required</div>
                         </div>
                     </div>
 
-                    <div class="form-group">                            
-                        <div class="col-sm-12" name="tr069_acs" id="tr069_acs">
-                            <label class="col-sm-2 control-label">ACS URL<font color="#FF0000"></font></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="acs_url" id="acs_url" value=''  >
-                                <div class="errorValidation" id="error_acs_url">ACS URL is required</div>
-                            </div>
-                            <label class="col-sm-2 control-label">ACS username<font color="#FF0000"></font></label>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" name="acs_username" id="acs_username" value=''  >
-                                <div class="errorValidation" id="error_acs_username">ACS User Name is required</div> 
-                            </div>
-                            <label class="col-sm-2 control-label">ACS password<font color="#FF0000"></font></label>
-                            <div class="col-sm-1">
-                                <input type="text" class="form-control" name="acs_password" id="acs_password" value=''  >
-                                <div class="errorValidation" id="error_acs_password">ACS Password is required</div>
-                            </div>
+                    <div class="form-group row p-1" name="tr069_acs" id="tr069_acs">                            
+                        <label class="col-sm-2 col-form-label text-end fw-bold" for="acs_url">TR069/ACS Server/User Name/Password</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="acs_url" id="acs_url" placeholder="ACS Server URL" value=''  >
+                            <div class="errorValidation" id="error_acs_url">ACS Server URL is required</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" name="acs_username" id="acs_username" placeholder="ACS User Name" value=''  >
+                            <div class="errorValidation" id="error_acs_username">ACS User Name is required</div> 
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="acs_password" id="acs_password" placeholder="ACS Password" value=''  >
+                            <div class="errorValidation" id="error_acs_password">ACS Password is required</div>
                         </div>
                     </div>
 
-                    <div class="form-group">                            
-                        <div class="col-sm-12" name="home_controller_usp" id="home_controller_usp">
-                            <label class="col-sm-2 control-label">Reference to tenant hosting ticket or golden copy rule in database (filtered by customer name)<font color="#FF0000"></font></label>
-                            <div class="col-sm-10">
-                                <select  class='form-control boengDropDown' name="tenant_ref" id="tenant_ref">
-                                    <option value=""></option> 
-                                </select>
-                                <div class="errorValidation" id="error_tenant_ref">Platform is required</div>
-                            </div>
+                    <div class="form-group row p-1" name="rd_party_usp" id="rd_party_usp">                            
+                        <label class="col-2 col-form-label text-end fw-bold" for="usp_addr">USP Controller Address/Port</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="usp_addr" id="usp_addr" placeholder="USP Controller Address" value=''  >
+                            <div class="errorValidation" id="error_usp_addr">USP Addr is required</div> 
                         </div>
-                    </div>
-
-                    <div class="form-group">                            
-                        <div class="col-sm-12" name="rd_party_usp" id="rd_party_usp">
-                            <label class="col-sm-2 control-label">USP Controller address<font color="#FF0000"></font></label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" name="usp_addr" id="usp_addr" value=''  >
-                                <div class="errorValidation" id="error_usp_addr">USP Addr is required</div> 
-                            </div>
-                            <label class="col-sm-2 control-label">USP Controller port<font color="#FF0000"></font></label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" name="usp_port" id="usp_port" value=''  >
-                                <div class="errorValidation" id="error_usp_port">USP Port is required</div>
-                            </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control" name="usp_port" id="usp_port" placeholder="USP Controller Port" value=''  >
+                            <div class="errorValidation" id="error_usp_port">USP Port is required</div>
                         </div>
                     </div>                      
-                    <div class="form-group">                            
-                        <label class="col-sm-2 control-label">Automatic SW updates with OTA?<font color="#FF0000"></font></label>
-                        <div class="col-sm-10">
+
+                    <div class="form-group row p-1" name="home_controller_usp" id="home_controller_usp">                            
+                        <label class="col-2 col-form-label text-end fw-bold" for="tenant_ref">Reference to tenant hosting ticket or golden copy rule in database (filtered by customer name)</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="tenant_ref" id="tenant_ref">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_tenant_ref">Platform is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">                            
+                        <label class="col-2 col-form-label text-end fw-bold" for="auto_upgrade_1">Automatic SW updates with OTA?</label>
+                        <div class="col-10">
                             <!-- <div class="input-group mb-3"> -->
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_1">
-                                    <label class="form-check-label" for="auto_upgrade_1">Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</label>
-                                </div>                            
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_2">
-                                    <label class="form-check-label" for="auto_upgrade_2">No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</label>
-                                </div>
-                                <div class="errorValidation" id="error_OTA">OTA option is required</div>                          
+                            <div class="form-check">
+                                <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_1">
+                                <label class="form-check-label" for="auto_upgrade_1">Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</label>
+                            </div>                            
+                            <div class="form-check">
+                                <input class="form-check-input otaradio" type="radio" name="auto_upgrade" id="auto_upgrade_2">
+                                <label class="form-check-label" for="auto_upgrade_2">No, the customer will manage the SW of the device itself (SW lifecycle management of Home Controller, ACS or USP)</label>
+                            </div>
+                            <div class="errorValidation" id="error_OTA">OTA option is required</div>                          
                             <!-- </div> -->
                         </div>
-                        <div class="col-sm-12" name="ota_yes_1" id="ota_yes_1">
-                            <label class="col-sm-2 control-label">Is there a separate license for OTA included or explicit BBD approval to allow OTA for this product?<font color="#FF0000"></font></label>
-                            <div class="col-sm-3">
-                                <select class="input-sm boengDropDown" name='separate_license' id='separate_license'>
-                                    <option value='' selected="selected"></option>
-                                    <option value="Yes" >Yes</option>
-                                    <option value="No" >No</option>
-                                </select>
-                                <div class="errorValidation" id="error_separate_license">Separate license is required</div>
-                            </div>
-                        </div>                            
-                        <div class="col-sm-12" name="ota_yes_2" id="ota_yes_2">
-                            <label class="col-sm-2 control-label">Will this device also be used as extender to other root Beacons?<font color="#FF0000"></font></label>
-                            <div class="input-group col-sm-10">
-                                <div class="form-check form-check-inline">
-                                    &nbsp;&nbsp;<input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_y">
-                                    <label class="form-check-label" for="used_as_extender_y">Yes</label>
-                                </div>                            
-                                <div class="form-check form-check-inline">
-                                    &nbsp;&nbsp;<input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_n">
-                                    <label class="form-check-label" for="used_as_extender_n">No</label>
-                                </div>
-                                <div class="errorValidation" id="error_extender">Extender option is required</div>                            
-                            </div>
-                            <div class="col-sm-12" name="root_beacon_1" id="root_beacon_1">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#1<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model1">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model1">Root Beacon model#1 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn btn-sm whitetext info" type="button" name="add_beacon" id="add_beacon" value="Add Another Root Beacon" onClick="add_root_beacon()">
-                                                <input type="hidden" class="form-control" name="Flag1" id="Flag1" value=''>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_2" id="root_beacon_2">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#2<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model2">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model2">Root Beacon model#2 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model2' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_3" id="root_beacon_3">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#3<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model3">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model3">Root Beacon model#3 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model3' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_4" id="root_beacon_4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#4<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model4">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model4">Root Beacon model#4 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model4' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_5" id="root_beacon_5">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#5<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model5">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model5">Root Beacon model#5 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model5' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_6" id="root_beacon_6">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#6<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model6">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model6">Root Beacon model#6 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model6' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_7" id="root_beacon_7">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#7<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model7">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model7">Root Beacon model#7 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model7' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_8" id="root_beacon_8">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#8<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model8">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model8">Root Beacon model#8 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model8' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_9" id="root_beacon_9">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#9<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model9">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model9">Root Beacon model#9 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model9' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" name="root_beacon_10" id="root_beacon_10">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Root Beacon model#10<font color="#FF0000"></font></label>
-                                            <div class="col-sm-8">
-                                                <select  class='form-control boengDropDown' name="root_beacon_model" id="root_beacon_model10">
-                                                    <option value=""></option> 
-                                                </select>
-                                                <div class="errorValidation" id="error_root_beacon_model10">Root Beacon model#10 is required</div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <input class="btn whitetext danger" type="button" value='Delete' id='delete_model10' onClick="delete_root_beceacon(this.id); return false;"> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Additional information</label>
-                            <div class="col-sm-8">    
-                                <input type="text" class="form-control" name="additional" id="additional" value=''  >                                                    
-                            </div>    
-                        </div>
-
                     </div>
-                    <div class="hr-line-dashed"></div>
-                    <div class="errorValidation" id="error_all"></div>
-
-                        <div class="form-group" >
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <input class="btn whitetext success" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="save(); return false;">
-                                <input class='btn whitetext warning' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
-                            </div>
+                    <div class="form-group row p-1" name="ota_yes_1" id="ota_yes_1">
+                        <label class="col-sm-2  col-form-label text-end fw-bold" for="separate_license">Is there a separate license for OTA included or explicit BBD approval to allow OTA for this product?</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" name='separate_license' id='separate_license'>
+                                <option value='' selected="selected"></option>
+                                <option value="Yes" >Yes</option>
+                                <option value="No" >No</option>
+                            </select>
+                            <div class="errorValidation" id="error_separate_license">Separate license is required</div>
                         </div>
                     </div>
-                </div>
-        </div>
+                    <div class="form-group row p-1" name="ota_yes_2" id="ota_yes_2">
+                        <label class="col-2 col-form-label text-end fw-bold" for="used_as_extender_y">Will this device also be used as extender to other root Beacons?</label>
+                        <div class="col-10">
+                            <div class="form-check">
+                                <input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_y">
+                                <label class="form-check-label" for="used_as_extender_y">Yes</label>
+                            </div>                            
+                            <div class="form-check">
+                                <input class="form-check-input extenderradio" type="radio" name="used_as_extender" id="used_as_extender_n">
+                                <label class="form-check-label" for="used_as_extender_n">No</label>
+                            </div>
+                            <div class="errorValidation" id="error_extender">Extender option is required</div>                            
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_1" id="root_beacon_1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model1">Root Beacon model#1</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model1">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model1">Root Beacon model#1 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn btn-sm whitetext info" type="button" name="add_beacon" id="add_beacon" value="Add Another Root Beacon" onClick="add_root_beacon()">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_2" id="root_beacon_2">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model2">Root Beacon model#2</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model2">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model2">Root Beacon model#2 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model2' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_3" id="root_beacon_3">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model3">Root Beacon model#3</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model3">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model3">Root Beacon model#3 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model3' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_4" id="root_beacon_4">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model4">Root Beacon model#4</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model4">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model4">Root Beacon model#4 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model4' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_5" id="root_beacon_5">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model5">Root Beacon model#5</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model5">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model5">Root Beacon model#5 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model5' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_6" id="root_beacon_6">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model6">Root Beacon model#6</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model6">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model6">Root Beacon model#6 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model6' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_7" id="root_beacon_7">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model7">Root Beacon model#7</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model7">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model7">Root Beacon model#7 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model7' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_8" id="root_beacon_8">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model8">Root Beacon model#8</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model8">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model8">Root Beacon model#8 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model8' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_9" id="root_beacon_9">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model9">Root Beacon model#9</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model9">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model9">Root Beacon model#9 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model9' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row" name="root_beacon_10" id="root_beacon_10">
+                        <label class="col-2 col-form-label text-end fw-bold" for="root_beacon_model10">Root Beacon model#2</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="root_beacon_model" id="root_beacon_model10">
+                                <option value=""></option> 
+                            </select>
+                            <div class="errorValidation" id="error_root_beacon_model10">Root Beacon model#10 is required</div>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model10' onClick="delete_root_beceacon(this.id); return false;">
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="additional">Additional information</label>
+                        <div class="col-10">    
+                            <textarea class="form-control" rows="2" maxlength="100" name="additional" id="additional" value=''></textarea>                                                 
+                        </div>    
+                    </div>
+
+                    <!-- <div class="hr-line-dashed"></div> -->
+                    <hr class="mt-1 mb-1"/>
+                    <div class="form-group row text-left">
+                        <div class="col-2"></div>
+                        <div class="errorValidation col-3"  id="error_all"></div>
+                    </div>
+
+                    <div class="form-group row p-2" >
+                        <div class="col-2">
+                        </div>
+                        <input class="btn whitetext success col-1 p-2" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="save(); return false;">
+                        <input class='btn whitetext warning col-1 p-2' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
+                    </div>
+                </div> <!--ibox-content -->
+            </div>
+        </form>
     </div>
-</div>
-</form>
+    <div class="modal fade" id="customerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="customerModalLabel">Add New Customer</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customerForm">
+                        <div class="mb-3">
+                            <label for="new_customer_name" class="col-form-label fw-bold">New Customer Name:</label>
+                            <input type="text" class="form-control" id="new_customer_name" placeholder="Please input new customer name" required>
+                            <div class="errorValidation" id="error_new_customer_name">Customer is required</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_customer_desc" class="col-form-label fw-bold">Description:</label>
+                            <textarea class="form-control" id="new_customer_desc" placeholder="Please input more info about the new customer" required></textarea>
+                            <div class="errorValidation" id="error_new_customer_desc">Description is required</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="errorValidation col-4"  id="error_all_customer"></div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="customerAdd" onclick="customerAdd(); return false;">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>    
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/jquery.cookie.js"></script>
-<script src="js/bootstrap.min.js?v=3.3.7"></script>
-<script src="js/bootstrap-select.js"></script>
+<script src="bootstrap5/js/bootstrap.min.js"></script>
+<!-- <script src="js/bootstrap.min.js?v=3.3.7"></script>
+<script src="js/bootstrap-select.js"></script> -->
 <script src="js/addon.js"></script>
 
 <script >
@@ -403,6 +424,7 @@
 
     var nwcc_saas = new Map();
     var global_csv_file = '';
+    var global_customers = new Map();
 
     //alert(b_id)
     function decode_bid(ss) {
@@ -547,16 +569,17 @@
         $.ajaxSetup({
             async: false
         });       
-        
-        $.getJSON("gpi/allocate/customer_list", {"type": "4","customer":"ALL"}, function (data) {
-        //alert('Result' + JSON.stringify(data));
-        
-            for(var i = 0; i < data.data.items.length; i++){
-                //alert('Item ' + data.data.items[i])	   
+        $.getJSON("gpi/allocate/fetch_customer", {"type": "4"}, function (data) {
+            for(var i = 0; i < data.data.items.length; i++){ 
                 for(let value of Object.values(data.data.items[i])){       
                     document.formxl.Customer.options[document.formxl.Customer.length]=new Option( value );
-                }
-            }   
+                };
+                let Customer = data.data.items[i]['Customer'];
+                global_customers.set(
+                    Customer,
+                    Customer
+                );
+            };   
         });
         $.ajaxSetup({
             async: true
@@ -823,6 +846,47 @@
         };
     };
 
+    function customerAdd() {
+        if (!customer_pre_validation()) {
+            return;
+        };
+    };
+
+    function customer_pre_validation() {
+        let count = 0;
+        var cform = $("#customerForm")[0];
+        let customer = cform.new_customer_name.value.trim();
+        if (customer.length <= 0) {
+            $("#error_new_customer_name").text('Customer name is required.');
+            $("#error_new_customer_name").show();
+            count++;
+        } else {
+            if (global_customers.has(customer)) {
+                $("#error_new_customer_name").text('Customer name "' + customer + '" already added!');
+                $("#error_new_customer_name").show();
+                count++;
+            } else {
+                $("#error_new_customer_name").text('');
+                $("#error_new_customer_name").hide();
+            };
+        };
+        if (cform.new_customer_desc.value.trim().length <= 0) {
+            $("#error_new_customer_desc").show();
+            count++;
+        } else {
+            $("#error_new_customer_desc").hide();
+        };
+        if (count > 0) {
+            $("#error_all_customer").text("You have " + count + " error(s) in this form!");
+            $("#error_all_customer").show();
+            return false;
+        } else {
+            $("#error_all_customer").text("");
+            $("#error_all_customer").hide();
+            return true;
+        };
+    };
+
     function save() {
         let res = pre_validation();
         if (!res) {
@@ -938,7 +1002,7 @@
 
     };      
 
-    $(function () { $("[data-toggle='popover']").popover(); });
+    // $(function () { $("[data-toggle='popover']").popover(); });
 
     function removeOptions(elem) {
         for (let i=elem.options.length-1; i>0; i--) {
@@ -975,10 +1039,10 @@
             case "Dedicated OPID":
                 hide_whitelisting_elements("");
                 break;
-            case "Country ID":
-                hide_whitelisting_elements("country_id");
-                $("#country_id").show();
-                break;
+            // case "Country ID":
+            //     hide_whitelisting_elements("country_id");
+            //     $("#country_id").show();
+            //     break;
             case "IP based":
                 hide_whitelisting_elements("ip_range");
                 $("#ip_range").show();
@@ -1049,7 +1113,7 @@
             $("#used_as_extender_n").prop('checked', false);
             clear_all_root_beacon_models();
         }
-    })
+    });
     function clear_all_root_beacon_models() {
         for (let i=1; i<=10; i++) {
             let item_value = "root_beacon_model" + i;
@@ -1059,7 +1123,7 @@
             $(item_flag).hide();
         }
         $("#add_beacon").attr('disabled', false);
-    }
+    };
     $(".extenderradio").change(function(){
         //alert($("#home_controller").is(':checked'));
         if(this.id == "used_as_extender_y") {
@@ -1069,37 +1133,37 @@
             // document.formxl.root_beacon_model1.value = "";
             clear_all_root_beacon_models();
         }
-    })
+    });
 
     function hide_whitelisting_elements(elem) {
-        $("#country_id").hide();
+        //$("#country_id").hide();
         $("#ip_range").hide();
         $("#serial_number").hide();
         switch (elem) {
             case "":
-                document.formxl.countryid.value = "";
+                //document.formxl.countryid.value = "";
                 document.formxl.iprange.value = "";
                 document.formxl.customer_name.value = "";
-                $("#countryid").prop("value", "");
+                //$("#countryid").prop("value", "");
                 $("#iprange").prop("value", "");
                 $("#customer_name").prop("value", "");
                 break;
-            case "country_id":
-                document.formxl.iprange.value = "";
-                document.formxl.customer_name.value = "";
-                $("#iprange").prop("value", "");
-                $("#customer_name").prop("value", "");
-                break;
+            // case "country_id":
+            //     document.formxl.iprange.value = "";
+            //     document.formxl.customer_name.value = "";
+            //     $("#iprange").prop("value", "");
+            //     $("#customer_name").prop("value", "");
+            //     break;
             case "ip_range":
-                document.formxl.countryid.value = "";
+                //document.formxl.countryid.value = "";
                 document.formxl.customer_name.value = "";
-                $("#countryid").prop("value", "");
+                //$("#countryid").prop("value", "");
                 $("#customer_name").prop("value", "");
                 break;
             case "serial_number":
-                document.formxl.countryid.value = "";
+                //document.formxl.countryid.value = "";
                 document.formxl.iprange.value = "";
-                $("#countryid").prop("value", "");
+                //$("#countryid").prop("value", "");
                 $("#iprange").prop("value", "");
                 break;
         }
@@ -1161,7 +1225,7 @@
             }
             
         }
-    }
+    };
 
     // $("#csv_file").fileupload({
     //     add: function(e, data) {
@@ -1170,24 +1234,24 @@
     //     }
     // });
 
-    $("[rel=drevil]").popover({
-        trigger:'manual',
-        html: 'true', 
-        animation: false
-    }).on("mouseenter", function () {
-        var _this = this;
-        $(this).popover("show");
-        $(this).siblings(".popover").on("mouseleave", function () {
-            $(_this).popover('hide');
-        });
-    }).on("mouseleave", function () {
-        var _this = this;
-        setTimeout(function () {
-            if (!$(".popover:hover").length) {
-                $(_this).popover("hide")
-            }
-        }, );
-    });
+    // $("[rel=drevil]").popover({
+    //     trigger:'manual',
+    //     html: 'true', 
+    //     animation: false
+    // }).on("mouseenter", function () {
+    //     var _this = this;
+    //     $(this).popover("show");
+    //     $(this).siblings(".popover").on("mouseleave", function () {
+    //         $(_this).popover('hide');
+    //     });
+    // }).on("mouseleave", function () {
+    //     var _this = this;
+    //     setTimeout(function () {
+    //         if (!$(".popover:hover").length) {
+    //             $(_this).popover("hide")
+    //         }
+    //     }, );
+    // });
 </script>
 
 <script language="javascript">       

@@ -135,14 +135,27 @@
   .other {background-color: #e7e7e7; color: black;} /* Gray */
 
 
-  .boengDropDown {
-    height: 34px; 
-    width: 500px;
-  }
-
   .errorValidation {
     font-size: 80%; 
     color: red;
     display: none;
   }  
   
+  /* .form-control::placeholder {
+    color: green !important;
+    size: 0.5em;
+    opacity: 0.5;
+} */
+  .form-control::-moz-placeholder {
+    color: #008752 !important;
+    opacity: 1;
+    size: 0.5em;
+  }
+  .form-control:-ms-input-placeholder {
+    color: #008752 !important;
+    size: 0.5em;
+  }
+  .form-control::-webkit-input-placeholder {
+    color: #008752 !important;
+    size: 0.5em;
+  }
