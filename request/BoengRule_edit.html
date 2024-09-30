@@ -571,15 +571,19 @@
         });       
         $.getJSON("gpi/allocate/fetch_customer", {"type": "4"}, function (data) {
             for(var i = 0; i < data.data.items.length; i++){ 
-                for(let value of Object.values(data.data.items[i])){       
-                    document.formxl.Customer.options[document.formxl.Customer.length]=new Option( value );
-                };
-                let Customer = data.data.items[i]['Customer'];
+                // for(let value of Object.values(data.data.items[i])){       
+                //     document.formxl.Customer.options[document.formxl.Customer.length]=new Option( value );
+                // };
+                let Customer = data.data.items[i]['Customer'].trim();
                 global_customers.set(
                     Customer,
                     Customer
                 );
-            };   
+                // document.formxl.Customer.options[
+                //     document.formxl.Customer.length
+                // ] = new Option( Customer );
+            };
+            render_customer();
         });
         $.ajaxSetup({
             async: true
@@ -618,13 +622,15 @@
             for(let i=0; i<data.data.items.length; i++){
                  let Customer = data.data.items[i]['Customer'];
                  let Platform = data.data.items[i]['Platform'];
+                 let tenant_id = data.data.items[i]['TenantID'];
+                 let item = Platform + "/" + tenant_id
                  if (nwcc_saas.has(Customer)) {
-                    if (!nwcc_saas.get(Customer).Platform.includes(Platform)) {
-                        nwcc_saas.get(Customer).Platform.push(Platform)
+                    if (!nwcc_saas.get(Customer).Platform.includes(item)) {
+                        nwcc_saas.get(Customer).Platform.push(item)
                     }
                  } else {
                     nwcc_saas.set(Customer,{
-                        Platform: [Platform]
+                        Platform: [item]
                     });
                  }
             };  
@@ -850,6 +856,28 @@
         if (!customer_pre_validation()) {
             return;
         };
+        let mail = $.cookie(cookie_mail);
+        let uname = $.cookie(cookie_name);
+        let customer = $("#new_customer_name").val();
+        const url = 'gpi/allocate/new_customer_add';
+        var data = {
+            uname: uname,
+            Customer: customer,
+            Description: $("#new_customer_desc").val(),
+            Source: "local",
+            AddedBy: mail,
+            AddedOn: get_ts()
+        };
+        sendPost(url, data, "Add New Customer");
+
+        global_customers.set(
+            customer,
+            customer
+        );
+        removeOptions(document.formxl.Customer);
+        render_customer();
+        $('#Customer').val(customer);
+        $('#customerModal').modal('toggle');
     };
 
     function customer_pre_validation() {
@@ -893,7 +921,7 @@
             return;
         };
         mail = $.cookie(cookie_mail);
-        const url = 'gpi/allocate/new_boeng_edit';;
+        const url = 'gpi/allocate/new_boeng_edit';
         const root_beacon_model = [
             document.formxl.root_beacon_model1.value,
             document.formxl.root_beacon_model2.value,
@@ -991,11 +1019,13 @@
         resp = result.data.status;                    
         if (resp.includes('successful')) {
             alert(action + " OK!");
-            if ('referrer' in document) {
-                window.location = document.referrer
-            } else {
-                window.location.reload(history.back());
-            }
+            if (action != "Add New Customer") {
+                if ('referrer' in document) {
+                    window.location = document.referrer
+                } else {
+                    window.location.reload(history.back());
+                };
+            };
         }else{
             alert(resp);
         }
@@ -1020,6 +1050,17 @@
                 }
             };
         } 
+    };
+
+    function render_customer() {
+        let customers = Array.from(global_customers.keys()).sort();
+        for (let i=0; i<customers.length; i++) {
+            if (customers[i] != "") {
+                document.formxl.Customer.options[document.formxl.Customer.length]=new Option(
+                    customers[i]
+                );
+            };
+        };
     };
 
     $("#Customer").change(function(){    
