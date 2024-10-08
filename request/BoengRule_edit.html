@@ -12,7 +12,7 @@
 <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet">
 <!-- <link rel="stylesheet" href="css/bootstrap-select.css"> -->
-<link href="css/style1.css" rel="stylesheet">
+<!-- <link href="css/style1.css" rel="stylesheet"> -->
 <link href="css/style_addon.css" rel="stylesheet">
 
 </head>
@@ -27,11 +27,11 @@
     </div>
     <div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
         <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title" >
+            <div class="ibox bg-white">
+                <div class="ibox-title rounded" >
                     <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Input information</font></h5>
                 </div>    
-                <div class="ibox-content">
+                <div class="ibox-content rounded">
                     <div class="form-group row p-1">
                         <label class="col-2 col-form-label text-end fw-bold" for="Customer">Customer</label>
                         <div class="col-4">
@@ -41,7 +41,7 @@
                             <div class="errorValidation" id="error_Customer">Customer is required</div>
                         </div>
                         <div class="col-2">
-                            <a role="button" class="btn btn-sm whitetext info" data-bs-toggle="modal" data-bs-target="#customerModal" id="btnModal">Add New Customer</a>
+                            <a role="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal" id="btnModal">Add New Customer</a>
                         </div>
                     </div>
                     <div class="form-group row p-1">
@@ -62,6 +62,13 @@
                             <div class="errorValidation" id="error_OPID">Operator ID is required</div> 
                         </div>
                     </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="countryid">Country ID</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="countryid" id="countryid" value=''  >
+                            <div class="errorValidation" id="error_countryid">Country ID is required</div>
+                        </div>
+                    </div>
                     <div class="form-group row p-1">                            
                         <label class="col-2 col-form-label text-end fw-bold" for="whitelistmethod">Whitelisting Method</label>
                         <div class="col-4">
@@ -76,11 +83,6 @@
                         </div>
                         <!-- <div name="country_id" id="country_id" class="col-6"> -->
                             <!-- <div class="row"> -->
-                        <label class="col-2 col-form-label text-end fw-bold" for="countryid">Country ID</label>
-                        <div class="col-4">
-                            <input type="text" class="form-control" name="countryid" id="countryid" value=''  >
-                            <div class="errorValidation" id="error_countryid">Country ID is required</div>
-                        </div>
                             <!-- </div> -->
                         <!-- </div> -->
                         <!-- <div name="ip_range" id="ip_range">
@@ -223,7 +225,7 @@
                             <div class="errorValidation" id="error_root_beacon_model1">Root Beacon model#1 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn btn-sm whitetext info" type="button" name="add_beacon" id="add_beacon" value="Add Another Root Beacon" onClick="add_root_beacon()">
+                            <input class="btn btn-sm btn-primary" type="button" name="add_beacon" id="add_beacon" value="Add Another Root Beacon" onClick="add_root_beacon()">
                         </div>
                     </div>
 
@@ -236,7 +238,7 @@
                             <div class="errorValidation" id="error_root_beacon_model2">Root Beacon model#2 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model2' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model2' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -249,7 +251,7 @@
                             <div class="errorValidation" id="error_root_beacon_model3">Root Beacon model#3 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model3' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model3' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -262,7 +264,7 @@
                             <div class="errorValidation" id="error_root_beacon_model4">Root Beacon model#4 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model4' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model4' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -275,7 +277,7 @@
                             <div class="errorValidation" id="error_root_beacon_model5">Root Beacon model#5 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model5' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model5' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -288,7 +290,7 @@
                             <div class="errorValidation" id="error_root_beacon_model6">Root Beacon model#6 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model6' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model6' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -301,7 +303,7 @@
                             <div class="errorValidation" id="error_root_beacon_model7">Root Beacon model#7 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model7' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model7' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -314,7 +316,7 @@
                             <div class="errorValidation" id="error_root_beacon_model8">Root Beacon model#8 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model8' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model8' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -327,7 +329,7 @@
                             <div class="errorValidation" id="error_root_beacon_model9">Root Beacon model#9 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model9' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model9' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -340,7 +342,7 @@
                             <div class="errorValidation" id="error_root_beacon_model10">Root Beacon model#10 is required</div>
                         </div>
                         <div class="col-2">
-                            <input class="btn whitetext danger" type="button" value='Delete' id='delete_model10' onClick="delete_root_beceacon(this.id); return false;">
+                            <input class="btn btn-sm btn-danger" type="button" value='Delete' id='delete_model10' onClick="delete_root_beceacon(this.id); return false;">
                         </div>
                     </div>
 
@@ -361,8 +363,8 @@
                     <div class="form-group row p-2" >
                         <div class="col-2">
                         </div>
-                        <input class="btn whitetext success col-1 p-2" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="save(); return false;">
-                        <input class='btn whitetext warning col-1 p-2' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
+                        <input class="btn btn-success col-1 mx-2" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="save(); return false;">
+                        <input class='btn btn-secondary col-1 mx-2' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
                     </div>
                 </div> <!--ibox-content -->
             </div>
