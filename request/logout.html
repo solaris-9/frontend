@@ -7,29 +7,24 @@
 	<!-- basic styles -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.cookie.js"></script>
+    <script src="js/addon.js"></script>
 </head>
 
 
 <script type="text/javascript">      
-var cookie_name = "username";
-var cookie_name = "username";
-var cookie_auth = "encodedAuth";
-var cookie_pw = "password";
-var cookie_mail = "mail";
-var cookie_level = "level";
-var cookie_grade = "grade";
+
     username=$.cookie(cookie_name)
     
     $.getJSON("gpi/user/logout",{username: username},function(data){      	
         Result = JSON.stringify(data.mes)
-        alert(Result);
+        //alert(Result);
 	    document.cookie = "username=0;expires=" + new Date().toUTCString();
 		document.cookie = "password=0;expires=" + new Date().toUTCString();
 		document.cookie = "encodedAuth=0;expires=" + new Date().toUTCString();
 		document.cookie = "mail=0;expires=" + new Date().toUTCString();
 		document.cookie = "level=0;expires=" + new Date().toUTCString();
 		document.cookie = "grade=0;expires=" + new Date().toUTCString();
-		location.href = "index.html";   
+		location.href = "login.html?id=index.html";   
     })
     
 	  
