@@ -191,11 +191,11 @@ async function sendPostRequest() {
             });            
             const result = await response.json(); 
             $(result.data.items).each(function(){
-             FRT = JSON.stringify(this);	
-             FRT = FRT.replace("[{", "{");
-             FRT = FRT.replace("}]", "}");            	
-            FR=JSON.parse(FRT); 
-            rowData.push(FR);
+                FRT = JSON.stringify(this);	
+                FRT = FRT.replace("[{", "{");
+                FRT = FRT.replace("}]", "}");            	
+                FR=JSON.parse(FRT); 
+                rowData.push(FR);
             })	  
             gridOptions.api.setRowData(rowData); 
     }

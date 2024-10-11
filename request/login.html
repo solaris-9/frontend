@@ -2,155 +2,123 @@
 <html lang="en">
 <head>
 	<meta charset="gb2312" />
-	<title>Request Log in</title>		
+	<title>BoENG Tool Login</title>		
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!-- basic styles -->
 	
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/ace.min.css">
-	<script src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="bootstrap5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style_addon.css">
+	<script src="bootstrap5/js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
 	<script src="js/jquery.cookie.js"></script>
+    <!-- <script src="fontawsome6/js/fontawesome.min.js"></script> -->
+    <script src="js/addon.js"></script>
 </head>
-<body class="login-layout">
-	<div class="main-container">
-		<div class="main-content">
-			<div class="row">
-				<div class="col-sm-10 col-sm-offset-1">
-					<div class="login-container">
-						<div class="center">
-							<h1>
-								<i class="icon-leaf green"></i>
-								<span class="red">Database</span>
-								<span class="white">Application</span>
-							</h1>
-							<h4 class="blue">&copy; NOKIA</h4>
-						</div>
+<body>
+    <div class="app">
+        <div class="login-container">
+            <div class="login-left">
 
-						<div class="space-6"></div>
-						
-						<div class="position-relative">
-							<div id="login-box" class="login-box visible widget-box no-border">
-								<div class="widget-body">
-									<div class="widget-main">
-										<h4 class="header blue lighter bigger">
-											<i class="icon-coffee green"></i>
-											Welcome to Request Database 
-										</h4>
+            </div>
+            <div class="login-right">
+                <div class="login-top">
 
-										<div class="space-6"></div>
+                </div>
+                <div class="login-middle">
+                    <form name="formxl" role="form" enctype="multipart/form-data">
+                        <div class="title-container">
+                            <img src="/request/static/login/images/nokia_logo.5a240b64.png" class="title" style="height: 30px; width: 120px;">
+                        </div>
+                        <div class="el-input inner-addon left-addon">
+                            <span class="fa fa-user el-icon"></span>
+                            <input tabindex="1" type="text" class="input-inner mb-4 form-control" id="username" placeholder="Username" required />
 
-										<form name="formxl" action="" method="post">
-										<input type="hidden" name="action" value=""> 
-											<fieldset>
-												<label class="block clearfix">
-													<span class="block input-icon input-icon-right">
-														<input type="text" class="form-control" placeholder="Username (CSL)" id="username" name="username" />
-														<INPUt type="hidden" id="encode" name="encode"  value="" >
-														<i class="icon-user"></i>
-													</span>
-												</label>
+                        </div>
+                        <div class="el-input inner-addon left-addon">
+                            <span class="fa fa-lock el-icon"></span>
+                            <input tabindex="2" type="password" class="input-inner mb-4 form-control" id="password" placeholder="Password" required />
+                        </div>
+                    </form>                        
+                    <div>
+                        
+                        <button class="btn btn-primary col-12" style="background: linear-gradient(to right bottom, rgb(0, 90, 255), rgb(134, 22, 83));" type="submit" id="loginsubmit" name="Submit" onClick="login(); return false;">Login</button>
+                    </div>
+            </div>
+                <div class="login-bottom">
+                    <p style="text-align: center; margin-top: 50px; color: rgb(255, 255, 255);">&copy;Copy right Nokia 2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-												<label class="block clearfix">
-													<span class="block input-icon input-icon-right">
-														<input type="password" class="form-control" placeholder="Password" id="password"  name="password"/>
-														<i class="icon-lock"></i>
-													</span>
-												</label>
 
-												<div class="space"></div>
-
-												<div class="clearfix">
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input class="width-35 btn btn-sm btn-primary" type=submit value="Log in" name=Submit onClick="login(); return false;">
-													
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<button type="reset" class="width-35 btn btn-sm btn-primary" >
-													<i class="icon-undo bigger-110"></i>
-													Reset
-													</button>
-												</div>
-
-												<div class="space-4"></div>
-											</fieldset>
-										</form>
-								</div><!-- /widget-body -->
-							</div><!-- /login-box -->
-						</div><!-- /position-relative -->
-					</div>
-				</div><!-- /.col -->
-			</div><!-- /.row -->
-		</div>
-	</div>
 
 <script type="text/javascript">
 
-function show_box(id) {
-	jQuery('.widget-box.visible').removeClass('visible');
-	jQuery('#'+id).addClass('visible');
-}
+    function show_box(id) {
+        jQuery('.widget-box.visible').removeClass('visible');
+        jQuery('#'+id).addClass('visible');
+    }
 
-function b64EncodeUnicode(str) {
-return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, 
-function(match, p1) {
-	return String.fromCharCode('0x' + p1);
-	}));
-}	
+    function b64EncodeUnicode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, 
+    function(match, p1) {
+        return String.fromCharCode('0x' + p1);
+        }));
+    }	
 
-function login() {
+    function login() {
 
-var encodedAuth;
-var cookie_name = "username";
-var cookie_auth = "encodedAuth";
-var cookie_pw = "password";
-var cookie_mail = "mail";
-var cookie_level = "level";
-var cookie_grade = "grade";
+        var encodedAuth;
 
-username = document.formxl.username.value;
-password = document.formxl.password.value;
+        username = document.formxl.username.value;
+        password = document.formxl.password.value;
 
-$(document).ready(function() {
- var param1=window.location.href.split("=")[0]
-var param=window.location.href.split("=")[1]
-	
-if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'   || $.cookie(cookie_level) == 'undefined'  )
-{
-  	
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/request/gpi/user/login');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    const data = {"username": username, "password":password};
-    xhr.send(JSON.stringify(data));
-    xhr.onload = function() {
-   if (xhr.status === 200) {
-    //console.log(xhr.responseText);
-    response = JSON.parse(xhr.responseText)	
-	result = response.mes
-	//alert(result)	
-	token = response.data.token
-	mail = response.data.mail
-	grade = response.data.roles
-	level = response.data.level
-	
-	$.cookie(cookie_name, username, { expires: 1 });
-	$.cookie(cookie_pw, password, { expires: 1 });
-	$.cookie(cookie_mail, mail, { expires: 1 });
-	$.cookie(cookie_level, level, { expires: 1 });
-	$.cookie(cookie_grade, grade, { expires: 1 });
-    $.cookie(cookie_auth, token, { expires: 1 });
-    //alert(grade + level);
-	location.href = param;	
-   } else {
-    alert("User name or password error ("+xhr.status+"), please try again! "  );
-	$.cookie(cookie_name, 'none');
-	$.cookie(cookie_pw, 'none');
-  }
-};
-	 
-} 
-});
-}
+        $(document).ready(function() {
+            var param1=window.location.href.split("=")[0]
+            var param=window.location.href.split("=")[1]
+                
+            if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'   || $.cookie(cookie_level) == 'undefined'  ) {
+                
+                $("#loginsubmit").html('<i class="fa fa-spinner fa-pulse"></i>Login')
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/request/gpi/user/login');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const data = {"username": username, "password":password};
+                xhr.send(JSON.stringify(data));
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        //console.log(xhr.responseText);
+                        response = JSON.parse(xhr.responseText)	
+                        result = response.mes
+                        //alert(result)	
+                        token = response.data.token
+                        mail = response.data.mail
+                        grade = response.data.roles
+                        level = response.data.level
+                        
+                        $.cookie(cookie_name, username, { expires: 1 });
+                        $.cookie(cookie_pw, password, { expires: 1 });
+                        $.cookie(cookie_mail, mail, { expires: 1 });
+                        $.cookie(cookie_level, level, { expires: 1 });
+                        $.cookie(cookie_grade, grade, { expires: 1 });
+                        $.cookie(cookie_auth, token, { expires: 1 });
+
+                        grade_fields.forEach(field => {
+                            $.cookie(field, response.data[field], { expires: 1 });
+                        });
+                        location.href = param;	
+                    } else {
+                        alert("User name or password error ("+xhr.status+"), please try again! "  );
+                        $.cookie(cookie_name, 'none');
+                        $.cookie(cookie_pw, 'none');
+                    };
+                }; 
+            }; 
+        });
+    };
 </script>
 	
 </body>

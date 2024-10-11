@@ -22,16 +22,10 @@
 <script src="js/ag-grid/ag-grid-enterprise4.js"></script>
 <script src="js/addon.js"></script>
 <script >
-    var cookie_grades = {};
-    
-    grade_fields.forEach(field => {
-        cookie_grades[field] = $.cookie(field)
-    });
-
     window.onload = function () {
         //alert("Log in status : " + $.cookie(cookie_add) +$.cookie(cookie_edit) + $.cookie(cookie_delete)  );
         if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined' ) {     
-            location.href = "login.html?id=BoengRule.html";
+            location.href = "login.html?id=Grade_management.html";
         }};
 </script>
 <body class="gray-bg">
@@ -49,19 +43,15 @@
             <div class="col-md-12">
             <div class="ibox-title">
                 <input type="hidden" class="form-control" name='ID' id='ID' value='' style="height: 30px; width: 160px;">
-                <span id="grade_Add">
-                    <input type='button' value='Add' onClick="location.href='BoengRule_edit.html?B_ID='" class="btn btn-success col-1">
-                </span>
-                <span id="grade_Delete">
-                    <input class="btn btn-danger col-1" type="submit" value='Delete' name='cmd' id='cmd' onClick="deleteitem(); return false;">
-                </span>
-                <span id="grade_Export">
-                    <button onclick="onBtExport(); return false;" class='btn btn-secondary col-1'>Export</button>
-                </span>
+                <input type='button' value='Add' onClick="location.href='Grade_edit.html?GID='" class="btn btn-success">
+                <span id="adm">
+                    <input class="btn btn-danger" type="submit" value=' Delete ' name='cmd' id='cmd' onClick="deleteitem(); return false;">
+                </span>&nbsp;&nbsp;
+                <button onclick="onBtExport(); return false;" class='btn whitetext info'> Export </button>&nbsp;&nbsp;
                 <a class="btn btn-white btn-bitbucket" onClick="location.href='?'">
                     <i class="fa fa-refresh"></i>
-                </a>
-                <font size= 2>Double click the content of "Customer"  to edit the record</font>
+                </a>&nbsp;&nbsp;
+                <font size= 2>Double click 1st column  to edit the record</font>
                 <span id="selectedRows"></span>
                     
             </div>                        
@@ -84,11 +74,12 @@
     </a>
 
 
-</form>
-<script src="js/boeng/BoengRule.js"></script>
-<script language="javascript">       
+<script src="js/grade/grade.js"></script>
+    <script language="javascript">       
         window.onload = show_div();
-</script>
+        
+    </script>
+</form>
 </body>
 </html>
 

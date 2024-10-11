@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade Management</title>
+
+<link rel="shortcut icon" href="favicon.ico">
+<link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/style_addon.css" rel="stylesheet">
+
+</head>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="bootstrap5/js/bootstrap.min.js"></script>
+<script src="js/addon.js"></script>
+<body class="gray-bg">
+    <div class="loader-container" id="preloader">
+        <div class="bouncing-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
+        <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
+            <div class="ibox bg-white">
+                <div class="ibox-title rounded" >
+                    <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Input information</font></h5>
+                </div>    
+                <div class="ibox-content rounded">
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Grade">Grade</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="Grade" id="Grade" value=''  >
+                            <div class="errorValidation" id="error_Grade">Grade is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Add">Add</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="Add" id="Add">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                          </select>
+                            <div class="errorValidation" id="error_Add">Add is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Edit">Edit</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="Edit" id="Edit">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                            <div class="errorValidation" id="error_Edit">Edit is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Delete">Delete</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="Delete" id="Delete">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                            <div class="errorValidation" id="error_Delete">Delete is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Search">Search</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="Search" id="Search">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                            <div class="errorValidation" id="error_Search">Search is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="View">View</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="View" id="View">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                            <div class="errorValidation" id="error_View">View is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Export">Export</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="Export" id="Export">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                           </select>
+                            <div class="errorValidation" id="error_Export">Export is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="Download">Download</label>
+                        <div class="col-4">
+                            <select  class='form-select' name="Download" id="Download">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                            <div class="errorValidation" id="error_Download">Download is required</div>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="hr-line-dashed"></div> -->
+                    <hr class="mt-1 mb-1"/>
+                    <div class="form-group row text-left">
+                        <div class="col-2"></div>
+                        <div class="errorValidation col-3"  id="error_all"></div>
+                    </div>
+
+                    <div class="form-group row p-2" >
+                        <div class="col-2">
+                        </div>
+                        <input class="btn btn-success col-1 mx-2" type="submit" value=' Submit ' name='cmd' id='cmd' onClick="save(); return false;">
+                        <input class='btn btn-secondary col-1 mx-2' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
+                    </div>
+                </div> <!--ibox-content -->
+            </div>
+        </form>
+    </div>
+
+
+<script src="js/grade/grade_edit.js"></script>
+
+<!-- <script language="javascript">       
+    window.onload = show_div();
+</script> -->
+<script>
+    var myVar;
+    
+    function myFunction() {
+      myVar = setTimeout(showPage, 3000);
+    }
+    
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("myDiv").style.display = "block";
+    }
+</script>
+</body>
+
+</html>

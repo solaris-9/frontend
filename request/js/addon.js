@@ -1,5 +1,5 @@
 /*!
- * Common Functions v0.1
+ * Common Functions & Global Variables -- v0.1
  * by @Dongxu
  * 
  */
@@ -16,3 +16,22 @@ function get_ts() {
 
     return ret
 }
+
+var grade_fields = [
+    "Grade",
+    "Add",
+    "Edit",
+    "Delete",
+    "Search",
+    "View",
+    "Download",
+    "Export"
+];
+
+var cookie_name = "username";
+var cookie_auth = "encodedAuth";
+var cookie_pw = "password";
+var cookie_mail = "mail";
+var cookie_level = "level";
+var cookie_grade = "grade";
+

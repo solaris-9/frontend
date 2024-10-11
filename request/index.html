@@ -5,14 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>BBD Request</title>
+    <title>BoENG Tool</title>
     <link rel="shortcut icon" href="favicon.ico">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome2.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style10.css" rel="stylesheet">
 </head>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/plugins/layer/layer.js"></script>
 
+
+<script src="js/angel-ui.min.js"></script>
+<script type="text/javascript" src="js/angel-main_tab.min.js"></script>
+
+<script src="js/plugins/pace/pace.min.js"></script>
+<script src="js/addon.js"></script>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <div id="wrapper">        
         <nav class="navbar-default navbar-static-side" role="navigation">
@@ -57,9 +69,9 @@
                                 <li>
                                     <a class="J_menuItem" href="User_manage.html">User Management</span></a>
                                 </li>	
-                                <!-- <li>
-                                    <a class="J_menuItem" href="Rnotes.html">Release Notes</span></a>
-                                </li> -->
+                                <li>
+                                    <a class="J_menuItem" href="Grade_management.html">Grade Management</span></a>
+                                </li>
                             </ul>
                             
                     </li>                    
@@ -75,7 +87,7 @@
                 <ul class="nav navbar-top-links navbar-right"> 
                         <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" >
-                                <font size= 4 color=#004C9A ><i class="fa fa-ge"></i>BoENG Request(V1.0.20241009)</font>
+                                <font size= 4 color=#004C9A ><i class="fa fa-ge"></i>BoENG Tool(V1.0.20241009)</font>
                         </a>						
                         </li>
                     </ul> 
@@ -110,18 +122,7 @@
             
         </div>
        
-    <script src="js/jquery.min.js"></script>
-	<script src="js/jquery.cookie.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="js/plugins/layer/layer.js"></script>
 
-    
-    <script src="js/angel-ui.min.js"></script>
-    <script type="text/javascript" src="js/angel-main_tab.min.js"></script>
-   
-    <script src="js/plugins/pace/pace.min.js"></script>
     <script >
     
     function show_div(){       
@@ -133,12 +134,6 @@
     }
 </script>
 <script language="javascript">
-var cookie_name = "username";
-var cookie_auth = "encodedAuth";
-var cookie_pw = "pw";
-var cookie_mail = "mail";
-var cookie_level = "level";
-var cookie_grade = "grade";
     if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined'  )
     {     
     location.href = "login.html?id=index.html";      
