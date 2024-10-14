@@ -28,11 +28,13 @@
         cookie_grades[field] = $.cookie(field)
     });
 
-    window.onload = function () {
+    //window.onload = function () {
+    $(document).ready(function() {
         //alert("Log in status : " + $.cookie(cookie_add) +$.cookie(cookie_edit) + $.cookie(cookie_delete)  );
         if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined' ) {     
             location.href = "login.html?id=BoengRule.html";
-        }};
+        }
+    });
 </script>
 <body class="gray-bg">
     <div class="loader-container" id="preloader">

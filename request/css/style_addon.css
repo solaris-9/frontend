@@ -170,10 +170,12 @@
 
 .wrapper-content {
     padding: 20px;
+    height: 100%;
 }
 
 .gray-bg {
     background-color: #f3f3f4;
+    height: 100%;
 }
 
 .ibox-title {

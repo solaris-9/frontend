@@ -16,7 +16,6 @@
 <link href="css/style_addon.css" rel="stylesheet">
 
 </head>
-
 <body class="gray-bg">
     <div class="loader-container" id="preloader">
         <div class="bouncing-dots">
@@ -405,6 +404,21 @@
 <!-- <script src="js/bootstrap.min.js?v=3.3.7"></script>
 <script src="js/bootstrap-select.js"></script> -->
 <script src="js/addon.js"></script>
+<script >
+    var cookie_grades = {};
+    
+    grade_fields.forEach(field => {
+        cookie_grades[field] = $.cookie(field)
+    });
+
+    //window.onload = function () {
+    $(document).ready(function() {
+        //alert("Log in status : " + $.cookie(cookie_add) +$.cookie(cookie_edit) + $.cookie(cookie_delete)  );
+        if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  || $.cookie(cookie_level) == 'undefined' ) {     
+            location.href = "login.html?id=BoengRule.html";
+        }
+    });
+</script>
 
 <script src="js/boeng/BoengRule_edit.js"></script>
 
