@@ -10,9 +10,8 @@ function show_div(){
 var flag = 0;
 var b_id = decode_bid(location.search);
 
-var nwcc_saas = new Map();
+//var nwcc_saas = new Map();
 var global_csv_file = '';
-var global_customers = new Map();
 
 //alert(b_id)
 function decode_bid(ss) {
@@ -26,10 +25,10 @@ function initialize_page() {
     //document.body.style.cursor='wait';
 
     show_div();
-    fetch_customer(document.formxl.Customer);
-    fetch_device(document.formxl.device, 'beacon');
-    fetch_nwcc_saas();
-    fetch_opid();
+    fetch_customer(document.formxl.field_customer);
+    fetch_device(document.formxl.field_root_device, "all");
+    // fetch_nwcc_saas();
+    // fetch_opid();
     if (b_id.length > 0) {
         fetch_boengrule_info();
     }
@@ -53,7 +52,7 @@ function fetch_boengrule_info() {
         // console.log('l_device=',l_device,'l_device.length=',l_device.length)
         // $("#device").val(l_device);
 
-        render_nwcc(customer);            
+        //render_nwcc(customer);            
         $("#OPID").prop('value', data.data.items[0].OPID);
         $("#whitelistmethod").prop('value', data.data.items[0].whitelistmethod);
         if (data.data.items[0].country_id) {
@@ -76,7 +75,7 @@ function fetch_boengrule_info() {
         $("#customer_name").prop('value', data.data.items[0].customer_name)
         //$("#csv_file").prop('value', data.data.items[0].csv_file)
         global_csv_file = data.data.items[0].csv_file;
-        var html = '<p><a href="../gpi/allocate/download?file=' +
+        var html = '<p><a href="gpi/allocate/download?file=' +
             global_csv_file + '">' + global_csv_file + '</a></p>';
         if (data.data.items[0].csv_file.length > 0) {
             $("#csv_url").html(html);
@@ -156,48 +155,49 @@ function fetch_boengrule_info() {
         $("#additional").prop('value', data.data.items[0].additional);
     });
 }
- 
-function fetch_nwcc_saas(){
-    $.ajaxSetup({
-        async: false
-    });       
-    $.getJSON("../gpi/allocate/nwcc_list", {"type": "4"}, function (data) {
-        for(let i=0; i<data.data.items.length; i++){
-             let Customer = data.data.items[i]['Customer'];
-             let Platform = data.data.items[i]['Platform'];
-             let tenant_id = data.data.items[i]['TenantID'];
-             let item = Platform + "/" + tenant_id
-             if (nwcc_saas.has(Customer)) {
-                if (!nwcc_saas.get(Customer).Platform.includes(item)) {
-                    nwcc_saas.get(Customer).Platform.push(item)
-                }
-             } else {
-                nwcc_saas.set(Customer,{
-                    Platform: [item]
-                });
-             }
-        };  
-    });
-    $.ajaxSetup({
-        async: true
-    });
-}
 
-function fetch_opid(){
-    $.ajaxSetup({
-        async: false
-    });       
-    $.getJSON("../gpi/allocate/opid_list", {"type": "4"}, function (data) {
-        for(let i=0; i<data.data.items.length; i++){
-            document.formxl.OPID.options[document.formxl.OPID.length]=new Option(
-                data.data.items[i]['OPID'].trim()
-            );
-        };  
-    });
-    $.ajaxSetup({
-        async: true
-    });
-}
+
+// function fetch_nwcc_saas(){
+//     $.ajaxSetup({
+//         async: false
+//     });       
+//     $.getJSON("../gpi/allocate/nwcc_list", {"type": "4"}, function (data) {
+//         for(let i=0; i<data.data.items.length; i++){
+//              let Customer = data.data.items[i]['Customer'];
+//              let Platform = data.data.items[i]['Platform'];
+//              let tenant_id = data.data.items[i]['TenantID'];
+//              let item = Platform + "/" + tenant_id
+//              if (nwcc_saas.has(Customer)) {
+//                 if (!nwcc_saas.get(Customer).Platform.includes(item)) {
+//                     nwcc_saas.get(Customer).Platform.push(item)
+//                 }
+//              } else {
+//                 nwcc_saas.set(Customer,{
+//                     Platform: [item]
+//                 });
+//              }
+//         };  
+//     });
+//     $.ajaxSetup({
+//         async: true
+//     });
+// }
+
+// function fetch_opid(){
+//     $.ajaxSetup({
+//         async: false
+//     });       
+//     $.getJSON("../gpi/allocate/opid_list", {"type": "4"}, function (data) {
+//         for(let i=0; i<data.data.items.length; i++){
+//             document.formxl.OPID.options[document.formxl.OPID.length]=new Option(
+//                 data.data.items[i]['OPID'].trim()
+//             );
+//         };  
+//     });
+//     $.ajaxSetup({
+//         async: true
+//     });
+// }
 
 $("#csv_file").change(function(e){
     //alert("CSV file");
@@ -417,7 +417,7 @@ function customerAdd() {
         customer,
         customer
     );
-    removeOptions(document.formxl.Customer);
+    clear_options(document.formxl.Customer);
     render_customer();
     $('#Customer').val(customer);
     $('#customerModal').modal('toggle');
@@ -576,33 +576,29 @@ async function sendPost(url, data, action) {
 
 };      
 
-// $(function () { $("[data-toggle='popover']").popover(); });
+// function render_nwcc(cus) {
+//     if (nwcc_saas.has(cus)) {
+//         for (let i=0; i<nwcc_saas.get(cus).Platform.length; i++) {
+//             if (nwcc_saas.get(cus).Platform[i] != "") {
+//                 document.formxl.tenant_ref.options[document.formxl.tenant_ref.length]=new Option(
+//                     nwcc_saas.get(cus).Platform[i]
+//                 );
+//             }
+//         };
+//     } 
+// };
 
-function removeOptions(elem) {
-    for (let i=elem.options.length-1; i>0; i--) {
-        elem.remove(i);
-    }
-};
 
-function render_nwcc(cus) {
-    if (nwcc_saas.has(cus)) {
-        for (let i=0; i<nwcc_saas.get(cus).Platform.length; i++) {
-            if (nwcc_saas.get(cus).Platform[i] != "") {
-                document.formxl.tenant_ref.options[document.formxl.tenant_ref.length]=new Option(
-                    nwcc_saas.get(cus).Platform[i]
-                );
+function render_product_variant(prod) {
+    if (global_device.has(prod)) {
+        let elem = document.formxl.field_product_variant;
+        let codes = global_device.get(prod).Code.sort();
+        clear_options(elem);
+        for (let i=0; i<codes.length; i++) {
+            let code = codes[i];
+            if (code != "") {
+                elem.options[elem.length]=new Option(code);
             }
-        };
-    } 
-};
-
-function render_customer() {
-    let customers = Array.from(global_customers.keys()).sort();
-    for (let i=0; i<customers.length; i++) {
-        if (customers[i] != "") {
-            document.formxl.Customer.options[document.formxl.Customer.length]=new Option(
-                customers[i]
-            );
         };
     };
 };
@@ -610,8 +606,15 @@ function render_customer() {
 $("#Customer").change(function(){    
     var customer = ($("#Customer").val());
 
-    removeOptions(document.formxl.tenant_ref);
-    render_nwcc(customer);
+    clear_options(document.formxl.tenant_ref);
+    //render_nwcc(customer);
+});
+
+$("#field_root_device").change(function(){    
+    var prod = ($("#field_root_device").val());
+
+    //clear_options(document.formxl.field_product_variant);
+    render_product_variant(prod);
 });
 
 
