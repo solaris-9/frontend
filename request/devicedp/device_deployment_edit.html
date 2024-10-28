@@ -69,6 +69,7 @@
                             <div class="errorValidation" id="error_managed_by_hc">Device Managed by Home Controller is required</div>
                         </div>
                     </div>
+                    <!-- <div  id="flag_managed_by_hc" style="background-color:  #f5eef8 ;"> -->
                     <div  id="flag_managed_by_hc">
                         <div class="form-group row p-1">                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_home_controller">Home Controller</label>
@@ -79,7 +80,7 @@
                                 <div class="errorValidation" id="error_home_controller">Managed by Home Cotroller is required</div>
                             </div>
                         </div>
-                        <div class="form-group row p-1">                            
+                        <div class="form-group row p-1" >                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_speedtest_needed">Speedtest Service Requested?</label>
                             <div class="col-4">
                                 <div class="form-check">
@@ -96,7 +97,11 @@
                                 <label class="col-4 col-form-label text-end fw-bold" for="field_speedtest">Speedtest</label>
                                 <div class="col-8">
                                     <select class="form-select" name='field_speedtest' id='field_speedtest'>
-                                        <option value='' selected="selected"></option>         
+                                        <option value='' selected="selected"></option>
+                                        <option value='Ookla'>Ookla</option>
+                                        <option value='TR143'>TR143</option>
+                                        <option value='RDOF'>RDOF</option>
+                                        <option value='NA'>NA</option>    
                                     </select>
                                     <div class="errorValidation" id="error_speedtest">Speedtest is required</div>
                                 </div>
@@ -118,8 +123,17 @@
                             <div  id="flag_activate_container" class="row col-6">
                                 <label class="col-4 col-form-label text-end fw-bold" for="field_container_devices">Containers with Root Device</label>
                                 <div class="col-8">
-                                    <select class="form-select" name='field_container_devices' id='field_container_devices'>
-                                        <option value='' selected="selected"></option>       
+                                    <select class="form-select" name='field_container_devices' id='field_container_devices' multiple>
+                                        <!-- <option value='' selected="selected"></option> -->
+                                        <option value='Broadpeak'>Broadpeak</option>
+                                        <option value='Domos'>Domos</option>
+                                        <option value='F-Secure'>F-Secure</option>
+                                        <option value='Fingerprint'>Fingerprint</option>
+                                        <option value='Gryphon'>Gryphon</option>
+                                        <option value='M-Labs'>M-Labs</option>
+                                        <option value='NetDuma'>NetDuma</option>
+                                        <option value='OpenVPN'>OpenVPN</option>
+                                        <option value='Packet-Capture'>Packet-Capture</option>
                                     </select>
                                     <div class="errorValidation" id="error_speedtest">Speedtest is required</div>
                                 </div>
@@ -129,30 +143,32 @@
 
 
                     <div class="form-group row p-1">                            
-                        <label class="col-2 col-form-label text-end fw-bold" for="field_update_method">Device Update Method</label>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_root_update_method">Root Device Update Method</label>
                         <div class="col-4">
-                            <select class="form-select" name='field_update_method' id='field_update_method'>
+                            <select class="form-select" name='field_root_update_method' id='field_root_update_method'>
                                 <option value='' selected="selected"></option>
                                 <option value="3rd party ACS" >3rd party ACS</option>
                                 <option value="3rd party USP" >3rd party USP</option>
                                 <option value="OTA" >OTA</option>
                             </select>
-                            <div class="errorValidation" id="error_update_method">Update method is required</div>
+                            <div class="errorValidation" id="error_root_update_method">Root Update method is required</div>
                         </div>
                     </div>
-                    <div class="form-group row p-1" id="flag_ota">                            
+                    <div class="form-group row p-1" id="flag_root_update_method">                            
                         <label class="col-2 col-form-label text-end fw-bold" for="field_separate_license">Separate license for OTA included or explicit BBD approval?</label>
                         <div class="col-4">
                             <div class="form-check">
-                                <input class="form-check-input " type="radio" name="field_separate_license" id="field_separate_license_yes">
+                                <input class="form-check-input separate-license" type="radio" name="field_separate_license" id="field_separate_license_yes">
                                 <label class="form-check-label" for="field_separate_license_yes">Yes</label>
                             </div>                            
                             <div class="form-check">
-                                <input class="form-check-input " type="radio" name="field_separate_license" id="field_separate_license_no">
+                                <input class="form-check-input separate-license" type="radio" name="field_separate_license" id="field_separate_license_no">
                                 <label class="form-check-label" for="field_separate_license_no">No</label>
                             </div>
                             <div class="errorValidation" id="error_separate_license">Separate license for OTA is required</div>
                         </div>
+                    </div>
+                    <div class="form-group row p-1" id="flag_auto_ota">                            
 
                         <label class="col-2 col-form-label text-end fw-bold" for="field_auto_ota">Automatic SW Updates with OTA?</label>
                         <div class="col-4">
@@ -166,7 +182,7 @@
 
                         <label class="col-2 col-form-label text-end fw-bold" for="field_waiver">Singed Waiver</label>
                         <div class="col-3">
-                            <input type="file" class="form-control-file" name="field_waiver" id="field_waiver" style="display: none;" accept=".csv">
+                            <input type="file" class="form-control-file" name="field_waiver" id="field_waiver" style="display: none;" accept=".pdf">
                             <label for="field_waiver" class="info whitetext" id="label_waiver">Click to upload signed waiver</label> 
                         </div>
                         <div class="col-1">
@@ -187,7 +203,8 @@
                         </div>
                     </div>
 
-                    <div  id="flag_whitelisting_method">
+                    <!-- <div  id="flag_boeng_rule_detail" style="background-color:  #f9ebea;"> -->
+                    <div  id="flag_boeng_rule_detail">
                         <div class="form-group row p-1">                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_whitelisting_method">Whitelisting Method</label>
                             <div class="col-4">
@@ -195,12 +212,12 @@
                                     <option value='' selected="selected"></option>
                                     <option value="Dedicated OPID" >Dedicated OPID</option>
                                     <option value="IP based" >IP based</option>             
-                                    <option value="Serial number" >Serial number</option>                    
+                                    <option value="Serial number" >Serial number</option>            
                                 </select>
                                 <div class="errorValidation" id="error_whitelisting_method">Whitelisting Method is required</div>
                             </div>
                         </div>
-                        <div class="form-group row p-1" id="flag_ip_based">                            
+                        <div class="form-group row p-1" id="flag_whitelisting_ip_based">                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_ip_ranges">IP Ranges</label>
                             <div class="col-10">
                                 <textarea class="form-control" rows="2" maxlength="100" name="field_ip_ranges" id="field_ip_ranges" value=''></textarea>
@@ -208,13 +225,14 @@
                                 <div class="errorValidation" id="error_ip_ranges">IP ranges is required</div>
                             </div>
                         </div>
-                        <div class="form-group row p-1" id="flag_serial_number">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_customer_name">Customer name as used in deployment reports for automated whitelisting</label>
+                        <div class="form-group row p-1" id="flag_whitelisting_sn">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_customer_id">Customer ID as used in deployment reports for automated whitelisting</label>
                             <div class="col-3">
-                                <input type="text" class="form-control" name="field_customer_name" id="field_customer_name" value=''  >
-                                <div class="errorValidation" id="error_customer_name">Either Customer or CSV file is required</div>
+                                <input type="text" class="form-control" name="field_customer_id" id="field_customer_id" value='' >
+                                <div class="fieldComment" id="comment_field_customer_id">10 digits numberical identifier starting with '10'</div>
+                                <div class="errorValidation" id="error_field_customer_id">Customer ID is required and pleae follow the patten</div>
                             </div>
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_csv_file">CSV file with serial numbers to be whitelisted</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="csv_file">CSV file with serial numbers to be whitelisted</label>
                             <div class="col-3">
                                 <input type="file" class="form-control-file" name="field_csv_file" id="field_csv_file" style="display: none;" accept=".csv">
                                 <label for="field_csv_file" class="info whitetext" id="label_csv_file">Click to upload CSV</label> 
@@ -223,22 +241,41 @@
                                 <div id="url_csv_file"></div>
                             </div>
                         </div>
-                        <div class="form-group row p-1" id="flag_tr069_acs">                            
+                           
+                        <div class="form-group row p-1">                            
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_boeng_option_tr069">Boeng Options</label>
+                            <div class="col-4">
+                                <div class="form-check">
+                                    <input class="form-check-input boeng-option" type="checkbox" id="field_boeng_option_tr069">
+                                    <label class="form-check-label" for="field_boeng_option_tr069">TR-069/ACS</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input boeng-option" type="checkbox" id="field_boeng_option_3rd_party">
+                                    <label class="form-check-label" for="field_boeng_option_3rd_party">3rd party USP Controller</label>
+                                </div>
+                                <div class="form-check" id="flag_boeng_option_hc">
+                                    <input class="form-check-input" type="checkbox" id="field_boeng_option_hc">
+                                    <label class="form-check-label" for="field_boeng_option_hc">Home Controller USP Agent</label>
+                                </div>
+                                <div class="errorValidation" id="error_boeng_option">Boeng Option is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1" id="flag_boeng_option_tr069">                            
                             <label class="col-sm-2 col-form-label text-end fw-bold" for="field_acs_url">TR069/ACS Server/User Name/Password</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="field_acs_url" id="field_acs_url" placeholder="ACS Server URL" value=''  >
                                 <div class="errorValidation" id="error_acs_url">ACS Server URL is required</div>
                             </div>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="acs_username" id="acs_username" placeholder="ACS User Name" value=''  >
+                                <input type="text" class="form-control" name="field_acs_username" id="field_acs_username" placeholder="ACS User Name" value=''  >
                                 <div class="errorValidation" id="error_acs_username">ACS User Name is required</div> 
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" name="acs_password" id="acs_password" placeholder="ACS Password" value=''  >
+                                <input type="text" class="form-control" name="field_acs_password" id="field_acs_password" placeholder="ACS Password" value=''  >
                                 <div class="errorValidation" id="error_acs_password">ACS Password is required</div>
                             </div>
                         </div>
-                        <div class="form-group row p-1" id="flag_3rd_party_usp">                            
+                        <div class="form-group row p-1" id="flag_boeng_option_3rd_party">                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_usp_addr">USP Controller Address/Port</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_usp_addr" id="field_usp_addr" placeholder="USP Controller Address" value=''  >
@@ -252,27 +289,29 @@
                     </div>
 
 
-                    <div class="form-group row p-1">                            
+                    <div class="form-group row p-1" id="flag_mesh_extended" >                            
                         <label class="col-2 col-form-label text-end fw-bold" for="field_mesh_extended">Mesh Extended by Nokia Beacon? </label>
                         <div class="col-10">
                             <div class="form-check">
-                                <input class="form-check-input " type="radio" name="field_mesh_extended" id="field_mesh_extended_yes">
+                                <input class="form-check-input mesh-extended" type="radio" name="field_mesh_extended" id="field_mesh_extended_yes">
                                 <label class="form-check-label" for="field_mesh_extended_yes">Yes</label>
                             </div>                            
                             <div class="form-check">
-                                <input class="form-check-input " type="radio" name="field_mesh_extended" id="field_mesh_extended_no">
+                                <input class="form-check-input mesh-extended" type="radio" name="field_mesh_extended" id="field_mesh_extended_no">
                                 <label class="form-check-label" for="field_mesh_extended_no">No</label>
                             </div>
                             <div class="errorValidation" id="error_mesh_extended">Mesh Extended by Nokia Beacon is required</div>                          
                         </div>
                     </div>
+                    <!-- <div id="flag_mesh_extended_yes" style="background-color:  #e5e7e9 ;"> -->
                     <div id="flag_mesh_extended_yes">
                         <div class="form-group row p-1">                            
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_beacon">Beacon</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_extender_beacon">Beacon</label>
                             <div class="col-4">
-                                <select class="form-select" name='field_beacon' id='field_beacon'>
+                                <select class="form-select" name='field_extender_beacon' id='field_extender_beacon'>
+                                    <option value='' selected="selected"></option>
                                 </select>
-                                <div class="errorValidation" id="error_beacon">Beacon is required</div>
+                                <div class="errorValidation" id="error_extender_beacon">Extender Beacon is required</div>
                             </div>
                         </div>
                         <div class="form-group row p-1">                            
@@ -288,40 +327,41 @@
                                 <div class="errorValidation" id="error_extender_update_method">Extender Update method is required</div>
                             </div>
                         </div>
-
-                        <div class="form-group row p-1" id="flag_extender_ota">                            
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_extender_separate_license">Separate license for OTA included or explicit BBD approval?</label>
-                            <div class="col-4">
-                                <div class="form-check">
-                                    <input class="form-check-input " type="radio" name="field_extender_separate_license" id="field_extender_separate_license_yes">
-                                    <label class="form-check-label" for="field_extender_separate_license_yes">Yes</label>
-                                </div>                            
-                                <div class="form-check">
-                                    <input class="form-check-input " type="radio" name="field_extender_separate_license" id="field_extender_separate_license_no">
-                                    <label class="form-check-label" for="field_extender_separate_license_no">No</label>
+                        <div id="flag_extender_ota">
+                            <div class="form-group row p-1" id="flag_extender_separate_license">                            
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_separate_license">Separate license for OTA included or explicit BBD approval?</label>
+                                <div class="col-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input " type="radio" name="field_extender_separate_license" id="field_extender_separate_license_yes">
+                                        <label class="form-check-label" for="field_extender_separate_license_yes">Yes</label>
+                                    </div>                            
+                                    <div class="form-check">
+                                        <input class="form-check-input " type="radio" name="field_extender_separate_license" id="field_extender_separate_license_no">
+                                        <label class="form-check-label" for="field_extender_separate_license_no">No</label>
+                                    </div>
+                                    <div class="errorValidation" id="error_extender_separate_license">Separate license for OTA is required</div>
                                 </div>
-                                <div class="errorValidation" id="error_extender_separate_license">Separate license for OTA is required</div>
                             </div>
-                                                    
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_extender_auto_ota">Automatic SW updates with OTA?</label>
-                            <div class="col-4">
-                                <select class="form-select" name='field_extender_auto_ota' id='field_extender_auto_ota'>
-                                    <option value='' selected="selected"></option>
-                                    <option value="Yes" >Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</option>
-                                    <option value="No" >No, the customer will request Nokia to create OTA rules</option>             
-                                </select>
-                                <div class="errorValidation" id="error_extender_auto_ota">Separate license for OTA is required</div>
-                            </div>
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_extender_waiver">CSV file with serial numbers to be whitelisted</label>
-                            <div class="col-3">
-                                <input type="file" class="form-control-file" name="field_extender_waiver" id="field_extender_waiver" style="display: none;" accept=".csv">
-                                <label for="field_waiver" class="info whitetext" id="label_extender_waiver">Click to upload signed waiver</label> 
-                            </div>
-                            <div class="col-1">
-                                <div id="url_extender_waiver"></div>
+                            <div class="form-group row p-1" id="flag_extender_auto_ota">                            
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_auto_ota">Automatic SW updates with OTA?</label>
+                                <div class="col-4">
+                                    <select class="form-select" name='field_extender_auto_ota' id='field_extender_auto_ota'>
+                                        <option value='' selected="selected"></option>
+                                        <option value="Yes" >Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</option>
+                                        <option value="No" >No, the customer will request Nokia to create OTA rules</option>             
+                                    </select>
+                                    <div class="errorValidation" id="error_extender_auto_ota">Separate license for OTA is required</div>
+                                </div>
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_waiver">CSV file with serial numbers to be whitelisted</label>
+                                <div class="col-3">
+                                    <input type="file" class="form-control-file" name="field_extender_waiver" id="field_extender_waiver" style="display: none;" accept=".pdf">
+                                    <label for="field_waiver" class="info whitetext" id="label_extender_waiver">Click to upload signed waiver</label> 
+                                </div>
+                                <div class="col-1">
+                                    <div id="url_extender_waiver"></div>
+                                </div>
                             </div>
                         </div>
-            
                     </div>
 
 
@@ -329,7 +369,7 @@
                     <div class="form-group row p-1">
                         <label class="col-2 col-form-label text-end fw-bold" for="additional">Additional information</label>
                         <div class="col-10">    
-                            <textarea class="form-control" rows="2" maxlength="100" name="additional" id="additional" value=''></textarea>                                                 
+                            <textarea class="form-control" rows="2" maxlength="100" name="additional" id="field_additional" value=''></textarea>                                                 
                         </div>    
                     </div>
 
@@ -389,7 +429,7 @@
 <script src="../js/devicedp/device_deployment_edit.js"></script>
 
 <script language="javascript">       
-    window.onload = show_div();
+    window.onload = show_hide();
 </script>
 <script>
     var myVar;

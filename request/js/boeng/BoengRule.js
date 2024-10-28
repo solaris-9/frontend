@@ -131,7 +131,7 @@ new agGrid.Grid(gridDiv, gridOptions);
             async: false
         });       
         
-    $.getJSON("../gpi/allocate/new_boeng_fetch",{mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},function(data){      	
+    $.getJSON("../gpi/allocate/boeng_list",{mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},function(data){      	
         $(data.data.items).each(function(){
             FRT = JSON.stringify(this);	
             FRT = FRT.replace("[{", "{");
@@ -163,7 +163,7 @@ async function sendPostDelete() {
     } else {
         if (confirm("Are you sure you want to delete item(s) selected?")) {             
             Deletelist = document.formxl.ID.value;
-            const url = '../gpi/allocate/new_boeng_edit';
+            const url = '../gpi/allocate/boeng_edit';
             const data = {                               
                 type: 'delete',                
                 mail: mail,

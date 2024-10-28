@@ -359,3 +359,12 @@ html, body {
     width: 100%;
 }
 /****** for login page, end***********/
+
+
+/* for form validation */
+
+/* for form validation end*/
+input:invalid {
+    border: 2px dashed red;
+}
+

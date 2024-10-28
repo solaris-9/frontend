@@ -99,10 +99,11 @@
                         </div>
                     </div>
                     <div class="form-group row p-1" name="serial_number" id="serial_number">
-                        <label class="col-2 col-form-label text-end fw-bold" for="customer_name">Customer ID as used in deployment reports for automated whitelisting (10 digits numberical identifier starting with 10)</label>
+                        <label class="col-2 col-form-label text-end fw-bold" for="customer_name">Customer ID as used in deployment reports for automated whitelisting</label>
                         <div class="col-3">
-                            <input type="text" class="form-control" name="customer_name" id="customer_name" value=''  >
-                            <div class="errorValidation" id="error_customer_name">Either Customer or CSV file is required</div>
+                            <input type="text" class="form-control" name="customer_name" id="customer_name" value='' >
+                            <div class="fieldComment" id="comment_customer_name">10 digits numberical identifier starting with '10'</div>
+                            <div class="errorValidation" id="error_customer_name">Customer ID is required and pleae follow the patten</div>
                         </div>
                         <label class="col-2 col-form-label text-end fw-bold" for="csv_file">CSV file with serial numbers to be whitelisted in case of trial instance or automated whitelisting is not possible</label>
                         <div class="col-3">
