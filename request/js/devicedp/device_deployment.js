@@ -8,7 +8,7 @@ var FR ={};
 var rowData = [];
 const columnDefs = [ 
     { 
-        field: 'Customer', 
+        field: 'field_customer', 
         width: 220, 
         headerName: 'Customer Name',
         headerCheckboxSelection: false,
@@ -19,46 +19,47 @@ const columnDefs = [
             if (cookie_grades.Edit == "Yes") {
                 document.querySelector('#selectedRows').innerHTML =
                     selectedRows.length === 1 ? selectedRows[0].ID : '';	
-                location.href = "BoengRule_edit.html?B_ID="+selectedRows[0].B_ID;
+                location.href = "device_deployment_edit.html?ID="+selectedRows[0].ID;
                 document.body.style.cursor = 'wait';
             };
         }
     },  
-    { field: 'device', width: 160, headerName: 'Device Model'}, 
-    { field: 'OPID', width: 100, headerName: 'OPID'},
-    { field: 'whitelistmethod', width: 200, headerName: 'Whitelisting method'},
-    { field: 'countryid', width: 150, headerName: 'Country Id' },
-    { field: 'iprange', width: 200, headerName: 'IP Ranges'},        
-    { field: 'customer_name', width: 300, headerName: 'Customer Name in Auto Whitelisting' },
-    { field: 'csv_file', width: 200, headerName: 'Serial Numbers CSV'},
-    { field: 'tr069', width: 160, headerName: 'TR-069/ACS' },
-    { field: 'home_controller', width: 160, headerName: 'Home Controller USP Agent'},		
-    { field: 'rd_party_controller', width: 160, headerName: '3rd Party USP Controller' },
-    { field: 'acs_url', width: 200, headerName: 'ACS URL'},
-    { field: 'acs_username', width: 160, headerName: 'ACS Username'},        
-    { field: 'acs_password', width: 160, headerName: 'ACS Password'},	
-    { field: 'tenant_ref', width: 160, headerName: 'Reference to tenant hosting ticket'},	
-    { field: 'usp_addr', width: 200, headerName: 'USP Controller address'},
-    { field: 'usp_port', width: 160, headerName: 'USP Controller port'},
-    { field: 'auto_upgrade', width: 160, headerName: 'Automatic SW updates with OTA'},         
-    { field: 'separate_license', width: 160, headerName: 'Separate license for OTA'},
-    { field: 'used_as_extender', width: 160, headerName: 'Extender to other root Beacons'},
-    { field: 'root_beacon_extender_1', width: 200, headerName: 'Root Beacon Extender #1'},
-    { field: 'root_beacon_extender_2', width: 200, headerName: 'Root Beacon Extender #2'},
-    { field: 'root_beacon_extender_3', width: 200, headerName: 'Root Beacon Extender #3'},
-    { field: 'root_beacon_extender_4', width: 200, headerName: 'Root Beacon Extender #4'},
-    { field: 'root_beacon_extender_5', width: 200, headerName: 'Root Beacon Extender #5'},
-    { field: 'root_beacon_extender_6', width: 200, headerName: 'Root Beacon Extender #6'},
-    { field: 'root_beacon_extender_7', width: 200, headerName: 'Root Beacon Extender #7'},
-    { field: 'root_beacon_extender_8', width: 200, headerName: 'Root Beacon Extender #8'},
-    { field: 'root_beacon_extender_9', width: 200, headerName: 'Root Beacon Extender #9'},
-    { field: 'root_beacon_extender_10', width: 200, headerName: 'Root Beacon Extender #10'},
+    { field: 'field_root_device', width: 200, headerName: 'Root Device'},
+    { field: 'field_product_variant', width: 200, headerName: 'Product Variant'},
+    { field: 'field_managed_by_hc', width: 200, headerName: 'Managed by Home Controller'},
+    { field: 'field_home_controller', width: 200, headerName: 'Home Controller'},
+    { field: 'field_speedtest_needed', width: 200, headerName: 'Speedtest Requested'},
+    { field: 'field_speedtest', width: 200, headerName: 'Speedtest'},
+    { field: 'field_activate_container', width: 200, headerName: 'Activate Contrainer'},
+    { field: 'field_container_devices', width: 200, headerName: 'Containers'},
+    { field: 'field_root_update_method', width: 200, headerName: 'Root Device Update Method'},
+    { field: 'field_separate_license', width: 200, headerName: 'Separate License for OTA'},
+    { field: 'field_auto_ota', width: 200, headerName: 'Auto OTA'},
+    { field: 'field_waiver', width: 200, headerName: 'OTA Waiver'},
+    { field: 'field_boeng_rule', width: 200, headerName: 'Configure Boeng Rule'},
+    { field: 'field_whitelisting_method', width: 200, headerName: 'Whitelisting Method'},
+    { field: 'field_ip_ranges', width: 200, headerName: 'IP Ranges'},
+    { field: 'field_customer_id', width: 200, headerName: 'Customer Id'},
+    { field: 'field_csv_file', width: 200, headerName: 'SN CSV'},
+    { field: 'field_boeng_options', width: 200, headerName: 'Boeng Options'},
+    { field: 'field_acs_url', width: 200, headerName: 'ACS URL'},
+    { field: 'field_acs_username', width: 200, headerName: 'ACS Username'},
+    { field: 'field_acs_password', width: 200, headerName: 'ACS Password'},
+    { field: 'field_usp_addr', width: 200, headerName: 'USP Controller Address'},
+    { field: 'field_usp_port', width: 200, headerName: 'USP Controller Port'},
+    { field: 'field_mesh_extended', width: 200, headerName: 'Mesh Extended'},
+    { field: 'field_extender_beacon', width: 200, headerName: 'Extender Beancon'},
+    { field: 'field_extender_update_method', width: 200, headerName: 'Extender Update Mehtod'},
+    { field: 'field_extender_separate_license', width: 200, headerName: 'Extender OTA License'},
+    { field: 'field_extender_auto_ota', width: 200, headerName: 'Extender Auto OTA'},
+    { field: 'field_extender_waiver', width: 200, headerName: 'Extender OTA Waiver'},
+    { field: 'field_additional', width: 200, headerName: 'Addtional Info'},
     { field: 'additional', width: 200, headerName: 'Commnents'},
     { field: 'creator', width: 150, headerName: 'Creator'},
     { field: 'createon', width: 150, headerName: 'Created On'},
     { field: 'modifier', width: 150, headerName: 'Modifier'},
     { field: 'modifiedon', width: 150, headerName: 'Modified On'},
-    { field: 'B_ID',width: 120, headerName: 'Item' }     
+    { field: 'ID',width: 120, headerName: 'Item' }     
 ];
 
 // let the grid know which columns and what data to use
@@ -115,7 +116,7 @@ function onBtExport() {
     let hour=d.getHours();                    
     let minutes=d.getMinutes();      
     var excelParams = {
-        fileName: 'BoENG_request-' + year + month + date+ hour + minutes + '.xlsx',
+        fileName: 'Device_Deployment-' + year + month + date+ hour + minutes + '.xlsx',
         sheetName: 'request',	   
     }
     gridOptions.api.exportDataAsExcel(excelParams);
@@ -131,7 +132,7 @@ new agGrid.Grid(gridDiv, gridOptions);
             async: false
         });       
         
-    $.getJSON("../gpi/allocate/new_boeng_fetch",{mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},function(data){      	
+    $.getJSON("../gpi/allocate/devicedp_list",{mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},function(data){      	
         $(data.data.items).each(function(){
             FRT = JSON.stringify(this);	
             FRT = FRT.replace("[{", "{");
@@ -163,7 +164,7 @@ async function sendPostDelete() {
     } else {
         if (confirm("Are you sure you want to delete item(s) selected?")) {             
             Deletelist = document.formxl.ID.value;
-            const url = '../gpi/allocate/new_boeng_edit';
+            const url = '../gpi/allocate/devicedp_edit';
             const data = {                               
                 type: 'delete',                
                 mail: mail,
