@@ -184,13 +184,60 @@ function upload(id) {
 
 function pre_validation() {
     // make sure all input are not empty and valid
-    // const alert_html = '<font color="#FF0000" size="4">*</font>';
-    // const pass_html = '';
     var count = 0;
     
     // TODO
-
-
+    //Traverse all visisble elements
+    $("form[name='formxl']").find(":input:visible").each(function() {
+        let id = this.id;
+        let $elem = $(this);
+        if (id.startsWith('field_')) {
+            let ttype = $elem.attr('type');
+            if (ttype == "checkbox" || ttype == "radio") {
+                //console.log(id);
+                let $parent = $elem.parent().parent();
+                let flag = false;
+                let childs = $parent.find(":input:visible");
+                for (let i=0; i < childs.length; i++) {
+                    if(childs[i].checked) {
+                        flag = true;
+                    };
+                };
+                if (flag) {
+                    $parent.css({"border": ""});
+                } else {
+                    if (id == childs[0].id) {
+                        count++;
+                        $parent.css({"border": "2px dashed red"});
+                    };
+                };
+            } else {
+                if (id != "field_additional") {
+                    let val = $elem.val();
+                    if (val) {
+                        $elem.css({"border": ""});
+                    } else {
+                        count++;
+                        $elem.css({"border": "2px dashed red"});
+                    };
+                };
+            };
+        };
+    });
+    // for ([key, attr] of Object.entries(dd_fields)) {
+    //     let ttype = attr.type;
+    //     obj = $("#"+key).closest("div[id|='field']");
+    //     obj.each(function(){
+    //         console.log(this.id);
+    //     });
+    //     switch(ttype) {
+    //         case "text":
+    //             //document.formxl[key].value = val;
+    //             break;
+    //         case "list":
+    //             break;
+    //     };
+    // };
     if (count > 0) {
         $("#error_all").text("You have " + count + " error(s) in this form!");
         $("#error_all").show();
@@ -224,36 +271,72 @@ function customerAdd() {
         customer,
         customer
     );
-    clear_options(document.formxl.Customer);
-    render_customer();
-    $('#Customer').val(customer);
+    clear_options(document.formxl.field_customer);
+    render_customer(document.formxl.field_customer);
+    $('#field_customer').val(customer);
     $('#customerModal').modal('toggle');
 };
 
 function customer_pre_validation() {
     let count = 0;
-    var cform = $("#customerForm")[0];
-    let customer = cform.new_customer_name.value.trim();
-    if (customer.length <= 0) {
-        $("#error_new_customer_name").text('Customer name is required.');
-        $("#error_new_customer_name").show();
-        count++;
-    } else {
-        if (global_customers.has(customer)) {
-            $("#error_new_customer_name").text('Customer name "' + customer + '" already added!');
-            $("#error_new_customer_name").show();
-            count++;
-        } else {
-            $("#error_new_customer_name").text('');
-            $("#error_new_customer_name").hide();
+    //var cform = $("#customerForm")[0];
+    // let customer = cform.new_customer_name.value.trim();
+    // if (customer.length <= 0) {
+    //     $("#error_new_customer_name").text('Customer name is required.');
+    //     $("#error_new_customer_name").show();
+    //     count++;
+    // } else {
+    //     if (global_customers.has(customer)) {
+    //         $("#error_new_customer_name").text('Customer name "' + customer + '" already added!');
+    //         $("#error_new_customer_name").show();
+    //         count++;
+    //     } else {
+    //         $("#error_new_customer_name").text('');
+    //         $("#error_new_customer_name").hide();
+    //     };
+    // };
+    // if (cform.new_customer_desc.value.trim().length <= 0) {
+    //     $("#error_new_customer_desc").show();
+    //     count++;
+    // } else {
+    //     $("#error_new_customer_desc").hide();
+    // };
+    $("#customerForm").find(":input:visible").each(function() {
+        let id = this.id;
+        let $elem = $(this);
+        if (id.startsWith('new_customer_')) {
+            let ttype = $elem.attr('type');
+            if (ttype == "checkbox" || ttype == "radio") {
+                //console.log(id);
+                let $parent = $elem.parent().parent();
+                let flag = false;
+                let childs = $parent.find(":input:visible");
+                for (let i=0; i < childs.length; i++) {
+                    if(childs[i].checked) {
+                        flag = true;
+                    };
+                };
+                if (flag) {
+                    $parent.css({"border": ""});
+                } else {
+                    if (id == childs[0].id) {
+                        count++;
+                        $parent.css({"border": "2px dashed red"});
+                    };
+                };
+            } else {
+                //if (id != "field_additional") {
+                let val = $elem.val();
+                if (val) {
+                    $elem.css({"border": ""});
+                } else {
+                    count++;
+                    $elem.css({"border": "2px dashed red"});
+                };
+                //};
+            };
         };
-    };
-    if (cform.new_customer_desc.value.trim().length <= 0) {
-        $("#error_new_customer_desc").show();
-        count++;
-    } else {
-        $("#error_new_customer_desc").hide();
-    };
+    });
     if (count > 0) {
         $("#error_all_customer").text("You have " + count + " error(s) in this form!");
         $("#error_all_customer").show();
@@ -301,7 +384,12 @@ function save() {
                 break;
             case "multi":
                 //data[key] = document.formxl[key].value;
-                data[key] = $("#"+key).val().join(",");
+                let val = $("#"+key).val();
+                if (val) {
+                    data[key] = val.join(",");
+                } else {
+                    data[key] = '';
+                };
                 break;
             case "file":
                 data[key] = global_file_uploaded[key]; //document.formxl[key].value;
