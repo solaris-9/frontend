@@ -284,10 +284,12 @@ function pre_validation() {
     };
 
     if (!($("#tr069").is(':checked') || $("#home_controller").is(':checked') || $("#rd_party_controller").is(':checked'))) {
-        $("#error_boeng_option").show();
+        //$("#error_boeng_option").show();
+        $("#tr069").parent().parent().css({"border": "2px dashed red"});
         count++;
     } else {
-        $("#error_boeng_option").hide();
+        //$("#error_boeng_option").hide();
+        $("#tr069").parent().parent().css({"border": ""});
     };
 
     if (!($("#tr069_acs").is(':hidden'))) {
@@ -307,10 +309,12 @@ function pre_validation() {
     };
 
     if (!($("#auto_upgrade_1").is(':checked') || $("#auto_upgrade_2").is(':checked'))) {
-        $("#error_OTA").show();
+        //$("#error_OTA").show();
+        $("#auto_upgrade_1").parent().parent().css({"border": "2px dashed red"});
         count++;
     } else {
-        $("#error_OTA").hide();
+        //$("#error_OTA").hide();
+        $("#auto_upgrade_1").parent().parent().css({"border": ""});
     };
 
     if (!($("#ota_yes_1").is(':hidden'))) {
@@ -319,10 +323,12 @@ function pre_validation() {
 
     if (!($("#ota_yes_2").is(':hidden'))) {
         if (!($("#used_as_extender_y").is(':checked') || $("#used_as_extender_n").is(':checked'))) {
-            $("#error_extender").show();
+            //$("#error_extender").show();
+            $("#used_as_extender_y").parent().parent().css({"border": "2px dashed red"});
             count++;
         } else {
-            $("#error_extender").hide();
+            //$("#error_extender").hide();
+            $("#used_as_extender_y").parent().parent().css({"border": ""});
         };
 
         if ($("#used_as_extender_y").is(':checked')) {

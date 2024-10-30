@@ -116,9 +116,11 @@ function fetch_devicedp() {
                         };
                         break;
                     case "multi":
-                        val.split(",").forEach(v => {
-                            $("#" + key + " option[value='" + v + "']").prop("selected", true);
-                        });
+                        if (val) {
+                            val.split(",").forEach(v => {
+                                $("#" + key + " option[value='" + v + "']").prop("selected", true);
+                            });
+                        };
                         break;
                     case "file":
                         //
@@ -279,61 +281,16 @@ function customerAdd() {
 
 function customer_pre_validation() {
     let count = 0;
-    //var cform = $("#customerForm")[0];
-    // let customer = cform.new_customer_name.value.trim();
-    // if (customer.length <= 0) {
-    //     $("#error_new_customer_name").text('Customer name is required.');
-    //     $("#error_new_customer_name").show();
-    //     count++;
-    // } else {
-    //     if (global_customers.has(customer)) {
-    //         $("#error_new_customer_name").text('Customer name "' + customer + '" already added!');
-    //         $("#error_new_customer_name").show();
-    //         count++;
-    //     } else {
-    //         $("#error_new_customer_name").text('');
-    //         $("#error_new_customer_name").hide();
-    //     };
-    // };
-    // if (cform.new_customer_desc.value.trim().length <= 0) {
-    //     $("#error_new_customer_desc").show();
-    //     count++;
-    // } else {
-    //     $("#error_new_customer_desc").hide();
-    // };
     $("#customerForm").find(":input:visible").each(function() {
         let id = this.id;
         let $elem = $(this);
         if (id.startsWith('new_customer_')) {
-            let ttype = $elem.attr('type');
-            if (ttype == "checkbox" || ttype == "radio") {
-                //console.log(id);
-                let $parent = $elem.parent().parent();
-                let flag = false;
-                let childs = $parent.find(":input:visible");
-                for (let i=0; i < childs.length; i++) {
-                    if(childs[i].checked) {
-                        flag = true;
-                    };
-                };
-                if (flag) {
-                    $parent.css({"border": ""});
-                } else {
-                    if (id == childs[0].id) {
-                        count++;
-                        $parent.css({"border": "2px dashed red"});
-                    };
-                };
+            let val = $elem.val();
+            if (val) {
+                $elem.css({"border": ""});
             } else {
-                //if (id != "field_additional") {
-                let val = $elem.val();
-                if (val) {
-                    $elem.css({"border": ""});
-                } else {
-                    count++;
-                    $elem.css({"border": "2px dashed red"});
-                };
-                //};
+                count++;
+                $elem.css({"border": "2px dashed red"});
             };
         };
     });
