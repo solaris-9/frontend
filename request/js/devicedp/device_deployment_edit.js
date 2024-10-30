@@ -217,7 +217,11 @@ function pre_validation() {
                 if (id != "field_additional") {
                     let val = $elem.val();
                     if (val) {
-                        $elem.css({"border": ""});
+                        if (id == "field_customer_id") {
+                            count += check_pattern(id, /^10\d{8}$/);
+                        } else {
+                            $elem.css({"border": ""});
+                        };
                     } else {
                         count++;
                         $elem.css({"border": "2px dashed red"});
