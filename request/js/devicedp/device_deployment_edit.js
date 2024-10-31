@@ -31,12 +31,12 @@ var dd_fields = {
     field_product_variant: {type: 'list'},
     field_managed_by_hc: {type: 'list'},
     field_home_controller: {type: 'list'},
-    field_speedtest_needed: {type: 'radio'},
+    field_speedtest_needed: {type: 'list'},
     field_speedtest: {type: 'list'},
-    field_activate_container: {type: 'radio'},
+    field_activate_container: {type: 'list'},
     field_container_devices: {type: 'multi'},
     field_root_update_method: {type: 'list'},
-    field_separate_license: {type: 'radio'},
+    field_separate_license: {type: 'list'},
     field_auto_ota: {type: 'list'},
     field_waiver: {type: 'file'},
     field_boeng_rule: {type: 'list'},
@@ -50,10 +50,10 @@ var dd_fields = {
     field_acs_password: {type: 'text'},
     field_usp_addr: {type: 'text'},
     field_usp_port: {type: 'text'},
-    field_mesh_extended: {type: 'radio'},
+    field_mesh_extended: {type: 'list'},
     field_extender_beacon: {type: 'list'},
     field_extender_update_method: {type: 'list'},
-    field_extender_separate_license: {type: 'radio'},
+    field_extender_separate_license: {type: 'list'},
     field_extender_auto_ota: {type: 'list'},
     field_extender_waiver: {type: 'file'},
     field_additional: {type: 'text'}
@@ -262,6 +262,9 @@ function customerAdd() {
     let mail = $.cookie(cookie_mail);
     let uname = $.cookie(cookie_name);
     let customer = $("#new_customer_name").val();
+    if (!confirm("Please confirm if you want the new customer '" + customer + "' be saved into database?")) {
+        return;
+    }
     const url = '../gpi/allocate/new_customer_add';
     var data = {
         uname: uname,
@@ -279,6 +282,7 @@ function customerAdd() {
     );
     clear_options(document.formxl.field_customer);
     render_customer(document.formxl.field_customer);
+    render_nwcc(customer, document.formxl.field_home_controller);
     $('#field_customer').val(customer);
     $('#customerModal').modal('toggle');
 };
@@ -479,6 +483,8 @@ function show_managed_by_hc() {
         remove_option(elem, opt);
         elem.value = old_value;
     };
+    show_speedtest();
+    show_activate_container();
     show_root_update_method();
     let boeng_elem = document.formxl.field_boeng_rule;
     //let wl_opt = 'Home Controller USP Agent';
@@ -495,6 +501,33 @@ function show_managed_by_hc() {
     };
 
 };
+
+function show_speedtest(){
+    let val = $("#field_speedtest_needed").val();
+    if (val == "Yes") {
+        $("#flag_speedtest_needed").show();
+    } else {
+        $("#flag_speedtest_needed").hide();
+        clear_child_value("flag_speedtest_needed");
+    };
+};
+
+function show_activate_container() {
+    let val = $("#field_activate_container").val();
+    if (val == "Yes") {
+        $("#flag_activate_container").show();
+    } else {
+        $("#flag_activate_container").hide();
+        clear_child_value("flag_activate_container");
+    };
+};
+
+$("#field_speedtest_needed").change(function(){
+    show_speedtest();
+});
+$("#field_activate_container").change(function(){
+    show_activate_container();
+});
 
 $("#field_root_update_method").change(function(){
     //show_hide_by_value('field_root_update_method', 'OTA', 'flag_ota');
@@ -518,17 +551,35 @@ function show_root_update_method() {
         };
         if (root_device.startsWith('Beacon')) {
             $("#flag_auto_ota").show();
+            show_auto_ota_yes();
         }else {
             $("#flag_auto_ota").hide();
             clear_child_value("flag_auto_ota");
+            $("#flag_auto_ota_yes").hide();
+            clear_child_value("flag_auto_ota_yes");
         };
     } else {
         $("#flag_root_update_method").hide();
         clear_child_value("flag_root_update_method");
         $("#flag_auto_ota").hide();
         clear_child_value("flag_auto_ota");
+        $("#flag_auto_ota_yes").hide();
+        clear_child_value("flag_auto_ota_yes");
+    };
+
+};
+function show_auto_ota_yes() {
+    let val = $("#field_auto_ota").val();
+    if (val == "Yes") {
+        $("#flag_auto_ota_yes").show();
+    } else {
+        $("#flag_auto_ota_yes").hide();
+        clear_child_value("flag_auto_ota_yes");
     };
 };
+$("#field_auto_ota").change(function(){
+    show_auto_ota_yes();
+});
 
 $("#field_boeng_rule").change(function(){
     //show_hide_by_value('field_root_update_method', 'OTA', 'flag_ota');
@@ -566,6 +617,7 @@ $("#field_whitelisting_method").change(function(){
 function show_whitelisting_method(value) {
     switch (value) {
         case "":
+        case "Dedicated OPID":
             $("#flag_whitelisting_sn").hide();
             clear_child_value("flag_whitelisting_sn");
             $("#flag_whitelisting_ip_based").hide();
@@ -618,21 +670,22 @@ function show_all_boeng_option() {
 
 function show_mesh_extended() {
     //show_hide_by_value('field_boeng_rule', 'Yes', 'flag_boeng_rule');
-    let dev = document.formxl.field_root_device.value;
-    if (dev.startsWith('Beacon')) {
-        $("#flag_mesh_extended").show();
-        show_mesh_extended_detail();
-    } else {
-        $("#flag_mesh_extended").hide();
-        $("#flag_mesh_extended_yes").hide();
-        // $("#field_mesh_extended_yes").prop('checked', false);
-        // $("#field_mesh_extended_no").prop('checked', false);
-        clear_child_value("flag_mesh_extended");
-        clear_child_value("flag_mesh_extended_yes");
-    }
+    //let dev = document.formxl.field_root_device.value;
+    //if (dev.startsWith('Beacon')) {
+    $("#flag_mesh_extended").show();
+    show_mesh_extended_detail();
+    // } else {
+    //     $("#flag_mesh_extended").hide();
+    //     $("#flag_mesh_extended_yes").hide();
+    //     // $("#field_mesh_extended_yes").prop('checked', false);
+    //     // $("#field_mesh_extended_no").prop('checked', false);
+    //     clear_child_value("flag_mesh_extended");
+    //     clear_child_value("flag_mesh_extended_yes");
+    // }
 };
 function show_mesh_extended_detail() {
-    if ($("#field_mesh_extended_yes").is(':checked')) {
+    let val = $("#field_mesh_extended").val();
+    if (val == "Yes") {
         $("#flag_mesh_extended_yes").show();
     } else {
         $("#flag_mesh_extended_yes").hide();
@@ -640,11 +693,11 @@ function show_mesh_extended_detail() {
     }
 
 };
-$(".mesh-extended").change(function(){
+$("#field_mesh_extended").change(function(){
     show_mesh_extended_detail();
 });
 
-$(".separate-license").change(function(){
+$("#field_separate_license").change(function(){
     show_extender_update_method();
 });
 $("#field_auto_ota").change(function(){
@@ -663,22 +716,35 @@ function show_extender_update_method() {
     show_extended_ota();
 };
 function show_extended_ota(){
-    let elem_d = $("#field_separate_license_yes");
-    let elem_c = document.formxl.field_auto_ota;
+    let elem_d = $("#field_separate_license");
+    let elem_c = $("#field_auto_ota");
 
-    if (elem_d.is(':checked')) {
+    if (elem_d.val() == "No") {
+        $("#flag_extender_separate_license").show();
+    } else {
         $("#flag_extender_separate_license").hide();
         clear_child_value("flag_extender_separate_license");
-    } else {
-        $("#flag_extender_separate_license").show();
     };
-    if (elem_c.value == "Yes") {
+    if (elem_c.val() == "No") {
+        $("#flag_extender_auto_ota").show();
+        show_extended_ota_yes();
+    } else {
         $("#flag_extender_auto_ota").hide();
         clear_child_value("flag_extender_auto_ota");
-    } else {
-        $("#flag_extender_auto_ota").show();
     };
 };
+function show_extended_ota_yes() {
+    let val = $("#field_extender_auto_ota").val();
+    if (val == "Yes") {
+        $("#flag_extender_auto_ota_yes").show();
+    } else {
+        $("#flag_extender_auto_ota_yes").hide();
+        clear_child_value("flag_extender_auto_ota_yes");
+    };
+};
+$("#field_extender_auto_ota").change(function(){
+    show_extended_ota_yes();
+});
 
 function flag_managed_by_hc_show_hide(base, target) {
     let val = document.formxl.field_managed_by_hc.value;

@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group row p-1" >                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_speedtest_needed">Speedtest Service Requested?</label>
-                            <div class="col-4">
+                            <!-- <div class="col-4">
                                 <div class="form-check">
                                     <input class="form-check-input " type="radio" name="field_speedtest_needed" id="field_speedtest_needed_yes">
                                     <label class="form-check-label" for="field_speedtest_needed_yes">Yes</label>
@@ -92,6 +92,13 @@
                                     <label class="form-check-label" for="field_speedtest_needed_no">No</label>
                                 </div>
                                 <div class="errorValidation" id="error_speedtest_needed">Speedtest service needed is required</div>
+                            </div> -->
+                            <div class="col-4">
+                                <select class="form-select" name='field_speedtest_needed' id='field_speedtest_needed'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Yes" >Yes</option>
+                                    <option value="No" >No</option>             
+                                    </select>
                             </div>
                             <div  id="flag_speedtest_needed" class="row col-6">
                                 <label class="col-4 col-form-label text-end fw-bold" for="field_speedtest">Speedtest</label>
@@ -109,7 +116,7 @@
                         </div>
                         <div class="form-group row p-1">                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_activate_container">Activate Container?</label>
-                            <div class="col-4">
+                            <!-- <div class="col-4">
                                 <div class="form-check">
                                     <input class="form-check-input " type="radio" name="field_activate_container" id="field_activate_container_yes">
                                     <label class="form-check-label" for="field_speedtest_needed_yes">Yes</label>
@@ -119,6 +126,13 @@
                                     <label class="form-check-label" for="field_activate_container_no">No</label>
                                 </div>
                                 <div class="errorValidation" id="error_activate_container">Activate container is required</div>
+                            </div> -->
+                            <div class="col-4">
+                                <select class="form-select" name='field_activate_container' id='field_activate_container'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Yes" >Yes</option>
+                                    <option value="No" >No</option>             
+                                    </select>
                             </div>
                             <div  id="flag_activate_container" class="row col-6">
                                 <label class="col-4 col-form-label text-end fw-bold" for="field_container_devices">Containers with Root Device</label>
@@ -156,7 +170,7 @@
                     </div>
                     <div class="form-group row p-1" id="flag_root_update_method">                            
                         <label class="col-2 col-form-label text-end fw-bold" for="field_separate_license">Separate license for OTA included or explicit BBD approval?</label>
-                        <div class="col-4">
+                        <!-- <div class="col-4">
                             <div class="form-check">
                                 <input class="form-check-input separate-license" type="radio" name="field_separate_license" id="field_separate_license_yes">
                                 <label class="form-check-label" for="field_separate_license_yes">Yes</label>
@@ -166,6 +180,13 @@
                                 <label class="form-check-label" for="field_separate_license_no">No</label>
                             </div>
                             <div class="errorValidation" id="error_separate_license">Separate license for OTA is required</div>
+                        </div> -->
+                        <div class="col-4">
+                            <select class="form-select" name='field_separate_license' id='field_separate_license'>
+                                <option value='' selected="selected"></option>
+                                <option value="Yes" >Yes</option>
+                                <option value="No" >No</option>             
+                                </select>
                         </div>
                     </div>
                     <div class="form-group row p-1" id="flag_auto_ota">                            
@@ -174,19 +195,22 @@
                         <div class="col-4">
                             <select class="form-select" name='field_auto_ota' id='field_auto_ota'>
                                 <option value='' selected="selected"></option>
-                                <option value="Yes" >Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</option>
-                                <option value="No" >No, the customer will request Nokia to create OTA rules</option>             
+                                <!-- <option value="Yes" >Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</option>
+                                <option value="No" >No, the customer will request Nokia to create OTA rules</option> -->
+                                <option value="Yes" >Yes</option>
+                                <option value="No" >No</option>             
                             </select>
-                            <div class="errorValidation" id="error_auto_ota">Automatic OTA is required</div>
+                            <div class="field-comment" id="comment_auto_ota">Yes: Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer<br>No: the customer will request Nokia to create OTA rules</div>
                         </div>
-
-                        <label class="col-2 col-form-label text-end fw-bold" for="field_waiver">Singed Waiver</label>
-                        <div class="col-3">
-                            <input type="file" class="form-control-file" name="field_waiver" id="field_waiver" style="display: none;" accept=".pdf">
-                            <label for="field_waiver" class="info whitetext" id="label_waiver">Click to upload signed waiver</label> 
-                        </div>
-                        <div class="col-1">
-                            <div id="url_waiver"></div>
+                        <div class="row col-6" id="flag_auto_ota_yes">
+                            <label class="col-4 col-form-label text-end fw-bold" for="field_waiver">Signed Waiver</label>
+                            <div class="col-6">
+                                <input type="file" class="form-control-file" name="field_waiver" id="field_waiver" style="display: none;" accept=".pdf">
+                                <label for="field_waiver" class="info whitetext" id="label_waiver">Click to upload signed waiver</label> 
+                            </div>
+                            <div class="col-2">
+                                <div id="url_waiver"></div>
+                            </div>
                         </div>
                     </div>
 
@@ -221,16 +245,14 @@
                             <label class="col-2 col-form-label text-end fw-bold" for="field_ip_ranges">IP Ranges</label>
                             <div class="col-10">
                                 <textarea class="form-control" rows="2" maxlength="100" name="field_ip_ranges" id="field_ip_ranges" value=''></textarea>
-                                <div class="fieldComment" id="comment_ip_ranges">Both IPv4 and IPv6 ranges can be entered. Use ; to separate entries. Example: 15.14.13.12/24; 3af2:12345::/48.</div>
-                                <div class="errorValidation" id="error_ip_ranges">IP ranges is required</div>
-                            </div>
+                                <div class="field-comment" id="comment_ip_ranges">Both IPv4 and IPv6 ranges can be entered. Use ; to separate entries. Example: 15.14.13.12/24; 3af2:12345::/48.</div>
+                           </div>
                         </div>
                         <div class="form-group row p-1" id="flag_whitelisting_sn">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_customer_id">Customer ID as used in deployment reports for automated whitelisting</label>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <input type="text" class="form-control" name="field_customer_id" id="field_customer_id" value='' >
-                                <div class="fieldComment" id="comment_field_customer_id">10 digits numberical identifier starting with '10'</div>
-                                <div class="errorValidation" id="error_field_customer_id">Customer ID is required and pleae follow the patten</div>
+                                <div class="field-comment" id="comment_field_customer_id">10 digits numberical identifier starting with '10'</div>
                             </div>
                             <label class="col-2 col-form-label text-end fw-bold" for="csv_file">CSV file with serial numbers to be whitelisted</label>
                             <div class="col-3">
@@ -291,7 +313,7 @@
 
                     <div class="form-group row p-1" id="flag_mesh_extended" >                            
                         <label class="col-2 col-form-label text-end fw-bold" for="field_mesh_extended">Mesh Extended by Nokia Beacon? </label>
-                        <div class="col-10">
+                        <!-- <div class="col-10">
                             <div class="form-check">
                                 <input class="form-check-input mesh-extended" type="radio" name="field_mesh_extended" id="field_mesh_extended_yes">
                                 <label class="form-check-label" for="field_mesh_extended_yes">Yes</label>
@@ -301,6 +323,13 @@
                                 <label class="form-check-label" for="field_mesh_extended_no">No</label>
                             </div>
                             <div class="errorValidation" id="error_mesh_extended">Mesh Extended by Nokia Beacon is required</div>                          
+                        </div> -->
+                        <div class="col-4">
+                            <select class="form-select" name='field_mesh_extended' id='field_mesh_extended'>
+                                <option value='' selected="selected"></option>
+                                <option value="Yes" >Yes</option>
+                                <option value="No" >No</option>             
+                                </select>
                         </div>
                     </div>
                     <!-- <div id="flag_mesh_extended_yes" style="background-color:  #e5e7e9 ;"> -->
@@ -330,7 +359,7 @@
                         <div id="flag_extender_ota">
                             <div class="form-group row p-1" id="flag_extender_separate_license">                            
                                 <label class="col-2 col-form-label text-end fw-bold" for="field_extender_separate_license">Separate license for OTA included or explicit BBD approval?</label>
-                                <div class="col-4">
+                                <!-- <div class="col-4">
                                     <div class="form-check">
                                         <input class="form-check-input " type="radio" name="field_extender_separate_license" id="field_extender_separate_license_yes">
                                         <label class="form-check-label" for="field_extender_separate_license_yes">Yes</label>
@@ -340,6 +369,13 @@
                                         <label class="form-check-label" for="field_extender_separate_license_no">No</label>
                                     </div>
                                     <div class="errorValidation" id="error_extender_separate_license">Separate license for OTA is required</div>
+                                </div> -->
+                                <div class="col-4">
+                                    <select class="form-select" name='field_extender_separate_license' id='field_extender_separate_license'>
+                                        <option value='' selected="selected"></option>
+                                        <option value="Yes" >Yes</option>
+                                        <option value="No" >No</option>             
+                                        </select>
                                 </div>
                             </div>
                             <div class="form-group row p-1" id="flag_extender_auto_ota">                            
@@ -347,18 +383,22 @@
                                 <div class="col-4">
                                     <select class="form-select" name='field_extender_auto_ota' id='field_extender_auto_ota'>
                                         <option value='' selected="selected"></option>
-                                        <option value="Yes" >Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</option>
-                                        <option value="No" >No, the customer will request Nokia to create OTA rules</option>             
+                                        <!-- <option value="Yes" >Yes. Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer</option>
+                                        <option value="No" >No, the customer will request Nokia to create OTA rules</option>              -->
+                                        <option value="Yes" >Yes</option>
+                                        <option value="No" >No</option>           
                                     </select>
-                                    <div class="errorValidation" id="error_extender_auto_ota">Separate license for OTA is required</div>
+                                    <div class="field-comment" id="comment_auto_ota">Yes: Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer<br>No: the customer will request Nokia to create OTA rules</div>
                                 </div>
-                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_waiver">CSV file with serial numbers to be whitelisted</label>
-                                <div class="col-3">
-                                    <input type="file" class="form-control-file" name="field_extender_waiver" id="field_extender_waiver" style="display: none;" accept=".pdf">
-                                    <label for="field_waiver" class="info whitetext" id="label_extender_waiver">Click to upload signed waiver</label> 
-                                </div>
-                                <div class="col-1">
-                                    <div id="url_extender_waiver"></div>
+                                <div class="row col-6" id="flag_extender_auto_ota_yes">
+                                    <label class="col-4 col-form-label text-end fw-bold" for="field_extender_waiver">Signed Waiver</label>
+                                    <div class="col-6">
+                                        <input type="file" class="form-control-file" name="field_extender_waiver" id="field_extender_waiver" style="display: none;" accept=".pdf">
+                                        <label for="field_waiver" class="info whitetext" id="label_extender_waiver">Click to upload signed waiver</label> 
+                                    </div>
+                                    <div class="col-2">
+                                        <div id="url_extender_waiver"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

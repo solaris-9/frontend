@@ -362,9 +362,18 @@ html, body {
 
 
 /* for form validation */
-
-/* for form validation end*/
 input:invalid {
     border: 2px dashed red;
 }
 
+/* for form validation end*/
+
+
+/*  for input field comment*/
+.field-comment {
+    font-size: small;
+    color: lightgray;
+}
+
+
+/*  for input field comment end*/
