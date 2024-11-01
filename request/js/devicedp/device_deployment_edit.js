@@ -455,8 +455,12 @@ function show_root_device() {
     let old_value = elem.value;
     if (get_device_bl(device) == "ONT") {
         elem.options[elem.length]=new Option("OMCI");
+        remove_option(elem, "OTA");
+        elem.value = old_value;
     } else {
         remove_option(elem, "OMCI");
+        remove_option(elem, "OTA");
+        elem.options[elem.length]=new Option("OTA");
         elem.value = old_value;
     };
 
@@ -472,16 +476,21 @@ function show_managed_by_hc() {
     //show_hide_by_value('field_managed_by_hc', 'Yes', 'flag_managed_by_hc');
     let val = document.formxl.field_managed_by_hc.value;
     let elem = document.formxl.field_root_update_method;
+    let elem_extender = document.formxl.field_extender_update_method;
+    let old_value_extender = elem_extender.value;
     let old_value = elem.value;
     let opt = "Home Controller";
     if (val == "Yes") {
         $("#flag_managed_by_hc").show();
         elem.options[elem.length]=new Option(opt);
+        elem_extender.options[elem_extender.length]=new Option(opt);
     } else {
         $("#flag_managed_by_hc").hide();
         clear_child_value("flag_managed_by_hc");
         remove_option(elem, opt);
         elem.value = old_value;
+        remove_option(elem_extender, opt);
+        elem_extender.value = old_value_extender;
     };
     show_speedtest();
     show_activate_container();
@@ -496,8 +505,10 @@ function show_managed_by_hc() {
         } else {
             $("#flag_boeng_option_hc").hide();
         };
+        $("#comment_boeng_option").show();
     } else {
         $("#flag_boeng_option_hc").hide();
+        $("#comment_boeng_option").hide();
     };
 
 };
@@ -718,14 +729,15 @@ function show_extender_update_method() {
 function show_extended_ota(){
     let elem_d = $("#field_separate_license");
     let elem_c = $("#field_auto_ota");
+    let elem_root_update_method = $("#field_root_update_method");
 
-    if (elem_d.val() == "No") {
+    if (elem_d.val() == "No" || (elem_d.val() == "" && elem_root_update_method.val() != "OTA" && elem_root_update_method.val() != "")) {
         $("#flag_extender_separate_license").show();
     } else {
         $("#flag_extender_separate_license").hide();
         clear_child_value("flag_extender_separate_license");
     };
-    if (elem_c.val() == "No") {
+    if (elem_c.val() == "No" || (elem_c.val() == "" && elem_root_update_method.val() != "OTA" && elem_root_update_method.val() != "")) {
         $("#flag_extender_auto_ota").show();
         show_extended_ota_yes();
     } else {
