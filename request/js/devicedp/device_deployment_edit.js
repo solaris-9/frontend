@@ -706,6 +706,7 @@ function show_mesh_extended_detail() {
 };
 $("#field_mesh_extended").change(function(){
     show_mesh_extended_detail();
+    show_extender_update_method();
 });
 
 $("#field_separate_license").change(function(){
