@@ -454,6 +454,7 @@ function show_root_device() {
     let elem = document.formxl.field_root_update_method;
     let old_value = elem.value;
     if (get_device_bl(device) == "ONT") {
+        remove_option(elem, "OMCI");
         elem.options[elem.length]=new Option("OMCI");
         remove_option(elem, "OTA");
         elem.value = old_value;
@@ -471,6 +472,7 @@ function show_root_device() {
 
 $("#field_managed_by_hc").change(function(){
     show_managed_by_hc();
+    show_extender_update_method();
 });
 function show_managed_by_hc() {
     //show_hide_by_value('field_managed_by_hc', 'Yes', 'flag_managed_by_hc');
@@ -543,6 +545,7 @@ $("#field_activate_container").change(function(){
 $("#field_root_update_method").change(function(){
     //show_hide_by_value('field_root_update_method', 'OTA', 'flag_ota');
     show_root_update_method();
+    show_extender_update_method();
 });
 function show_root_update_method() {
     let root_update_method = document.formxl.field_root_update_method.value;
@@ -727,21 +730,38 @@ function show_extender_update_method() {
     };
     show_extended_ota();
 };
-function show_extended_ota(){
-    let elem_d = $("#field_separate_license");
-    let elem_c = $("#field_auto_ota");
-    let elem_root_update_method = $("#field_root_update_method");
+// function show_extended_ota(){
+//     let elem_d = $("#field_separate_license");
+//     let elem_c = $("#field_auto_ota");
+//     let elem_root_update_method = $("#field_root_update_method");
 
-    if (elem_d.val() == "No" || (elem_d.val() == "" && elem_root_update_method.val() != "OTA" && elem_root_update_method.val() != "")) {
+//     if (elem_d.val() == "No" || (elem_d.val() == "" && elem_root_update_method.val() != "OTA" && elem_root_update_method.val() != "")) {
+//         $("#flag_extender_separate_license").show();
+//     } else {
+//         $("#flag_extender_separate_license").hide();
+//         clear_child_value("flag_extender_separate_license");
+//     };
+//     if (elem_c.val() == "No" || (elem_c.val() == "" && elem_root_update_method.val() != "OTA" && elem_root_update_method.val() != "")) {
+//         $("#flag_extender_auto_ota").show();
+//         show_extended_ota_yes();
+//     } else {
+//         $("#flag_extender_auto_ota").hide();
+//         clear_child_value("flag_extender_auto_ota");
+//     };
+// };
+function show_extended_ota(){
+    // let elem_d = $("#field_separate_license");
+    // let elem_c = $("#field_auto_ota");
+    let elem_root_update_method = $("#field_root_update_method");
+    let elem_managed_by_hc = $("#field_managed_by_hc");
+
+    if (elem_managed_by_hc.val() == "No" && elem_root_update_method.val() != "OTA" && elem_root_update_method.val() != "") {
         $("#flag_extender_separate_license").show();
-    } else {
-        $("#flag_extender_separate_license").hide();
-        clear_child_value("flag_extender_separate_license");
-    };
-    if (elem_c.val() == "No" || (elem_c.val() == "" && elem_root_update_method.val() != "OTA" && elem_root_update_method.val() != "")) {
         $("#flag_extender_auto_ota").show();
         show_extended_ota_yes();
     } else {
+        $("#flag_extender_separate_license").hide();
+        clear_child_value("flag_extender_separate_license");
         $("#flag_extender_auto_ota").hide();
         clear_child_value("flag_extender_auto_ota");
     };
