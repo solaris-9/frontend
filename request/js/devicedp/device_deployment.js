@@ -24,6 +24,8 @@ const columnDefs = [
             };
         }
     },  
+    { field: 'field_status', width: 200, headerName: 'Status'},
+    { field: 'field_assignee', width: 200, headerName: 'Assignee'},
     { field: 'field_root_device', width: 200, headerName: 'Root Device'},
     { field: 'field_product_variant', width: 200, headerName: 'Product Variant'},
     { field: 'field_managed_by_hc', width: 200, headerName: 'Managed by Home Controller'},
@@ -59,7 +61,8 @@ const columnDefs = [
     { field: 'createon', width: 150, headerName: 'Created On'},
     { field: 'modifier', width: 150, headerName: 'Modifier'},
     { field: 'modifiedon', width: 150, headerName: 'Modified On'},
-    { field: 'ID',width: 120, headerName: 'Item' }     
+    { field: 'ID',width: 120, headerName: 'Item' },
+    { field: 'field_jira_id', width: 200, headerName: 'Jira Id'} 
 ];
 
 // let the grid know which columns and what data to use

@@ -7,6 +7,8 @@ function show_hide(){
     show_boeng_rule();
     show_mesh_extended();
     show_extender_update_method();
+    show_status();
+    status_change();
 } 
 
 var global_id = decode_id(location.search);
@@ -26,7 +28,11 @@ var dd_boeng_options = {
 };
 
 var dd_fields = {
-    field_customer: {type: 'list'},
+    field_customer: {type: 'text'},
+    field_status: {type: 'text'},
+    field_assignee: {type: 'text'},
+    field_mail: {type: 'text'},
+    field_jira_id: {type: 'text'},
     field_root_device: {type: 'list'},
     field_product_variant: {type: 'list'},
     field_managed_by_hc: {type: 'list'},
@@ -223,8 +229,12 @@ function pre_validation() {
                             $elem.css({"border": ""});
                         };
                     } else {
-                        count++;
-                        $elem.css({"border": "2px dashed red"});
+                        if (id == "field_status" || id == "field_assignee") {
+                            $elem.css({"border": ""});
+                        } else {
+                            count++;
+                            $elem.css({"border": "2px dashed red"});
+                        };
                     };
                 };
             };
@@ -332,7 +342,12 @@ function save() {
         let res = "";
         switch(ttype) {
             case "text":
-                data[key] = document.formxl[key].value;
+                
+                if (key == "field_status" && document.formxl[key].value == "") {
+                    data[key] = "New";
+                } else {
+                    data[key] = document.formxl[key].value;
+                };
                 break;
             case "list":
                 data[key] = document.formxl[key].value;
@@ -789,3 +804,47 @@ function flag_managed_by_hc_show_hide(base, target) {
     };
 }
 
+function show_status() {
+    let $elem = $("#flag_status")
+    if (global_id.length > 0) {
+        $elem.show();
+    } else {
+        $elem.hide();
+    }
+};
+$("#field_status").change(function(){
+    status_change();
+});
+function status_change() {
+    let val = $("#field_status").val();
+    if (val != "New") {
+        status_toggle(false);
+    } else {
+        status_toggle(true);
+    };
+};
+function status_toggle(flag) {
+    for ([key, attr] of Object.entries(dd_fields)) {
+        let l_exceptions = ['field_status', 'field_assignee', 'field_additional'];
+        if (l_exceptions.includes(key)) {
+            continue;
+        }
+        if (attr.type == "checkbox") {
+            let obj = attr.child;
+            for ([k, v] of Object.entries(obj)) {
+                $("#"+k).prop('disabled', !flag); 
+            };
+        } else {
+            $("#"+key).prop('disabled', !flag);
+        };
+    };
+    if (flag) {
+        $('#btnModal').show();
+    } else {
+        $('#btnModal').hide();
+    }
+};
+
+// $('#btnModal').click(function(){
+//      return ($(this).attr('disabled')) ? false : true;
+// });
