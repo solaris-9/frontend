@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="GB2312">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Device Deployment</title>
+<link rel="shortcut icon" href="favicon.ico"> 
+<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/font-awesome.css" rel="stylesheet">
+<link href="../css/ag-grid/ag-grid.css"  rel="stylesheet" />
+<link href="../css/ag-grid/ag.css" rel="stylesheet"  />
+<link href="../css/animate.css" rel="stylesheet">
+<link href="../css/style_addon.css" rel="stylesheet">
+
+</head>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../bootstrap5/js/bootstrap.min.js"></script>
+<script src="../bootstrap5/js/bootstrap.bundle.min.js"></script>
+<script src="../js/ag-grid/ag-grid-enterprise4.js"></script>
+<script src="../js/addon.js"></script>
+<script src="../js/check_login.js"></script>
+<script>
+    check_login('customer/customer.html')
+</script>
+<body class="gray-bg">
+    <div class="loader-container" id="preloader">
+        <div class="bouncing-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight" id="mainpart" style="display:none;">
+    <form class="form-horizontal" role="form" name="formxl" >
+    <div class="ibox-content">
+            <div class="row">
+            <div class="col-md-12">
+            <div class="ibox-title">
+                <input type="hidden" class="form-control" name='ID' id='ID' value='' style="height: 30px; width: 160px;">
+                <!-- <span id="grade_Add">
+                    <input type='button' value='Add' onClick="location.href='../devicedp/device_deployment_edit.html?B_ID='" class="btn btn-success col-1">
+                </span>
+                <span id="grade_Delete">
+                    <input class="btn btn-danger col-1" type="submit" value='Delete' name='cmd' id='cmd' onClick="deleteitem(); return false;">
+                </span> -->
+                <span id="grade_Export">
+                    <button onclick="onBtExport(); return false;" class='btn btn-secondary col-1'>Export</button>
+                </span>
+                <a class="btn btn-white btn-bitbucket" onClick="location.href='?'">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <font size= 2>Double click the 1st column to edit the record</font>
+                <span id="selectedRows"></span>
+                    
+            </div>                        
+        </div>
+    </div>
+    </div>
+    <!--<div class="ibox-content"> -->
+    <div class="row"> 
+        <!--<div class="row row-lg">-->
+        <div class="col-sm-12">					         
+            <div id="myGrid" style="height: 750px; " class="ag-theme-alpine"></div>
+        </div>
+    </div>          
+</div>
+</div>
+</div>
+    <!-- End Panel Columns & Select -->
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+
+
+</form>
+<script src="../js/customer/customer.js"></script>
+<script language="javascript">       
+        window.onload = show_div();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add BoENG Rule</title>
+
+<link rel="shortcut icon" href="favicon.ico">
+<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="../css/animate.css" rel="stylesheet">
+<link href="../css/style_addon.css" rel="stylesheet">
+
+</head>
+<body class="gray-bg">
+    <div class="loader-container" id="preloader">
+        <div class="bouncing-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
+        <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
+            <div class="ibox bg-white">
+                <div class="ibox-title rounded" >
+                    <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Input information</font></h5>
+                </div>    
+                <div class="ibox-content rounded">
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_jira_id">Customer</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_jira_id" disabled>
+                        </div>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_customer_name">Customer</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_customer_name" >
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_description">Description</label>
+                        <div class="col-10">
+                            <textarea class="form-control" rows="5" maxlength="10000" name="field_description" id="field_description" value=''></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_customer_olcs">Customer OLCS</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_customer_olcs" >
+                        </div>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_customer_impact">Customer Impact</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_customer_impact" >
+                        </div>
+                   </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_ont_plm">ONT PLM</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_ont_plm" disabled>
+                        </div>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_nwf_plm">ONT PLM</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_nwf_plm" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_fwa_plm">ONT PLM</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_fwa_plm" disabled>
+                        </div>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_local_contact">Local Contact</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="field_local_contact" disabled>
+                        </div>
+                    </div>
+
+                    <!-- <div class="hr-line-dashed"></div> -->
+                    <hr class="mt-1 mb-1"/>
+                    <div class="form-group row text-left">
+                        <div class="col-2"></div>
+                        <div class="errorValidation col-3"  id="error_all"></div>
+                    </div>
+
+                    <div class="form-group row p-2" >
+                        <div class="col-2">
+                        </div>
+                        <button class="btn btn-success col-1 mx-2" type="submit" value='Submit' name='btn_submit' id='btn_submit' onClick="save(); return false;">Submit</button>
+                        <input class='btn btn-secondary col-1 mx-2' type="button" name="Cancel" value="Cancel" onClick="history.go(-1);"></td>
+                    </div>
+                </div> <!--ibox-content -->
+            </div>
+        </form>
+    </div>
+    <div class="modal fade" id="customerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="customerModalLabel">Add New Customer</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customerForm">
+                        <div class="mb-3">
+                            <label for="new_customer_name" class="col-form-label fw-bold">New Customer Name:</label>
+                            <input type="text" class="form-control" id="new_customer_name" placeholder="Please input new customer name">
+                            <div class="errorValidation" id="error_new_customer_name">Customer is required</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new_customer_desc" class="col-form-label fw-bold">Description:</label>
+                            <textarea class="form-control" id="new_customer_desc" placeholder="Please input more info about the new customer"></textarea>
+                            <div class="errorValidation" id="error_new_customer_desc">Description is required</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="errorValidation col-4"  id="error_all_customer"></div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="customerAdd" onclick="customerAdd(); return false;">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../bootstrap5/js/bootstrap.min.js"></script>
+<script src="../js/addon.js"></script>
+<script src="../js/check_login.js"></script>
+<script>
+    check_login('customer/customer_edit.html')
+</script>
+<script src="../js/customer/customer_edit.js"></script>
+
+<script language="javascript">       
+    window.onload = show_hide();
+</script>
+<script>
+    var myVar;
+    
+    function myFunction() {
+      myVar = setTimeout(showPage, 3000);
+    }
+    
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("myDiv").style.display = "block";
+    }
+</script>
+</body>
+
+</html>
