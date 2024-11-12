@@ -8,9 +8,9 @@ var FR ={};
 var rowData = [];
 const columnDefs = [ 
     { 
-        field: 'field_jira_id', 
+        field: 'field_customer_name', 
         width: 160, 
-        headerName: 'Jira Id',
+        headerName: 'Customer',
         headerCheckboxSelection: false,
         checkboxSelection: false,
         showDisabledCheckboxes: false,
@@ -31,6 +31,7 @@ const columnDefs = [
     { field: 'field_nwf_plm', width: 200, headerName: 'NWF PLM'},
     { field: 'field_fwa_plm', width: 200, headerName: 'FWA PLM'},
     { field: 'field_local_contact', width: 200, headerName: 'Local Contact'},
+    { field: 'field_jira_id', width: 200, headerName: 'Id', hide: true},
 ];
 
 // let the grid know which columns and what data to use
