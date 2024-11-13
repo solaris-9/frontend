@@ -25,12 +25,11 @@
         <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
             <div class="ibox bg-white">
                 <div class="ibox-title rounded" >
-                    <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Input information</font></h5>
-                </div>    
-                <div class="ibox-content rounded">
-                    <div class="form-group row p-1" id="flag_status">
-                        <label class="col-2 col-form-label text-end fw-bold" for="field_status">Status</label>
-                        <div class="col-4">
+                    <!-- <h5 class="modal-title mx-auto" align="center"><font size= 4 color=brown >Input information</font></h5> -->
+                    <div class="form-group row p-1" id="flag_status" style="background-color:  #e8f8f5 ;">
+                        <input type="text" class="col-3" id="title_id" value="" disabled>
+                        <label class="col-1 col-form-label text-end fw-bold" for="field_status">Status</label>
+                        <div class="col-3">
                             <select  class='form-select' name="field_status" id="field_status">
                             <option value="New" selected="selected">New</option> 
                             <option value="Accepted">Accepted</option> 
@@ -40,13 +39,15 @@
                             <option value="Closed">Closed</option> 
                             </select>
                         </div>
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_assignee">Assignee</label>
-                            <div class="col-4">
-                                <input type="text" class="form-control" name="field_assignee" id="field_assignee" value="">
-                                <input type="text" class="form-control" name="field_mail" id="field_mail" value='' style="display: none;">
-                                <input type="text" class="form-control" name="field_jira_id" id="field_jira_id" value='' style="display: none;">
-                            </div>
+                        <label class="col-1 col-form-label text-end fw-bold" for="field_assignee">Assignee</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="field_assignee" id="field_assignee" value="">
+                            <input type="text" class="form-control" name="field_mail" id="field_mail" value='' style="display: none;">
+                            <input type="text" class="form-control" name="field_jira_id" id="field_jira_id" value='' style="display: none;">
+                        </div>
                     </div>
+                </div>    
+                <div class="ibox-content rounded">
 
                     <div class="form-group row p-1">
                         <label class="col-2 col-form-label text-end fw-bold" for="field_customer">Customer</label>

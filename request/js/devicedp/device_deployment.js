@@ -8,9 +8,9 @@ var FR ={};
 var rowData = [];
 const columnDefs = [ 
     { 
-        field: 'field_customer', 
-        width: 220, 
-        headerName: 'Customer Name',
+        field: 'ID', 
+        width: 180, 
+        headerName: 'Id',
         headerCheckboxSelection: false,
         checkboxSelection: true,
         showDisabledCheckboxes: true,
@@ -23,7 +23,8 @@ const columnDefs = [
                 document.body.style.cursor = 'wait';
             };
         }
-    },  
+    }, 
+    { field: 'field_customer', width: 220, headerName: 'Customer'}, 
     { field: 'field_status', width: 200, headerName: 'Status'},
     { field: 'field_assignee', width: 200, headerName: 'Assignee'},
     { field: 'field_root_device', width: 200, headerName: 'Root Device'},
@@ -61,8 +62,8 @@ const columnDefs = [
     { field: 'createon', width: 150, headerName: 'Created On'},
     { field: 'modifier', width: 150, headerName: 'Modifier'},
     { field: 'modifiedon', width: 150, headerName: 'Modified On'},
-    { field: 'ID',width: 120, headerName: 'Item' },
-    { field: 'field_jira_id', width: 200, headerName: 'Jira Id'} 
+    // { field: 'ID',width: 120, headerName: 'Item' },
+    { field: 'field_jira_id', width: 200, headerName: 'Jira Id', hide: true},
 ];
 
 // let the grid know which columns and what data to use
@@ -105,7 +106,7 @@ function onSelectionChanged() {
         if (index > 0) {
             selectedRowsString += ',';
         }
-        selectedRowsString += item.B_ID;
+        selectedRowsString += item.ID;
     });
 
     document.formxl.ID.value =selectedRowsString;

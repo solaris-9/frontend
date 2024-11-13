@@ -48,10 +48,11 @@ function fetch_customer(elem){
     });       
     $.getJSON("../gpi/allocate/customer_list", {"type": "all"}, function (data) {
         for(var i = 0; i < data.data.items.length; i++){ 
-            let customer = data.data.items[i]['Customer'].trim();
+            let customer = data.data.items[i]['customer'].trim();
+            let key = data.data.items[i]['key'].trim();
             global_customers.set(
                 customer,
-                customer
+                key
             );
         };
         render_customer(elem);
@@ -158,6 +159,28 @@ function fetch_nwcc_saas(){
         async: true
     });
 };
+var global_customer_contacts = new Map();
+function fetch_customer_contacts() {
+    $.ajaxSetup({
+        async: false
+    });       
+    $.getJSON("../gpi/allocate/jira_customer_list", {mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"}, function (data) {
+        for(let i=0; i<data.data.items.length; i++){
+            let customer = data.data.items[i]['field_customer_name'];
+            let cplm = data.data.items[i]['field_nwf_plm'];
+            let local_contact = data.data.items[i]['field_local_contact'];
+
+            global_customer_contacts.set(customer,{
+                cplm: cplm,
+                local_contact: local_contact
+            });
+        };  
+    });
+    $.ajaxSetup({
+        async: true
+    });
+};
+
 function render_nwcc(cus, elem) {
     clear_options(elem);
     if (global_nwcc_saas.has(cus)) {

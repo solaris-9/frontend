@@ -8,7 +8,7 @@ function show_hide(){
     show_mesh_extended();
     show_extender_update_method();
     show_status();
-    status_change();
+    status_toggle();
 } 
 
 var global_id = decode_id(location.search);
@@ -74,6 +74,7 @@ function initialize_page() {
     fetch_device([document.formxl.field_root_device], "all");
     render_beacon([document.formxl.field_extender_beacon]);
     fetch_nwcc_saas();
+    fetch_customer_contacts();
     // fetch_opid();
     if (global_id.length > 0) {
         fetch_devicedp();
@@ -86,6 +87,7 @@ function initialize_page() {
 
     //document.body.style.cursor='default';
 }
+
 function fetch_devicedp() {
     $.getJSON("../gpi/allocate/devicedp_list",{
         "ID": global_id, 
@@ -153,6 +155,7 @@ function fetch_devicedp() {
             show_hide();
         }
     );
+    document.formxl.title_id.value = global_id;
 };
 
 $(".form-control-file").change(function(e){
@@ -343,8 +346,20 @@ function save() {
         switch(ttype) {
             case "text":
                 
-                if (key == "field_status" && document.formxl[key].value == "") {
+                if (key == "field_status" && (document.formxl[key].value == "" || document.formxl[key].value == "New")) {
                     data[key] = "New";
+                    let cus = document.formxl.field_customer.value;
+                    if (global_customer_contacts.has(cus)) {
+                        document.formxl.field_assignee.value = global_customer_contacts.get(cus).cplm;
+                    } else {
+                        document.formxl.field_assignee.value = "";
+                    };
+                } else if (key == "field_jira_id") {
+                    if ( global_customers.has(document.formxl.field_customer.value)) {
+                        data[key] = global_customers.get(document.formxl.field_customer.value);
+                    } else {
+                        data[key] = "";
+                    };
                 } else {
                     data[key] = document.formxl[key].value;
                 };
@@ -816,14 +831,45 @@ $("#field_status").change(function(){
     status_change();
 });
 function status_change() {
-    let val = $("#field_status").val();
-    if (val != "New") {
-        status_toggle(false);
-    } else {
-        status_toggle(true);
+    let val = document.formxl.field_status.value;
+    status_toggle();
+    get_assignee_by_status(val);
+};
+function get_assignee_by_status(status) {
+    let cus = document.formxl.field_customer.value;
+    let cplm = "";
+    let local_contact = "";
+    if (global_customer_contacts.has(cus)){
+        cplm = global_customer_contacts.get(cus).cplm;
+        local_contact = global_customer_contacts.get(cus).local_contact || "jaisankar.gunasekaran@nokia.com";
+    };
+    switch (status) {
+        case "New":
+            document.formxl.field_assignee.value = cplm;
+            break;
+        case "Accepted":
+            document.formxl.field_assignee.value = local_contact;
+            break;
+        case "Implemented":
+            document.formxl.field_assignee.value = cplm;
+            break;
+        case "Query":
+            document.formxl.field_assignee.value = "";
+            break;
+        case "Rejected":
+            document.formxl.field_assignee.value = "";
+            break;
+        case "Closed":
+            document.formxl.field_assignee.value = "";
+            break;
     };
 };
-function status_toggle(flag) {
+function status_toggle() {
+    let val = $("#field_status").val();
+    let flag = false;
+    if (val == "New") {
+        flag = true;
+    };
     for ([key, attr] of Object.entries(dd_fields)) {
         let l_exceptions = ['field_status', 'field_assignee', 'field_additional'];
         if (l_exceptions.includes(key)) {
