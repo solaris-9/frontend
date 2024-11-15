@@ -98,22 +98,21 @@
                                 <select class="form-select" name='field_home_controller' id='field_home_controller'>
                                     <option value='' selected="selected"></option>
                                 </select>
-                                <div class="errorValidation" id="error_home_controller">Managed by Home Cotroller is required</div>
+                                <div class="errorValidation" id="error_home_controller" style="display: none;">No Home Controller could be found, plaese run through Home Controller Deployment firstly.</div>
+                            </div>
+                            <div  id="flag_managed_by_hdm" class="row col-6">                            
+                                <label class="col-4 col-form-label text-end fw-bold" for="field_managed_by_hdm">This setup needs to be managed by Nokia HDM</label>
+                                <div class="col-8">
+                                    <select class="form-select" name='field_managed_by_hdm' id='field_managed_by_hdm'>
+                                        <option value='' selected="selected"></option>
+                                        <option value="Yes" >Yes</option>
+                                        <option value="No" >No</option>             
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row p-1" >                            
+                        <!-- <div class="form-group row p-1" >                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_speedtest_needed">Speedtest Service Requested?</label>
-                            <!-- <div class="col-4">
-                                <div class="form-check">
-                                    <input class="form-check-input " type="radio" name="field_speedtest_needed" id="field_speedtest_needed_yes">
-                                    <label class="form-check-label" for="field_speedtest_needed_yes">Yes</label>
-                                </div>                            
-                                <div class="form-check">
-                                    <input class="form-check-input " type="radio" name="field_speedtest_needed" id="field_speedtest_needed_no">
-                                    <label class="form-check-label" for="field_speedtest_needed_no">No</label>
-                                </div>
-                                <div class="errorValidation" id="error_speedtest_needed">Speedtest service needed is required</div>
-                            </div> -->
                             <div class="col-4">
                                 <select class="form-select" name='field_speedtest_needed' id='field_speedtest_needed'>
                                     <option value='' selected="selected"></option>
@@ -137,17 +136,6 @@
                         </div>
                         <div class="form-group row p-1">                            
                             <label class="col-2 col-form-label text-end fw-bold" for="field_activate_container">Activate Container?</label>
-                            <!-- <div class="col-4">
-                                <div class="form-check">
-                                    <input class="form-check-input " type="radio" name="field_activate_container" id="field_activate_container_yes">
-                                    <label class="form-check-label" for="field_speedtest_needed_yes">Yes</label>
-                                </div>                            
-                                <div class="form-check">
-                                    <input class="form-check-input " type="radio" name="field_activate_container" id="field_activate_container_no">
-                                    <label class="form-check-label" for="field_activate_container_no">No</label>
-                                </div>
-                                <div class="errorValidation" id="error_activate_container">Activate container is required</div>
-                            </div> -->
                             <div class="col-4">
                                 <select class="form-select" name='field_activate_container' id='field_activate_container'>
                                     <option value='' selected="selected"></option>
@@ -159,7 +147,6 @@
                                 <label class="col-4 col-form-label text-end fw-bold" for="field_container_devices">Containers with Root Device</label>
                                 <div class="col-8">
                                     <select class="form-select" name='field_container_devices' id='field_container_devices' multiple>
-                                        <!-- <option value='' selected="selected"></option> -->
                                         <option value='Broadpeak'>Broadpeak</option>
                                         <option value='Domos'>Domos</option>
                                         <option value='F-Secure'>F-Secure</option>
@@ -173,7 +160,7 @@
                                     <div class="errorValidation" id="error_speedtest">Speedtest is required</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
 
@@ -273,7 +260,7 @@
                             <label class="col-2 col-form-label text-end fw-bold" for="field_customer_id">Customer ID as used in deployment reports for automated whitelisting</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_customer_id" id="field_customer_id" value='' >
-                                <div class="field-comment" id="comment_field_customer_id">10 digits numberical identifier starting with '10'</div>
+                                <div class="field-comment" id="comment_field_customer_id">10 digits numerical identifier starting with '10'</div>
                             </div>
                             <label class="col-2 col-form-label text-end fw-bold" for="csv_file">CSV file with serial numbers to be whitelisted</label>
                             <div class="col-3">
@@ -296,9 +283,13 @@
                                     <input class="form-check-input boeng-option" type="checkbox" id="field_boeng_option_3rd_party">
                                     <label class="form-check-label" for="field_boeng_option_3rd_party">3rd party USP Controller</label>
                                 </div>
-                                <div class="form-check" id="flag_boeng_option_hc">
+                                <div class="form-check" id="flag_boption_hc">
                                     <input class="form-check-input boeng-option" type="checkbox" id="field_boeng_option_hc">
                                     <label class="form-check-label" for="field_boeng_option_hc">Home Controller USP Agent</label>
+                                </div>
+                                <div class="form-check" id="flag_boption_config">
+                                    <input class="form-check-input boeng-option" type="checkbox" id="field_boeng_option_config" checked>
+                                    <label class="form-check-label" for="field_boeng_option_config">Home Controller Config</label>
                                 </div>
                                 <div class="field-comment" id="comment_boeng_option">The Home Controller configuration will automatically be included in this BoENG rule.</div>
                             </div>
@@ -461,8 +452,28 @@
                 </div>
                 <div class="modal-body">
                     <form id="customerForm">
+                        <div class="mb-3">                            
+                            <label class="col-form-label fw-bold" for="new_customer_name">Customer Name</label>
+                            <input type="text" class="form-control" id="new_customer_name">
+
+                            <label class="col-form-label fw-bold" for="new_customer_id">Customer Id</label>
+                            <input type="text" class="form-control" id="new_customer_id">
+                        
+                            <label class="col-form-label fw-bold" for="new_ont_plm">ONT PLM</label>
+                            <input type="text" class="form-control" id="new_ont_plm">
+
+                            <label class="col-form-label fw-bold" for="new_nwf_plm">NWF PLM</label>
+                            <input type="text" class="form-control" id="new_nwf_plm">
+                        
+                            <label class="col-form-label fw-bold" for="new_fwa_plm">FWA PLM</label>
+                            <input type="text" class="form-control" id="new_fwa_plm">
+
+                            <label class="col-form-label fw-bold" for="new_local_contact">Local Contact</label>
+                            <input type="text" class="form-control" id="new_local_contact" value="">
+                        </div>
+                        <!-- 
                         <div class="mb-3">
-                            <label for="new_customer_name" class="col-form-label fw-bold">New Customer Name:</label>
+                            <label for="new_customer_name" class="col-form-label fw-bold">Customer Name:</label>
                             <input type="text" class="form-control" id="new_customer_name" placeholder="Please input new customer name">
                             <div class="errorValidation" id="error_new_customer_name">Customer is required</div>
                         </div>
@@ -470,13 +481,13 @@
                             <label for="new_customer_desc" class="col-form-label fw-bold">Description:</label>
                             <textarea class="form-control" id="new_customer_desc" placeholder="Please input more info about the new customer"></textarea>
                             <div class="errorValidation" id="error_new_customer_desc">Description is required</div>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <div class="errorValidation col-4"  id="error_all_customer"></div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" id="customerAdd" onclick="customerAdd(); return false;">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>

@@ -9,6 +9,8 @@ function show_hide(){
     show_extender_update_method();
     show_status();
     status_toggle();
+    show_managed_by_hdm();
+    show_boeng_option_config();
 } 
 
 var global_id = decode_id(location.search);
@@ -28,7 +30,7 @@ var dd_boeng_options = {
 };
 
 var dd_fields = {
-    field_customer: {type: 'text'},
+    field_customer: {type: 'list'},
     field_status: {type: 'text'},
     field_assignee: {type: 'text'},
     field_mail: {type: 'text'},
@@ -37,10 +39,11 @@ var dd_fields = {
     field_product_variant: {type: 'list'},
     field_managed_by_hc: {type: 'list'},
     field_home_controller: {type: 'list'},
-    field_speedtest_needed: {type: 'list'},
-    field_speedtest: {type: 'list'},
-    field_activate_container: {type: 'list'},
-    field_container_devices: {type: 'multi'},
+    field_managed_by_hdm: {type: 'list'},
+    // field_speedtest_needed: {type: 'list'},
+    // field_speedtest: {type: 'list'},
+    // field_activate_container: {type: 'list'},
+    // field_container_devices: {type: 'multi'},
     field_root_update_method: {type: 'list'},
     field_separate_license: {type: 'list'},
     field_auto_ota: {type: 'list'},
@@ -217,9 +220,14 @@ function pre_validation() {
                 if (flag) {
                     $parent.css({"border": ""});
                 } else {
-                    if (id == childs[0].id) {
-                        count++;
-                        $parent.css({"border": "2px dashed red"});
+                    let m_by_hc = $("#field_managed_by_hc").val();
+                    if (m_by_hc == "Yes") { 
+                        if (id == childs[0].id) {
+                            count++;
+                            $parent.css({"border": "2px dashed red"});
+                        };
+                    }else {
+                        $parent.css({"border": ""});
                     };
                 };
             } else {
@@ -278,11 +286,18 @@ function customerAdd() {
     if (!confirm("Please confirm if you want the new customer '" + customer + "' be saved into database?")) {
         return;
     }
+    $("#customerAdd").html('<i class="fa fa-spinner fa-pulse"></i>Add');
     const url = '../gpi/allocate/new_customer_add';
     var data = {
         uname: uname,
         Customer: customer,
-        Description: $("#new_customer_desc").val(),
+        Id: $("#new_customer_id").val(),
+        ONT: $("#new_ont_plm").val(),
+        NWF: $("#new_nwf_plm").val(),
+        FWA: $("#new_fwa_plm").val(),
+        Local: $("#new_local_contact").val(),
+        Description: "",
+        //Description: $("#new_customer_desc").val(),
         Source: "local",
         AddedBy: mail,
         AddedOn: get_ts()
@@ -297,24 +312,31 @@ function customerAdd() {
     render_customer(document.formxl.field_customer);
     render_nwcc(customer, document.formxl.field_home_controller);
     $('#field_customer').val(customer);
-    $('#customerModal').modal('toggle');
+    //$('#customerModal').modal('toggle');
 };
 
 function customer_pre_validation() {
     let count = 0;
-    $("#customerForm").find(":input:visible").each(function() {
-        let id = this.id;
-        let $elem = $(this);
-        if (id.startsWith('new_customer_')) {
-            let val = $elem.val();
-            if (val) {
-                $elem.css({"border": ""});
-            } else {
-                count++;
-                $elem.css({"border": "2px dashed red"});
-            };
-        };
-    });
+    // $("#customerForm").find(":input:visible").each(function() {
+    //     let id = this.id;
+    //     let $elem = $(this);
+    //     if (id.startsWith('new_')) {
+    //         let val = $elem.val();
+    //         if (val) {
+    //             $elem.css({"border": ""});
+    //         } else {
+    //             count++;
+    //             $elem.css({"border": "2px dashed red"});
+    //         };
+    //     };
+    // });
+    if ( $("#new_customer_name").val().length > 0) {
+        $("#new_customer_name").css({"border": ""});
+    } else {
+        count++;
+        $("#new_customer_name").css({"border": "2px dashed red"});
+    };
+
     if (count > 0) {
         $("#error_all_customer").text("You have " + count + " error(s) in this form!");
         $("#error_all_customer").show();
@@ -325,7 +347,15 @@ function customer_pre_validation() {
         return true;
     };
 };
-
+function clear_all_new_customer_values() {
+    $("#customerForm").find(":input").each(function() {
+        let id = this.id;
+        let $elem = $(this);
+        if (id.startsWith('new_')) {
+            $elem.val("");
+        };
+    });
+};
 function save() {
     let res = pre_validation();
     if (!res) {
@@ -441,6 +471,9 @@ async function sendPost(url, data, action) {
             } else {
                 window.location.reload(history.back());
             };
+        } else {
+            $('#customerModal').modal('toggle');
+            clear_all_new_customer_values();
         };
     }else{
         alert(resp);
@@ -467,6 +500,7 @@ $("#field_customer").change(function(){
 
     //clear_options(document.formxl.field_product_variant);
     render_nwcc(cus, document.formxl.field_home_controller);
+    show_managed_by_hdm();
 });
 
 $("#field_root_device").change(function(){    
@@ -503,7 +537,17 @@ function show_root_device() {
 $("#field_managed_by_hc").change(function(){
     show_managed_by_hc();
     show_extender_update_method();
+    show_boeng_option_config();
 });
+function show_boeng_option_config() {
+    let val = $("#field_managed_by_hc").val();
+    if (val == "Yes") {
+        $("#flag_boption_config").show();
+        $("#field_boeng_option_config").prop('checked', true);
+    } else {
+        $("#flag_boption_config").hide();
+    };
+};
 function show_managed_by_hc() {
     //show_hide_by_value('field_managed_by_hc', 'Yes', 'flag_managed_by_hc');
     let val = document.formxl.field_managed_by_hc.value;
@@ -524,8 +568,8 @@ function show_managed_by_hc() {
         remove_option(elem_extender, opt);
         elem_extender.value = old_value_extender;
     };
-    show_speedtest();
-    show_activate_container();
+    //show_speedtest();
+    //show_activate_container();
     show_root_update_method();
     let boeng_elem = document.formxl.field_boeng_rule;
     //let wl_opt = 'Home Controller USP Agent';
@@ -533,44 +577,68 @@ function show_managed_by_hc() {
     if (val == "Yes") {
         //wl_elem.options[wl_elem.length]=new Option(wl_opt);
         if (boeng_value == "Yes") {
-            $("#flag_boeng_option_hc").show();
+            $("#flag_boption_hc").show();
         } else {
-            $("#flag_boeng_option_hc").hide();
+            $("#flag_boption_hc").hide();
         };
         $("#comment_boeng_option").show();
     } else {
-        $("#flag_boeng_option_hc").hide();
+        $("#flag_boption_hc").hide();
         $("#comment_boeng_option").hide();
     };
 
+    show_managed_by_hdm();
+    show_boeng_option_config();
 };
 
-function show_speedtest(){
-    let val = $("#field_speedtest_needed").val();
-    if (val == "Yes") {
-        $("#flag_speedtest_needed").show();
+function show_managed_by_hdm() {
+    let val = $("#field_home_controller").val();
+    let customer = $("#field_customer").val();
+    let item = val + ":yes";
+    if (customer.length == 0) {
+        $("#flag_managed_by_hdm").hide();
+        return;
+    };
+    if (!global_nwcc_saas.has(customer)){
+        $("#flag_managed_by_hdm").hide();
+        return;
+    };
+    if(global_nwcc_saas.get(customer).Platform.includes(item)) {
+        $("#flag_managed_by_hdm").show();
     } else {
-        $("#flag_speedtest_needed").hide();
-        clear_child_value("flag_speedtest_needed");
+        $("#flag_managed_by_hdm").hide();
     };
 };
-
-function show_activate_container() {
-    let val = $("#field_activate_container").val();
-    if (val == "Yes") {
-        $("#flag_activate_container").show();
-    } else {
-        $("#flag_activate_container").hide();
-        clear_child_value("flag_activate_container");
-    };
-};
-
-$("#field_speedtest_needed").change(function(){
-    show_speedtest();
+$("#field_home_controller").change(function(){    
+    show_managed_by_hdm();
 });
-$("#field_activate_container").change(function(){
-    show_activate_container();
-});
+
+// function show_speedtest(){
+//     let val = $("#field_speedtest_needed").val();
+//     if (val == "Yes") {
+//         $("#flag_speedtest_needed").show();
+//     } else {
+//         $("#flag_speedtest_needed").hide();
+//         clear_child_value("flag_speedtest_needed");
+//     };
+// };
+
+// function show_activate_container() {
+//     let val = $("#field_activate_container").val();
+//     if (val == "Yes") {
+//         $("#flag_activate_container").show();
+//     } else {
+//         $("#flag_activate_container").hide();
+//         clear_child_value("flag_activate_container");
+//     };
+// };
+
+// $("#field_speedtest_needed").change(function(){
+//     show_speedtest();
+// });
+// $("#field_activate_container").change(function(){
+//     show_activate_container();
+// });
 
 $("#field_root_update_method").change(function(){
     //show_hide_by_value('field_root_update_method', 'OTA', 'flag_ota');
@@ -710,6 +778,7 @@ function show_all_boeng_option() {
         let flag = $("#"+elem).is(':checked');
         show_boeng_option(elem, flag);
     });
+    $("#field_boeng_option_config").prop('checked', true);
 };
 
 function show_mesh_extended() {

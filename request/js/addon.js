@@ -143,7 +143,8 @@ function fetch_nwcc_saas(){
              let Customer = data.data.items[i]['Customer'];
              let Platform = data.data.items[i]['Platform'];
              let tenant_id = data.data.items[i]['TenantID'];
-             let item = Platform + "/" + tenant_id
+             let hdm = data.data.items[i]['HDM'];
+             let item = Platform + "/" + tenant_id + ":" + hdm
              if (global_nwcc_saas.has(Customer)) {
                 if (!global_nwcc_saas.get(Customer).Platform.includes(item)) {
                     global_nwcc_saas.get(Customer).Platform.push(item)
@@ -184,13 +185,24 @@ function fetch_customer_contacts() {
 function render_nwcc(cus, elem) {
     clear_options(elem);
     if (global_nwcc_saas.has(cus)) {
+        if (elem.id == "field_home_controller") {
+            if (global_nwcc_saas.get(cus).Platform.length == 0) {
+                $("#error_home_controller").show();
+            } else {
+                $("#error_home_controller").hide();
+            };
+        };
         for (let i=0; i<global_nwcc_saas.get(cus).Platform.length; i++) {
             let val = global_nwcc_saas.get(cus).Platform[i];
             if (val != "") {
-                elem.options[elem.length]=new Option(val);
+                elem.options[elem.length]=new Option(val.split(':')[0]);
             };
         };
-    } 
+    }  else {
+        if (elem.id == "field_home_controller") {
+            $("#error_home_controller").show();
+        };
+    };
 };
 
 function check_pattern(elem, pattern) {
