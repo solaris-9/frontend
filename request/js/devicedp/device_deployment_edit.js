@@ -26,46 +26,47 @@ var global_file_uploaded = {
 var dd_boeng_options = {
     field_boeng_option_tr069: 'TR069', 
     field_boeng_option_3rd_party: '3rd party USP', 
-    field_boeng_option_hc: 'Home Controller USP'
+    //field_boeng_option_hc: 'Home Controller USP',
+    field_boeng_option_config: 'Home Controller Config',
 };
 
 var dd_fields = {
-    field_customer: {type: 'list'},
-    field_status: {type: 'text'},
-    field_assignee: {type: 'text'},
-    field_mail: {type: 'text'},
-    field_jira_id: {type: 'text'},
-    field_root_device: {type: 'list'},
-    field_product_variant: {type: 'list'},
-    field_managed_by_hc: {type: 'list'},
-    field_home_controller: {type: 'list'},
-    field_managed_by_hdm: {type: 'list'},
+    field_customer: {type: 'list', flag: false},
+    field_status: {type: 'text', flag: false},
+    field_assignee: {type: 'text', flag: false},
+    field_mail: {type: 'text', flag: false},
+    field_jira_id: {type: 'text', flag: false},
+    field_root_device: {type: 'list', flag: false},
+    field_product_variant: {type: 'list', flag: false},
+    field_managed_by_hc: {type: 'list', flag: false},
+    field_home_controller: {type: 'list', flag: false},
+    field_managed_by_hdm: {type: 'list', flag: true},
     // field_speedtest_needed: {type: 'list'},
     // field_speedtest: {type: 'list'},
     // field_activate_container: {type: 'list'},
     // field_container_devices: {type: 'multi'},
-    field_root_update_method: {type: 'list'},
-    field_separate_license: {type: 'list'},
-    field_auto_ota: {type: 'list'},
-    field_waiver: {type: 'file'},
-    field_boeng_rule: {type: 'list'},
-    field_whitelisting_method: {type: 'list'},
-    field_ip_ranges: {type: 'text'},
-    field_customer_id: {type: 'text'},
+    field_root_update_method: {type: 'list', flag: true},
+    field_separate_license: {type: 'list', flag: true},
+    field_auto_ota: {type: 'list', flag: true},
+    field_waiver: {type: 'file', flag: true},
+    field_boeng_rule: {type: 'list', flag: true},
+    field_whitelisting_method: {type: 'list', flag: true},
+    field_ip_ranges: {type: 'text', flag: true},
+    field_customer_id: {type: 'text', flag: true},
     field_csv_file: {type: 'file'},
-    field_boeng_options: {type: 'checkbox', child: dd_boeng_options},
-    field_acs_url: {type: 'text'},
-    field_acs_username: {type: 'text'},
-    field_acs_password: {type: 'text'},
-    field_usp_addr: {type: 'text'},
-    field_usp_port: {type: 'text'},
-    field_mesh_extended: {type: 'list'},
-    field_extender_beacon: {type: 'list'},
-    field_extender_update_method: {type: 'list'},
-    field_extender_separate_license: {type: 'list'},
-    field_extender_auto_ota: {type: 'list'},
-    field_extender_waiver: {type: 'file'},
-    field_additional: {type: 'text'}
+    field_boeng_options: {type: 'checkbox', child: dd_boeng_options, flag: true},
+    field_acs_url: {type: 'text', flag: true},
+    field_acs_username: {type: 'text', flag: true},
+    field_acs_password: {type: 'text', flag: true},
+    field_usp_addr: {type: 'text', flag: true},
+    field_usp_port: {type: 'text', flag: true},
+    field_mesh_extended: {type: 'list', flag: true},
+    field_extender_beacon: {type: 'list', flag: true},
+    field_extender_update_method: {type: 'list', flag: true},
+    field_extender_separate_license: {type: 'list', flag: true},
+    field_extender_auto_ota: {type: 'list', flag: true},
+    field_extender_waiver: {type: 'file', flag: true},
+    field_additional: {type: 'text', flag: false}
 };
 
 window.onload = initialize_page();
@@ -109,6 +110,7 @@ function fetch_devicedp() {
                             render_product_variant(val);
                         } else if (key == "field_customer") {
                             render_nwcc(val, document.formxl.field_home_controller);
+                            
                         };
                         document.formxl[key].value = val;
                         break;
@@ -155,6 +157,7 @@ function fetch_devicedp() {
                 };
             };
             render_product_variant(document.formxl.field_product_variant.value);
+            toggle_nwcc(document.formxl.field_home_controller);
             show_hide();
         }
     );
@@ -312,6 +315,7 @@ function customerAdd() {
     render_customer(document.formxl.field_customer);
     render_nwcc(customer, document.formxl.field_home_controller);
     $('#field_customer').val(customer);
+    toggle_nwcc(document.formxl.field_home_controller);
     //$('#customerModal').modal('toggle');
 };
 
@@ -501,6 +505,7 @@ $("#field_customer").change(function(){
     //clear_options(document.formxl.field_product_variant);
     render_nwcc(cus, document.formxl.field_home_controller);
     show_managed_by_hdm();
+    toggle_nwcc(document.formxl.field_home_controller);
 });
 
 $("#field_root_device").change(function(){    
@@ -538,6 +543,7 @@ $("#field_managed_by_hc").change(function(){
     show_managed_by_hc();
     show_extender_update_method();
     show_boeng_option_config();
+    toggle_nwcc(document.formxl.field_home_controller);
 });
 function show_boeng_option_config() {
     let val = $("#field_managed_by_hc").val();
@@ -963,3 +969,32 @@ function status_toggle() {
 // $('#btnModal').click(function(){
 //      return ($(this).attr('disabled')) ? false : true;
 // });
+
+function toggle_nwcc(elem) {
+    let val = document.formxl.field_managed_by_hc.value;
+    if (elem.options.length <= 1 && val == "Yes") {
+        $("#error_home_controller").show();
+        show_elements_for_home_controller(false);
+    } else {
+        $("#error_home_controller").hide();
+        show_elements_for_home_controller(true);
+    };
+};
+
+function show_elements_for_home_controller(flag) {
+    for ([key, attr] of Object.entries(dd_fields)) {
+        let tkey = key;
+        let ttype = attr.type;
+        let tflag = attr.flag;
+        if (tflag) {
+            if (ttype == "checkbox") {
+                let obj = attr.child;
+                for ([k, v] of Object.entries(obj)) {
+                    $("#"+k).prop('disabled', !flag); 
+                };
+            } else {
+                $("#"+tkey).prop('disabled', !flag);
+            };
+        };
+    };
+};

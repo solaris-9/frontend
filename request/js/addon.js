@@ -185,13 +185,6 @@ function fetch_customer_contacts() {
 function render_nwcc(cus, elem) {
     clear_options(elem);
     if (global_nwcc_saas.has(cus)) {
-        if (elem.id == "field_home_controller") {
-            if (global_nwcc_saas.get(cus).Platform.length == 0) {
-                $("#error_home_controller").show();
-            } else {
-                $("#error_home_controller").hide();
-            };
-        };
         for (let i=0; i<global_nwcc_saas.get(cus).Platform.length; i++) {
             let val = global_nwcc_saas.get(cus).Platform[i];
             if (val != "") {
@@ -199,9 +192,10 @@ function render_nwcc(cus, elem) {
             };
         };
     }  else {
-        if (elem.id == "field_home_controller") {
-            $("#error_home_controller").show();
-        };
+        // if (elem.id == "field_home_controller") {
+        //     $("#error_home_controller").show();
+        //     show_elements_for_home_controller(false);
+        // };
     };
 };
 
