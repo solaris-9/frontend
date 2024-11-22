@@ -76,48 +76,51 @@
         username = document.formxl.username.value;
         password = document.formxl.password.value;
 
-        $(document).ready(function() {
-            var param1=window.location.href.split("=")[0]
-            var param=window.location.href.split("=")[1]
-                
-            if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'   || $.cookie(cookie_level) == 'undefined'  ) {
-                
-                $("#loginsubmit").html('<i class="fa fa-spinner fa-pulse"></i>Login')
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/request/gpi/user/login');
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                const data = {"username": username, "password":password};
-                xhr.send(JSON.stringify(data));
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        //console.log(xhr.responseText);
-                        response = JSON.parse(xhr.responseText)	
-                        result = response.mes
-                        //alert(result)	
-                        token = response.data.token
-                        mail = response.data.mail
-                        grade = response.data.roles
-                        level = response.data.level
-                        
-                        $.cookie(cookie_name, username, { expires: 1 });
-                        $.cookie(cookie_pw, password, { expires: 1 });
-                        $.cookie(cookie_mail, mail, { expires: 1 });
-                        $.cookie(cookie_level, level, { expires: 1 });
-                        $.cookie(cookie_grade, grade, { expires: 1 });
-                        $.cookie(cookie_auth, token, { expires: 1 });
+        //$(document).ready(function() {
+        var param1=window.location.href.split("=")[0]
+        var param=window.location.href.split("=")[1]
+            
+        if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'   || $.cookie(cookie_level) == 'undefined'  ) {
+            
+            $("#loginsubmit").html('<i class="fa fa-spinner fa-pulse"></i>Login')
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/request/gpi/user/login');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            const data = {"username": username, "password":password};
+            xhr.send(JSON.stringify(data));
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    //console.log(xhr.responseText);
+                    response = JSON.parse(xhr.responseText)	
+                    result = response.mes
+                    //alert(result)	
+                    token = response.data.token
+                    mail = response.data.mail
+                    grade = response.data.roles
+                    level = response.data.level
+                    
+                    $.cookie(cookie_name, username, { expires: 1 });
+                    $.cookie(cookie_pw, password, { expires: 1 });
+                    $.cookie(cookie_mail, mail, { expires: 1 });
+                    $.cookie(cookie_level, level, { expires: 1 });
+                    $.cookie(cookie_grade, grade, { expires: 1 });
+                    $.cookie(cookie_auth, token, { expires: 1 });
 
-                        grade_fields.forEach(field => {
-                            $.cookie(field, response.data[field], { expires: 1 });
-                        });
-                        location.href = param;	
-                    } else {
-                        alert("User name or password error ("+xhr.status+"), please try again! "  );
-                        $.cookie(cookie_name, 'none');
-                        $.cookie(cookie_pw, 'none');
-                    };
-                }; 
+                    grade_fields.forEach(field => {
+                        $.cookie(field, response.data[field], { expires: 1 });
+                    });
+                    location.href = param;	
+                } else {
+                    alert("User name or password error ("+xhr.status+"), please try again! "  );
+                    $.cookie(cookie_name, 'none');
+                    $.cookie(cookie_pw, 'none');
+                };
             }; 
-        });
+        } else {
+            $("#loginsubmit").html('Login');
+            location.href = param;
+        }; 
+        //});
     };
 </script>
 	
