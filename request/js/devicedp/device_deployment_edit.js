@@ -15,6 +15,8 @@ function show_hide(){
 
 var global_id = decode_id(location.search);
 
+var global_status_value = {};
+
 //var nwcc_saas = new Map();
 //var global_csv_file = '';
 var global_file_uploaded = {
@@ -52,7 +54,7 @@ var dd_fields = {
     field_boeng_rule: {type: 'list', flag: true},
     field_whitelisting_method: {type: 'list', flag: true},
     field_ip_ranges: {type: 'text', flag: true},
-    field_customer_id: {type: 'text', flag: true},
+    //field_customer_id: {type: 'text', flag: true},
     field_csv_file: {type: 'file'},
     field_boeng_options: {type: 'checkbox', child: dd_boeng_options, flag: true},
     field_acs_url: {type: 'text', flag: true},
@@ -104,6 +106,10 @@ function fetch_devicedp() {
                 switch(ttype) {
                     case "text":
                         document.formxl[key].value = val;
+                        if (key == "field_assignee") {
+                            global_status_value = {};
+                            global_status_value[document.formxl.field_status.value] = val;
+                        }
                         break;
                     case "list":
                         if (key == "field_root_device") {
@@ -383,14 +389,14 @@ function save() {
                 if (key == "field_status" && (document.formxl[key].value == "" || document.formxl[key].value == "New")) {
                     data[key] = "New";
                     let cus = document.formxl.field_customer.value;
-                    if (global_customer_contacts.has(cus)) {
-                        document.formxl.field_assignee.value = global_customer_contacts.get(cus).cplm;
-                    } else {
-                        document.formxl.field_assignee.value = "";
+                    if (!document.formxl.field_assignee.value) {
+                        if (global_customer_contacts.has(cus)) {
+                            document.formxl.field_assignee.value = global_customer_contacts.get(cus).cplm;
+                        };
                     };
                 } else if (key == "field_jira_id") {
                     if ( global_customers.has(document.formxl.field_customer.value)) {
-                        data[key] = global_customers.get(document.formxl.field_customer.value);
+                        data[key] = global_customers.get(document.formxl.field_customer.value).key;
                     } else {
                         data[key] = "";
                     };
@@ -905,6 +911,14 @@ function show_status() {
 $("#field_status").change(function(){
     status_change();
 });
+
+//var global_status = "";
+
+$("#field_assignee").change(function(){
+    let status = document.formxl.field_status.value;
+    global_status_value[status] = this.value;
+});
+
 function status_change() {
     let val = document.formxl.field_status.value;
     status_toggle();
@@ -912,31 +926,39 @@ function status_change() {
 };
 function get_assignee_by_status(status) {
     let cus = document.formxl.field_customer.value;
+    let pre_assignee = document.formxl.field_assignee.value;
     let cplm = "";
     let local_contact = "";
+    // if (global_status) {
+    //     global_status_value[global_status] = pre_assignee;
+    // }
     if (global_customer_contacts.has(cus)){
         cplm = global_customer_contacts.get(cus).cplm;
         local_contact = global_customer_contacts.get(cus).local_contact || "jaisankar.gunasekaran@nokia.com";
     };
-    switch (status) {
-        case "New":
-            document.formxl.field_assignee.value = cplm;
-            break;
-        case "Accepted":
-            document.formxl.field_assignee.value = local_contact;
-            break;
-        case "Implemented":
-            document.formxl.field_assignee.value = cplm;
-            break;
-        case "Query":
-            document.formxl.field_assignee.value = "";
-            break;
-        case "Rejected":
-            document.formxl.field_assignee.value = "";
-            break;
-        case "Closed":
-            document.formxl.field_assignee.value = "";
-            break;
+    if (global_status_value.hasOwnProperty(status)) {
+        document.formxl.field_assignee.value = global_status_value[status]
+    } else {
+        switch (status) {
+            case "New":
+                document.formxl.field_assignee.value = cplm;
+                break;
+            case "Accepted":
+                document.formxl.field_assignee.value = local_contact;
+                break;
+            case "Implemented":
+                document.formxl.field_assignee.value = cplm;
+                break;
+            case "Query":
+                document.formxl.field_assignee.value = "";
+                break;
+            case "Rejected":
+                document.formxl.field_assignee.value = "";
+                break;
+            case "Closed":
+                document.formxl.field_assignee.value = "";
+                break;
+        };
     };
 };
 function status_toggle() {
@@ -990,11 +1012,19 @@ function show_elements_for_home_controller(flag) {
             if (ttype == "checkbox") {
                 let obj = attr.child;
                 for ([k, v] of Object.entries(obj)) {
-                    $("#"+k).prop('disabled', !flag); 
+                    $("#"+k).prop('disabled', !flag);
                 };
             } else {
                 $("#"+tkey).prop('disabled', !flag);
             };
         };
     };
+    if (flag) {
+        $("#flag_global_managed_by_hc").show();
+        
+    } else {
+        $("#flag_global_managed_by_hc").hide()
+        
+    };
+    $("#btn_submit").prop('disabled', !flag);
 };

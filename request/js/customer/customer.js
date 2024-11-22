@@ -24,7 +24,7 @@ const columnDefs = [
             };
         }
     },  
-    { field: 'field_customer_name', width: 200, headerName: 'Customer Name'},
+    { field: 'field_customer_id', width: 200, headerName: 'Customer Id'},
     { field: 'field_customer_olcs', width: 200, headerName: 'Customer OLCS'},
     { field: 'field_customer_impact', width: 200, headerName: 'Customer Impact'},
     { field: 'field_ont_plm', width: 200, headerName: 'ONT PLM'},

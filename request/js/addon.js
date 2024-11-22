@@ -50,9 +50,13 @@ function fetch_customer(elem){
         for(var i = 0; i < data.data.items.length; i++){ 
             let customer = data.data.items[i]['customer'].trim();
             let key = data.data.items[i]['key'].trim();
+            let cid = data.data.items[i]['cid'].trim();
             global_customers.set(
                 customer,
-                key
+                {
+                    key: key,
+                    cid: cid
+                }
             );
         };
         render_customer(elem);
@@ -62,6 +66,9 @@ function fetch_customer(elem){
     });       
 };
 function render_customer(elem) {
+    if(!elem) {
+        return;
+    };
     let customers = Array.from(global_customers.keys()).sort();
     for (let i=0; i<customers.length; i++) {
         if (customers[i] != "") {

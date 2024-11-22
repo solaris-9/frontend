@@ -25,6 +25,7 @@ const columnDefs = [
         }
     }, 
     { field: 'field_customer', width: 220, headerName: 'Customer'}, 
+    { field: 'field_customer_id', width: 200, headerName: 'Customer Id'},
     { field: 'field_status', width: 200, headerName: 'Status'},
     { field: 'field_assignee', width: 200, headerName: 'Assignee'},
     { field: 'field_root_device', width: 200, headerName: 'Root Device'},
@@ -43,7 +44,6 @@ const columnDefs = [
     { field: 'field_boeng_rule', width: 200, headerName: 'Configure Boeng Rule'},
     { field: 'field_whitelisting_method', width: 200, headerName: 'Whitelisting Method'},
     { field: 'field_ip_ranges', width: 200, headerName: 'IP Ranges'},
-    { field: 'field_customer_id', width: 200, headerName: 'Customer Id'},
     { field: 'field_csv_file', width: 200, headerName: 'SN CSV'},
     { field: 'field_boeng_options', width: 200, headerName: 'Boeng Options'},
     { field: 'field_acs_url', width: 200, headerName: 'ACS URL'},
@@ -129,16 +129,22 @@ function onBtExport() {
 
 // setup the grid after the page has finished loading
 document.addEventListener('DOMContentLoaded', () => {
-const gridDiv = document.querySelector('#myGrid');
-new agGrid.Grid(gridDiv, gridOptions);
+    const gridDiv = document.querySelector('#myGrid');
+    new agGrid.Grid(gridDiv, gridOptions);
     mail = $.cookie(cookie_mail)
     level = $.cookie(cookie_level)
+    fetch_customer("");
     $.ajaxSetup({
             async: false
         });       
         
     $.getJSON("../gpi/allocate/devicedp_list",{mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},function(data){      	
         $(data.data.items).each(function(){
+            if (global_customers.has(this.field_customer)) {
+                this.field_customer_id = global_customers.get(this.field_customer).cid;
+            } else {
+                this.field_customer_id = '';
+            }
             FRT = JSON.stringify(this);	
             FRT = FRT.replace("[{", "{");
             FRT = FRT.replace("}]", "}");	
