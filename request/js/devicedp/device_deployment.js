@@ -6,6 +6,17 @@
 
 var FR ={};
 var rowData = [];
+
+function onCellDoubleClick() {
+    const selectedRows = gridOptions.api.getSelectedRows();
+    if (cookie_grades.Edit == "Yes") {
+        document.querySelector('#selectedRows').innerHTML =
+            selectedRows.length === 1 ? selectedRows[0].ID : '';	
+        location.href = "device_deployment_edit.html?ID="+selectedRows[0].ID;
+        document.body.style.cursor = 'wait';
+    };
+};
+
 const columnDefs = [ 
     { 
         field: 'ID', 
@@ -14,7 +25,8 @@ const columnDefs = [
         headerCheckboxSelection: false,
         checkboxSelection: true,
         showDisabledCheckboxes: true,
-        onCellDoubleClicked: function(event) {
+        onCellDoubleClicked: onCellDoubleClick
+        /*function(event) {
             const selectedRows = gridOptions.api.getSelectedRows();
             if (cookie_grades.Edit == "Yes") {
                 document.querySelector('#selectedRows').innerHTML =
@@ -22,47 +34,47 @@ const columnDefs = [
                 location.href = "device_deployment_edit.html?ID="+selectedRows[0].ID;
                 document.body.style.cursor = 'wait';
             };
-        }
+        }*/
     }, 
-    { field: 'field_customer', width: 220, headerName: 'Customer'}, 
-    { field: 'field_customer_id', width: 200, headerName: 'Customer Id'},
-    { field: 'field_status', width: 200, headerName: 'Status'},
-    { field: 'field_assignee', width: 200, headerName: 'Assignee'},
-    { field: 'field_root_device', width: 200, headerName: 'Root Device'},
-    { field: 'field_product_variant', width: 200, headerName: 'Product Variant'},
-    { field: 'field_managed_by_hc', width: 200, headerName: 'Managed by Home Controller'},
-    { field: 'field_home_controller', width: 200, headerName: 'Home Controller'},
-    { field: 'field_managed_by_hdm', width: 200, headerName: 'Managed by HDM'},
+    { field: 'field_customer', width: 220, headerName: 'Customer', onCellDoubleClicked: onCellDoubleClick}, 
+    { field: 'field_customer_id', width: 200, headerName: 'Customer Id', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_status', width: 200, headerName: 'Status', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_assignee', width: 200, headerName: 'Assignee', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_root_device', width: 200, headerName: 'Root Device', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_product_variant', width: 200, headerName: 'Product Variant', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_managed_by_hc', width: 200, headerName: 'Managed by Home Controller', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_home_controller', width: 200, headerName: 'Home Controller', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_managed_by_hdm', width: 200, headerName: 'Managed by HDM', onCellDoubleClicked: onCellDoubleClick},
     // { field: 'field_speedtest_needed', width: 200, headerName: 'Speedtest Requested'},
     // { field: 'field_speedtest', width: 200, headerName: 'Speedtest'},
     // { field: 'field_activate_container', width: 200, headerName: 'Activate Contrainer'},
     // { field: 'field_container_devices', width: 200, headerName: 'Containers'},
-    { field: 'field_root_update_method', width: 200, headerName: 'Root Device Update Method'},
-    { field: 'field_separate_license', width: 200, headerName: 'Separate License for OTA'},
-    { field: 'field_auto_ota', width: 200, headerName: 'Auto OTA'},
-    { field: 'field_waiver', width: 200, headerName: 'OTA Waiver'},
-    { field: 'field_boeng_rule', width: 200, headerName: 'Configure Boeng Rule'},
-    { field: 'field_whitelisting_method', width: 200, headerName: 'Whitelisting Method'},
-    { field: 'field_ip_ranges', width: 200, headerName: 'IP Ranges'},
-    { field: 'field_csv_file', width: 200, headerName: 'SN CSV'},
-    { field: 'field_boeng_options', width: 200, headerName: 'Boeng Options'},
-    { field: 'field_acs_url', width: 200, headerName: 'ACS URL'},
-    { field: 'field_acs_username', width: 200, headerName: 'ACS Username'},
-    { field: 'field_acs_password', width: 200, headerName: 'ACS Password'},
-    { field: 'field_usp_addr', width: 200, headerName: 'USP Controller Address'},
-    { field: 'field_usp_port', width: 200, headerName: 'USP Controller Port'},
-    { field: 'field_mesh_extended', width: 200, headerName: 'Mesh Extended'},
-    { field: 'field_extender_beacon', width: 200, headerName: 'Extender Beancon'},
-    { field: 'field_extender_update_method', width: 200, headerName: 'Extender Update Mehtod'},
-    { field: 'field_extender_separate_license', width: 200, headerName: 'Extender OTA License'},
-    { field: 'field_extender_auto_ota', width: 200, headerName: 'Extender Auto OTA'},
-    { field: 'field_extender_waiver', width: 200, headerName: 'Extender OTA Waiver'},
-    { field: 'field_additional', width: 200, headerName: 'Addtional Info'},
-    { field: 'additional', width: 200, headerName: 'Commnents'},
-    { field: 'creator', width: 150, headerName: 'Creator'},
-    { field: 'createon', width: 150, headerName: 'Created On'},
-    { field: 'modifier', width: 150, headerName: 'Modifier'},
-    { field: 'modifiedon', width: 150, headerName: 'Modified On'},
+    { field: 'field_root_update_method', width: 200, headerName: 'Root Device Update Method', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_separate_license', width: 200, headerName: 'Separate License for OTA', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_auto_ota', width: 200, headerName: 'Auto OTA', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_waiver', width: 200, headerName: 'OTA Waiver', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_boeng_rule', width: 200, headerName: 'Configure Boeng Rule', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_whitelisting_method', width: 200, headerName: 'Whitelisting Method', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_ip_ranges', width: 200, headerName: 'IP Ranges', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_csv_file', width: 200, headerName: 'SN CSV', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_boeng_options', width: 200, headerName: 'Boeng Options', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_acs_url', width: 200, headerName: 'ACS URL', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_acs_username', width: 200, headerName: 'ACS Username', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_acs_password', width: 200, headerName: 'ACS Password', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_usp_addr', width: 200, headerName: 'USP Controller Address', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_usp_port', width: 200, headerName: 'USP Controller Port', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_mesh_extended', width: 200, headerName: 'Mesh Extended', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_extender_beacon', width: 200, headerName: 'Extender Beancon', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_extender_update_method', width: 200, headerName: 'Extender Update Mehtod', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_extender_separate_license', width: 200, headerName: 'Extender OTA License', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_extender_auto_ota', width: 200, headerName: 'Extender Auto OTA', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_extender_waiver', width: 200, headerName: 'Extender OTA Waiver', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_additional', width: 200, headerName: 'Addtional Info', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'additional', width: 200, headerName: 'Commnents', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'creator', width: 150, headerName: 'Creator', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'createon', width: 150, headerName: 'Created On', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'modifier', width: 150, headerName: 'Modifier', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'modifiedon', width: 150, headerName: 'Modified On', onCellDoubleClicked: onCellDoubleClick},
     // { field: 'ID',width: 120, headerName: 'Item' },
     { field: 'field_jira_id', width: 200, headerName: 'Jira Id', hide: true},
 ];

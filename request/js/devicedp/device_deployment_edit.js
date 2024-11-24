@@ -5,6 +5,7 @@ function show_hide(){
     show_hide_by_value('field_managed_by_hc', 'Yes', 'flag_managed_by_hc');
     show_root_update_method();
     show_boeng_rule();
+    show_root_device();
     show_mesh_extended();
     show_extender_update_method();
     show_status();
