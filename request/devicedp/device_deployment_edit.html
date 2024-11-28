@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="form-group row p-1">                            
-                        <label class="col-2 col-form-label text-end fw-bold" for="field_managed_by_hc">Device Managed by Home Controller?</label>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_managed_by_hc">Will this device deployment be managed by a Corteca Home Controller?</label>
                         <div class="col-4">
                             <select class="form-select" name='field_managed_by_hc' id='field_managed_by_hc'>
                                 <option value='' selected="selected"></option>
@@ -93,12 +93,12 @@
                     <!-- <div  id="flag_managed_by_hc" style="background-color:  #f5eef8 ;"> -->
                     <div  id="flag_managed_by_hc">
                         <div class="form-group row p-1">                            
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_home_controller">Home Controller</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_home_controller">Which Corteca Home Controller instance will this deployment be managed by?</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_home_controller' id='field_home_controller'>
                                     <option value='' selected="selected"></option>
                                 </select>
-                                <div class="errorValidation" id="error_home_controller" style="display: none;">No Home Controller could be found, plaese run through Home Controller Deployment firstly.</div>
+                                <div class="errorValidation" id="error_home_controller" style="display: none;">We did not find a Home Controller for this customer. If this is not created yet, please first request this to be setup with the following form: <link to home controller deployment form TBD></div>
                             </div>
                             <div  id="flag_managed_by_hdm" class="row col-6">                            
                                 <label class="col-4 col-form-label text-end fw-bold" for="field_managed_by_hdm">This setup needs to be managed by Nokia HDM</label>
@@ -165,7 +165,10 @@
 
                     <div id="flag_global_managed_by_hc">
                         <div class="form-group row p-1">                            
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_root_update_method">Root Device Update Method</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_root_update_method">Which service will handle the SW lifecycle management of the root device?<font color="#465CD5"><span
+                                class="glyphicon glyphicon-info-sign" rel="drevil"
+                                data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                                data-bs-content="<a href='https://confluence.ext.net.nokia.com/display/CORTECA/Beacon+deployment+guidelines#Beacondeploymentguidelines-Upgradingbeacons' target='_blank'>Help ink:</a>"></span></font></label>
                             <div class="col-4">
                                 <select class="form-select" name='field_root_update_method' id='field_root_update_method'>
                                     <option value='' selected="selected"></option>
@@ -177,7 +180,7 @@
                             </div>
                         </div>
                         <div class="form-group row p-1" id="flag_root_update_method">                            
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_separate_license">Separate license for OTA included or explicit BBD approval?</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_separate_license">Was the OTA license included in the customer opportunity or was there an approval given by BBD for providing OTA updates?</label>
                             <!-- <div class="col-4">
                                 <div class="form-check">
                                     <input class="form-check-input separate-license" type="radio" name="field_separate_license" id="field_separate_license_yes">
@@ -199,7 +202,10 @@
                         </div>
                         <div class="form-group row p-1" id="flag_auto_ota">                            
 
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_auto_ota">Automatic SW Updates with OTA?</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_auto_ota">Do you want Nokia to maintain the SW to a recent SW and provide automatic OTA updates?<font color="#465CD5"><span
+                                class="glyphicon glyphicon-info-sign" rel="drevil"
+                                data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                                data-bs-content="Help link: This will contain the link to the Auto OTA process definition"></span></font></label>
                             <div class="col-4">
                                 <select class="form-select" name='field_auto_ota' id='field_auto_ota'>
                                     <option value='' selected="selected"></option>
@@ -211,7 +217,7 @@
                                 <div class="field-comment" id="comment_auto_ota">Yes: Nokia will push a SW update twice a year (1st of August and 1st of May) to the device or earlier on request of the customer<br>No: the customer will request Nokia to create OTA rules</div>
                             </div>
                             <div class="row col-6" id="flag_auto_ota_yes">
-                                <label class="col-4 col-form-label text-end fw-bold" for="field_waiver">Signed Waiver</label>
+                                <label class="col-4 col-form-label text-end fw-bold" for="field_waiver">Please upload the waiver for Auto-OTA signed by the customer in PDF format.</label>
                                 <div class="col-6">
                                     <input type="file" class="form-control-file" name="field_waiver" id="field_waiver" style="display: none;" accept=".pdf">
                                     <label for="field_waiver" class="info whitetext" id="label_waiver">Click to upload signed waiver</label> 
@@ -224,7 +230,10 @@
 
 
                         <div class="form-group row p-1" id="flag_boeng_rule">                            
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_boeng_rule">Configure BoENG Rule for the root Beacon?</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_boeng_rule">Do you want to set up a BoENG rule for this Beacon to apply a specific bootstrap configuration to the device?<font color="#465CD5"><span
+                                class="glyphicon glyphicon-info-sign" rel="drevil"
+                                data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                                data-bs-content="<a href='https://confluence.ext.net.nokia.com/pages/viewpage.action?pageId=1844117274' target='_blank'>Help ink</a>"></span></font></label>
                             <div class="col-4">
                                 <select class="form-select" name='field_boeng_rule' id='field_boeng_rule'>
                                     <option value='' selected="selected"></option>
@@ -238,7 +247,10 @@
                         <!-- <div  id="flag_boeng_rule_detail" style="background-color:  #f9ebea;"> -->
                         <div  id="flag_boeng_rule_detail">
                             <div class="form-group row p-1">                            
-                                <label class="col-2 col-form-label text-end fw-bold" for="field_whitelisting_method">Whitelisting Method</label>
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_whitelisting_method">Select how you want to whitelist these Beacons to to this BoENG rule.<font color="#465CD5"><span
+                                    class="glyphicon glyphicon-info-sign" rel="drevil"
+                                    data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                                    data-bs-content="<a href='https://confluence.ext.net.nokia.com/pages/viewpage.action?pageId=1844117274#BeaconOnboardingEngine(BoENG)-BoENGwhitelistingmethods' target='_blank'>Help ink</a>"></span></font></label>
                                 <div class="col-4">
                                     <select class="form-select" name='field_whitelisting_method' id='field_whitelisting_method'>
                                         <option value='' selected="selected"></option>
@@ -250,10 +262,11 @@
                                 </div>
                             </div>
                             <div class="form-group row p-1" id="flag_whitelisting_ip_based">                            
-                                <label class="col-2 col-form-label text-end fw-bold" for="field_ip_ranges">IP Ranges</label>
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_ip_ranges">Public IP range(s)</label>
                                 <div class="col-10">
                                     <textarea class="form-control" rows="2" maxlength="100" name="field_ip_ranges" id="field_ip_ranges" value=''></textarea>
-                                    <div class="field-comment" id="comment_ip_ranges">Both IPv4 and IPv6 ranges can be entered. Use ; to separate entries. Example: 15.14.13.12/24; 3af2:12345::/48.</div>
+                                    <div class="field-comment" id="comment_ip_ranges">Both IPv4 and IPv6 ranges can be entered. Use ; to separate entries. Example: 15.14.13.12/24; 3af2:12345::/48.<br>Note:  in case of dual stack deployments, BoENG calls will be made from the WAN IPv6 address of the device.
+                                    </div>
                             </div>
                             </div>
                             <div class="form-group row p-1" id="flag_whitelisting_sn">
@@ -262,7 +275,10 @@
                                     <input type="text" class="form-control" name="field_customer_id" id="field_customer_id" value='' >
                                     <div class="field-comment" id="comment_field_customer_id">10 digits numerical identifier starting with '10'</div>
                                 </div> -->
-                                <label class="col-2 col-form-label text-end fw-bold" for="csv_file">CSV file with serial numbers to be whitelisted</label>
+                                <label class="col-2 col-form-label text-end fw-bold" for="csv_file">If this product is directly shipped to the customer (not through a channel partner) and a shipment id exists for this customer, devices will automatically be whitelisted to this BoENG rule. If not, please upload a csv file with the serial numbers that need to be linked to this BoENG rule<font color="#465CD5"><span
+                                    class="glyphicon glyphicon-info-sign" rel="drevil"
+                                    data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                                    data-bs-content="<a href='' target='_blank'>Link to example csv file</a>"></span></font></label>
                                 <div class="col-3">
                                     <input type="file" class="form-control-file" name="field_csv_file" id="field_csv_file" style="display: none;" accept=".csv">
                                     <label for="field_csv_file" class="info whitetext" id="label_csv_file">Click to upload CSV</label> 
@@ -273,7 +289,10 @@
                             </div>
                             
                             <div class="form-group row p-1">                            
-                                <label class="col-2 col-form-label text-end fw-bold" for="field_boeng_option_tr069">Boeng Options</label>
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_boeng_option_tr069">Which options do you want configured by the BoENG rule.<font color="#465CD5"><span
+                                    class="glyphicon glyphicon-info-sign" rel="drevil"
+                                    data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+                                    data-bs-content="<a href='https://confluence.ext.net.nokia.com/pages/viewpage.action?pageId=1844117274#BeaconOnboardingEngine(BoENG)-BoENGconfigurationoptions' target='_blank'>Help ink</a>"></span></font></label>
                                 <div class="col-4">
                                     <div class="form-check">
                                         <input class="form-check-input boeng-option" type="checkbox" id="field_boeng_option_tr069">
@@ -291,7 +310,7 @@
                                         <input class="form-check-input boeng-option" type="checkbox" id="field_boeng_option_config" checked>
                                         <label class="form-check-label" for="field_boeng_option_config">Home Controller Config</label>
                                     </div>
-                                    <div class="field-comment" id="comment_boeng_option">The Home Controller configuration will automatically be included in this BoENG rule.</div>
+                                    <div class="field-comment" id="comment_boeng_option">An OUID will automatically be configured for this BoENG rule</div>
                                 </div>
                             </div>
                             <div class="form-group row p-1" id="flag_boeng_option_tr069">                            
@@ -324,7 +343,7 @@
 
 
                         <div class="form-group row p-1" id="flag_mesh_extended" >                            
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_mesh_extended">Mesh Extended by Nokia Beacon? </label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_mesh_extended">Will this device be used in a mesh network?</label>
                             <!-- <div class="col-10">
                                 <div class="form-check">
                                     <input class="form-check-input mesh-extended" type="radio" name="field_mesh_extended" id="field_mesh_extended_yes">
@@ -347,7 +366,7 @@
                         <!-- <div id="flag_mesh_extended_yes" style="background-color:  #e5e7e9 ;"> -->
                         <div id="flag_mesh_extended_yes">
                             <div class="form-group row p-1">                            
-                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_beacon">Beacon</label>
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_beacon">Mesh extender</label>
                                 <div class="col-4">
                                     <select class="form-select" name='field_extender_beacon' id='field_extender_beacon'>
                                         <option value='' selected="selected"></option>
@@ -356,7 +375,7 @@
                                 </div>
                             </div>
                             <div class="form-group row p-1">                            
-                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_update_method">Extender Update Method</label>
+                                <label class="col-2 col-form-label text-end fw-bold" for="field_extender_update_method">Which service will handle the SW lifecycle management of the mesh extender?</label>
                                 <div class="col-4">
                                     <select class="form-select" name='field_extender_update_method' id='field_extender_update_method'>
                                         <option value='' selected="selected"></option>
@@ -495,7 +514,7 @@
     </div>    
 <script src="../js/jquery.min.js?v=2.1.4"></script>
 <script src="../js/jquery.cookie.js"></script>
-<script src="../bootstrap5/js/bootstrap.min.js"></script>
+<script src="../bootstrap5/js/bootstrap.bundle.min.js"></script>
 <script src="../js/addon.js"></script>
 <script src="../js/check_login.js"></script>
 <script>

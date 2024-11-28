@@ -597,7 +597,7 @@ function show_managed_by_hc() {
         $("#comment_boeng_option").show();
     } else {
         $("#flag_boption_hc").hide();
-        $("#comment_boeng_option").hide();
+        $("#comment_boeng_option").show();
     };
 
     show_managed_by_hdm();

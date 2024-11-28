@@ -294,3 +294,32 @@ function decode_id(ss) {
 function get_key_by_val(obj, val) {
     return Object.keys(obj).find(key => obj[key] === val);
 };
+
+$(document).ready(function () {
+    // Initialize popovers with manual trigger
+    $('[data-bs-toggle="popover"]').each(function () {
+        const $elem = $(this);
+        const popover = new bootstrap.Popover($elem[0], {
+            trigger: 'manual',
+            html: true
+        });
+
+        // Hover behavior for popovers
+        $elem.on("mouseenter", function () {
+            $elem.popover("show");
+            const $popover = $(".popover");
+            
+            $popover.on("mouseleave", function () {
+                $elem.popover("hide");
+            });
+        });
+
+        $elem.on("mouseleave", function () {
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    $elem.popover("hide");
+                }
+            }, 200); // Small delay for better UX
+        });
+    });
+});
