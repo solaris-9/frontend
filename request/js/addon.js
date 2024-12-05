@@ -285,7 +285,7 @@ function clear_child_value(parent) {
     });
 };
 
-
+var global_url_param = new URLSearchParams(location.search)
 function decode_id(ss) {
     var id = decodeURI(ss).split('=')[1];
     return id

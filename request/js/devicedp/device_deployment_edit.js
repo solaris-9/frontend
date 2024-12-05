@@ -3,6 +3,7 @@
 
 function show_hide(){ 	         
     show_hide_by_value('field_managed_by_hc', 'Yes', 'flag_managed_by_hc');
+    show_managed_by_hc();
     show_root_update_method();
     show_boeng_rule();
     show_root_device();
@@ -12,10 +13,13 @@ function show_hide(){
     status_toggle();
     show_managed_by_hdm();
     show_boeng_option_config();
+    toggle_nwcc(document.formxl.field_home_controller);
 } 
 
-var global_id = decode_id(location.search);
-
+//var global_id = decode_id(location.search);
+var global_id = global_url_param.get('ID');
+var global_customer = global_url_param.get('field_customer');
+var global_controlled_by_hc = global_url_param.get('field_managed_by_hc');
 var global_status_value = {};
 
 //var nwcc_saas = new Map();
@@ -85,7 +89,14 @@ function initialize_page() {
     // fetch_opid();
     if (global_id.length > 0) {
         fetch_devicedp();
-    }
+    } else {
+        if (global_customer) {
+            document.formxl.field_customer.value = global_customer;
+        };
+        if (global_controlled_by_hc) {
+            document.formxl.field_managed_by_hc.value = global_controlled_by_hc;
+        };
+    };
     
     $("#preloader").hide();
     $("#mainpart").show();

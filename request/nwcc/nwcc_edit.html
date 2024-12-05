@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add BoENG Rule</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style_addon.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="loader-container" id="preloader">
+        <div class="bouncing-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
+        <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
+            <div class="ibox bg-white">
+                <div class="ibox-title rounded">
+                    <div class="form-group row p-1" id="flag_status" style="background-color:  #e8f8f5 ;">
+                        <input type="text" class="col-3" id="title_id" value="" disabled>
+                        <label class="col-1 col-form-label text-end fw-bold" for="field_status">Status</label>
+                        <div class="col-3">
+                            <select class='form-select' name="field_status" id="field_status">
+                                <option value="New" selected="selected">New</option>
+                                <option value="Accepted">Accepted</option>
+                                <option value="Implemented">Implemented</option>
+                                <option value="Query">Query</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+                        <label class="col-1 col-form-label text-end fw-bold" for="field_assignee">Assignee</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="field_assignee" id="field_assignee" value="">
+                            <input type="text" class="form-control" name="field_mail" id="field_mail" value=''
+                                style="display: none;">
+                            <input type="text" class="form-control" name="field_jira_id" id="field_jira_id" value=''
+                                style="display: none;">
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content rounded">
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_customer">Customer</label>
+                        <div class="col-4">
+                            <select class='form-select' name="field_customer" id="field_customer">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <a role="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#customerModal" id="btnModal">Add New Customer</a>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_customer_id">Customer ID</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="field_customer_id" id="field_customer_id"
+                                value='' disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_country">Country</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control" name="field_country" id="field_country" value=''>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_tenant_type">Type of
+                            tenant</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_tenant_type' id='field_tenant_type'>
+                                <option value='' selected="selected"></option>
+                                <option value="L1">L1</option>
+                                <option value="L1+L2">L1+L2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_hc_type">What type of Home
+                            Controller instance is requested?</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_hc_type' id='field_hc_type'>
+                                <option value='' selected="selected"></option>
+                                <option value="Dedicated instance">Dedicated instance</option>
+                                <option value="Multi-tenant instance">Multi-tenant instance</option>
+                                <option value="Trial instance">Trial instance</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="flag_dedicated_instance">
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_alive_date">How long is this
+                                tenant expected to be alive?</label>
+                            <div class="col-2">
+                                <input type="date" class="form-control" name="field_alive_date" id="field_alive_date"
+                                    value=''>
+                            </div>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_dedicated_region">Hosting
+                                region</label>
+                            <div class="col-2">
+                                <select class="form-select" name='field_dedicated_region' id='field_dedicated_region'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <label class="col-2 col-form-label text-end fw-bold"
+                                for="field_dedicated_legal_clearance">Legal clearance of customer to host data outside
+                                of country</label>
+                            <div class="col-2">
+                                <select class="form-select" name='field_dedicated_legal_clearance'
+                                    id='field_dedicated_legal_clearance'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <div class="field-comment" id="comment_dedicated_legal_clearance"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="flag_multi_instance">
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_multi_region">Hosting
+                                region</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_multi_region' id='field_multi_region'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="North Virginia (NAR/LATAM/Canada)">North Virginia (NAR/LATAM/Canada)
+                                    </option>
+                                    <option value="Ireland (EMEA, APAC, Oceania)">Ireland (EMEA, APAC, Oceania)</option>
+                                </select>
+                            </div>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_multi_legal_clearance">Legal
+                                clearance of customer to host data outside of country</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_multi_legal_clearance'
+                                    id='field_multi_legal_clearance'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="flag_trial_instance">
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_trial_tenant">Tenant on
+                                which instance?</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_trial_tenant' id='field_trial_tenant'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Demo2">Demo2</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-6 row" id="flag_other_tenant_instance">
+                                <label class="col-4 col-form-label text-end fw-bold" for="field_trial_other_tenant">Please input tenant instance</label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" name="field_trial_other_tenant"
+                                        id="field_trial_other_tenant" value=''>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_trial_date">Duration of the
+                                trial</label>
+                            <div class="col-4">
+                                <input type="date" class="form-control" name="field_trial_date" id="field_trial_date"
+                                    value=''>
+                            </div>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_trial_device_number">Number
+                                of devices planned in the trial</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_trial_device_number"
+                                    id="field_trial_device_number" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_trial_test_plan">Attach the trial test plan and schedule
+                            </label>
+                            <div class="col-4">
+                                <input type="file" class="form-control-file" name="field_trial_test_plan" id="field_trial_test_plan"
+                                    style="display: none;" accept=".pdf,.docx,.xlsx,.pptx">
+                                <label for="field_trial_test_plan" class="info whitetext" id="label_trial_test_plan">Click to upload</label>
+                            </div>
+                            <div class="col-2">
+                                <div id="url_trial_test_plan"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="flag_a">
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller</label>
+                            <div class="col-3">
+                                <input type="text" class="form-control" name="field_3_month" placeholder="3 months"
+                                    id="field_3_month" value=''>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" class="form-control" name="field_6_month" placeholder="6 months"
+                                    id="field_6_month" value=''>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_12_month" placeholder="12 months"
+                                    id="field_12_month" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_committed_1st_year">Committed 1st year volume</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_committed_1st_year" placeholder="Commit 1st year volumne"
+                                    id="field_committed_1st_year" value=''>
+                            </div>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_fcc_compilance">FCC compliance (RDOF) required (US only)</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_fcc_compilance'
+                                    id='field_fcc_compilance'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_support_level">Support level SLA</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_support_level'
+                                    id='field_support_level'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Premium">Premium</option>
+                                    <option value="Standard">Standard</option>
+                                </select>
+                            </div>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_deploy_region">Provide the Region and Area where devices will be deployed (L2 only)</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_deploy_region"
+                                    id="field_deploy_region" value=''>
+                                <div class="field-comment" id="comment_deploy_region">For example: South-America/Argentina, or USA/North Carolina</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="flag_b">
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_integration_hdm">HDM integration with Corteca Controller</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_integration_corteca' id='field_integration_corteca'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-6 row" id="flag_hdm_yes">
+                                <label class="col-4 col-form-label text-end fw-bold" for="field_hdm_po">Please share the PO number for HDM licenses(not required for trial instance)</label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" name="field_hdm_po"
+                                        id="field_hdm_po" value=''>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_advance_fingerprinting">Advance device fingerprinting</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_advance_fingerprinting'id='field_advance_fingerprinting'>
+                                    <option value="Disabled" selected>Disabled</option>
+                                    <option value="Yes. Provided by Home Controller (based on MAC and DHCP options)">Yes. Provided by Home Controller (based on MAC and DHCP options)</option>
+                                    <option value="Yes. Provided by fingerprint application (based on MAC, DHCP options, UPnP and mDNS)">Yes. Provided by fingerprint application (based on MAC, DHCP options, UPnP and mDNS)</option>
+                                </select>
+                            </div>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_customer_responsible">Customer project responsible</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_customer_responsible"
+                                    id="field_customer_responsible" value=''>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_wbs_billing">WBS number for billing</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_wbs_billing"
+                                    id="field_wbs_billing" value=''>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_root_device">Root Device</label>
+                        <div class="col-4">
+                            <select class='form-select' name="field_root_device" id="field_root_device">
+                                <option value=""></option>
+                            </select>
+                            <div class="errorValidation" id="error_root_device">Root Device is required</div>
+                        </div>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_root_device_id">Root device id</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_root_device_id' id='field_root_device_id'>
+                                <option value='' selected="selected"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1" >                            
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_speedtest_needed">Speedtest Service Requested?</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_speedtest_needed' id='field_speedtest_needed'>
+                                <option value='' selected="selected"></option>
+                                <option value="Yes" >Yes</option>
+                                <option value="No" >No</option>             
+                                </select>
+                        </div>
+                        <div  id="flag_speedtest_yes" class="row col-6">
+                            <label class="col-4 col-form-label text-end fw-bold" for="field_speedtest">Speedtest</label>
+                            <div class="col-8">
+                                <select class="form-select" name='field_speedtest' id='field_speedtest'>
+                                    <option value='' selected="selected"></option>
+                                    <option value='Ookla'>Ookla</option>
+                                    <option value='TR143'>TR143</option>
+                                    <option value='RDOF'>RDOF</option>
+                                    <option value='NA'>NA</option>    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_root_update_method">How will the root device be updated?</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_root_update_method'
+                                id='field_root_update_method'>
+                                <option value='' selected="selected"></option>
+                                <option value="3rd party ACS">3rd party ACS</option>
+                                <option value="3rd party USP">3rd party USP</option>
+                                <option value="Home Controller" >Home Controller</option>
+                                <option value="OTA" >OTA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1" id="flag_ota">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_auto_ota">Automatic SW
+                            Updates with OTA?</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_auto_ota' id='field_auto_ota'>
+                                <option value='' selected="selected"></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            <div class="field-comment" id="comment_auto_ota">Yes: Nokia will push a SW update twice
+                                a year (1st of August and 1st of May) to the device or earlier on request of the
+                                customer<br>No: the customer will request Nokia to create OTA rules</div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_configure_boeng_rule">Configure BoENG
+                            Rule for the root Beacon?</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_configure_boeng_rule' id='field_configure_boeng_rule'>
+                                <option value='' selected="selected"></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="flag_configure_boeng_rule_yes">
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold"
+                                for="field_whitelisting_method">Whitelisting Method</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_whitelisting_method'
+                                    id='field_whitelisting_method'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Dedicated OPID">Dedicated OPID</option>
+                                    <option value="IP based">IP based</option>
+                                    <option value="Serial number">Serial number</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1" id="flag_whitelisting_ip_based">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_ip_ranges">IP
+                                Ranges</label>
+                            <div class="col-10">
+                                <textarea class="form-control" rows="2" maxlength="100" name="field_ip_ranges"
+                                    id="field_ip_ranges" value=''></textarea>
+                                <div class="field-comment" id="comment_ip_ranges">Both IPv4 and IPv6 ranges can be
+                                    entered. Use ; to separate entries. Example: 15.14.13.12/24; 3af2:12345::/48.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1" id="flag_whitelisting_sn">
+                            <label class="col-2 col-form-label text-end fw-bold" for="csv_file">CSV file with serial
+                                numbers to be whitelisted</label>
+                            <div class="col-3">
+                                <input type="file" class="form-control-file" name="field_csv_file"
+                                    id="field_csv_file" style="display: none;" accept=".csv">
+                                <label for="field_csv_file" class="info whitetext" id="label_csv_file">Click to
+                                    upload CSV</label>
+                            </div>
+                            <div class="col-1">
+                                <div id="url_csv_file"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold"
+                                for="field_boeng_option_tr069">Boeng Options</label>
+                            <div class="col-4">
+                                <div class="form-check">
+                                    <input class="form-check-input boeng-option" type="checkbox"
+                                        id="field_boeng_option_tr069">
+                                    <label class="form-check-label"
+                                        for="field_boeng_option_tr069">TR-069/ACS</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input boeng-option" type="checkbox"
+                                        id="field_boeng_option_3rd_party">
+                                    <label class="form-check-label" for="field_boeng_option_3rd_party">3rd party USP
+                                        Controller</label>
+                                </div>
+                                <div class="form-check" id="flag_boption_config">
+                                    <input class="form-check-input boeng-option" type="checkbox"
+                                        id="field_boeng_option_config" checked>
+                                    <label class="form-check-label" for="field_boeng_option_config">Home Controller
+                                        Config</label>
+                                </div>
+                                <div class="field-comment" id="comment_boeng_option">The Home Controller
+                                    configuration will automatically be included in this BoENG rule.</div>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1" id="flag_boeng_option_tr069">
+                            <label class="col-sm-2 col-form-label text-end fw-bold" for="field_acs_url">TR069/ACS
+                                Server/User Name/Password</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="field_acs_url" id="field_acs_url"
+                                    placeholder="ACS Server URL" value=''>
+                                <div class="errorValidation" id="error_acs_url">ACS Server URL is required</div>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="field_acs_username"
+                                    id="field_acs_username" placeholder="ACS User Name" value=''>
+                                <div class="errorValidation" id="error_acs_username">ACS User Name is required</div>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="field_acs_password"
+                                    id="field_acs_password" placeholder="ACS Password" value=''>
+                                <div class="errorValidation" id="error_acs_password">ACS Password is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1" id="flag_boeng_option_3rd_party">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_usp_addr">USP Controller
+                                Address/Port</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_usp_addr" id="field_usp_addr"
+                                    placeholder="USP Controller Address" value=''>
+                                <div class="errorValidation" id="error_usp_addr">USP Addr is required</div>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" class="form-control" name="field_usp_port" id="field_usp_port"
+                                    placeholder="USP Controller Port" value=''>
+                                <div class="errorValidation" id="error_usp_port">USP Port is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_mesh_extended">Will the setup be extended by a Nokia Beacon? </label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_mesh_extended' id='field_mesh_extended'>
+                                <option value='' selected="selected"></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="flag_mesh_extended_yes">
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold"
+                                for="field_extender_beacon">Which Beacon?</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_extender_beacon' id='field_extender_beacon'>
+                                    <option value='' selected="selected"></option>
+                                </select>
+                                <div class="errorValidation" id="error_extender_beacon">Extender Beacon is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold"
+                                for="field_extender_update_method">How will be extender be updated?</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_extender_update_method'
+                                    id='field_extender_update_method'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="3rd party ACS">3rd party ACS</option>
+                                    <option value="3rd party USP">3rd party USP</option>
+                                    <option value="Home Controller" >Home Controller</option>
+                                    <option value="OTA">OTA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="flag_extender_ota">
+                            <div class="form-group row p-1" id="flag_extender_auto_ota">
+                                <label class="col-2 col-form-label text-end fw-bold"
+                                    for="field_extender_auto_ota">Automatic SW updates with OTA?</label>
+                                <div class="col-4">
+                                    <select class="form-select" name='field_extender_auto_ota'
+                                        id='field_extender_auto_ota'>
+                                                  
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    <div class="field-comment" id="comment_auto_ota">Yes: Nokia will push a SW
+                                        update twice a year (1st of August and 1st of May) to the device or earlier
+                                        on request of the customer<br>No: the customer will request Nokia to create
+                                        OTA rules</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_root_device_additional">Any additional comments for this device deployment request?</label>
+                        <div class="col-10">
+                            <textarea class="form-control" rows="2" maxlength="100" name="field_root_device_additional"
+                                id="field_root_device_additional" value=''></textarea>
+                        </div>
+                    </div> -->
+
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="additional">Additional
+                            information</label>
+                        <div class="col-10">
+                            <textarea class="form-control" rows="2" maxlength="100" name="additional"
+                                id="field_additional" value=''></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <div class="col-2"></div>
+                        <div class="col-10">
+                            <input class="btn btn-sm btn-primary btn-large" type="button" name="add_root_device" id="add_root_device" value="Do you want to add a Nokia setup to be managed by this home controller" onClick="addRootDevice(); return false;">
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="hr-line-dashed"></div> -->
+                    <hr class="mt-1 mb-1" />
+                    <div class="form-group row text-left">
+                        <div class="col-2"></div>
+                        <div class="errorValidation col-3" id="error_all"></div>
+                    </div>
+
+                    <div class="form-group row p-2">
+                        <div class="col-2">
+                        </div>
+                        <button class="btn btn-success col-1 mx-2" type="submit" value='Submit' name='btn_submit'
+                            id='btn_submit' onClick="save(); return false;">Submit</button>
+                        <input class='btn btn-secondary col-1 mx-2' type="button" name="Cancel" value="Cancel"
+                            onClick="history.go(-1);"></td>
+                    </div>
+                </div> <!--ibox-content -->
+            </div>
+        </form>
+    </div>
+    <div class="modal fade" id="customerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="customerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="customerModalLabel">Add New Customer</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customerForm">
+                        <div class="mb-3">
+                            <label class="col-form-label fw-bold" for="new_customer_name">Customer Name</label>
+                            <input type="text" class="form-control" id="new_customer_name">
+
+                            <label class="col-form-label fw-bold" for="new_customer_id">Customer Id</label>
+                            <input type="text" class="form-control" id="new_customer_id">
+
+                            <label class="col-form-label fw-bold" for="new_ont_plm">ONT PLM</label>
+                            <input type="text" class="form-control" id="new_ont_plm">
+
+                            <label class="col-form-label fw-bold" for="new_nwf_plm">NWF PLM</label>
+                            <input type="text" class="form-control" id="new_nwf_plm">
+
+                            <label class="col-form-label fw-bold" for="new_fwa_plm">FWA PLM</label>
+                            <input type="text" class="form-control" id="new_fwa_plm">
+
+                            <label class="col-form-label fw-bold" for="new_local_contact">Local Contact</label>
+                            <input type="text" class="form-control" id="new_local_contact" value="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="errorValidation col-4" id="error_all_customer"></div>
+                    <button type="submit" class="btn btn-primary" id="customerAdd"
+                        onclick="customerAdd(); return false;">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../bootstrap5/js/bootstrap.min.js"></script>
+    <script src="../js/addon.js"></script>
+    <script src="../js/check_login.js"></script>
+    <script>
+        check_login('devicedp/nwcc_edit.html')
+    </script>
+    <script src="../js/nwcc/nwcc_edit.js"></script>
+
+    <script language="javascript">
+        window.onload = show_hide();
+    </script>
+    <script>
+        var myVar;
+
+        function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
