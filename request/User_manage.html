@@ -207,6 +207,7 @@ async function sendPostRequest() {
             })	  
             //gridOptions.rowData = result.data.items; 
             gridApi.setGridOption("rowData", result.data.items);
+            gridApi.setGridOption("loading", false);
     }
 	</script>
 </form>
