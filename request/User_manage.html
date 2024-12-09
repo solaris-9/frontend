@@ -47,7 +47,7 @@ var cookie_name = "username";
 				<!--<div class="row row-lg">-->
                     <div class="col-sm-12">					
 					
- <div id="myGrid" style="height: 300px; " class="ag-theme-alpine"></div>
+ <div id="myGrid" style="height: 750px; " class="ag-theme-alpine"></div>
        </div>
      </div>
      
@@ -73,7 +73,8 @@ var cookie_name = "username";
 	<script src="js/jquery.cookie.js"></script>
     <script src="bootstrap5/js/bootstrap.min.js"></script>
     <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
-    <script src="js/ag-grid/ag-grid-enterprise4.js"></script>
+    <!-- <script src="js/ag-grid/ag-grid-enterprise4.js"></script> -->
+     <script src="js/dist/ag-grid-enterprise.js"></script>
  
 
   <script >
@@ -141,18 +142,24 @@ const gridOptions = {
   
   suppressMenuHide: true,
   suppressAutoSize: true,
-  rowSelection: 'single',
-  //pagination: true,
-  //paginationAutoPageSize: true,
-  statusBar: {
-	statusPanels: [
-		{
-			statusPanel: 'agTotalAndFilteredRowCountComponent',
-			align: 'left',
-		}
-	]
-},
+  rowSelection: {
+    mode: "multiRow",
+    headerCheckbox: true,
+  },
+  pagination: true,
+  paginationAutoPageSize: true,
+  //paginationPageSize: 30,
+//   statusBar: {
+// 	statusPanels: [
+// 		{
+// 			statusPanel: 'agTotalAndFilteredRowCountComponent',
+// 			align: 'left',
+// 		}
+// 	]
+// },
+
   columnDefs: columnDefs,
+  loading: true,
   rowData: rowData
 };
 
@@ -170,10 +177,11 @@ function onBtExport() {
   gridOptions.api.exportDataAsExcel(excelParams);
 
 }
+var gridApi = undefined
 // setup the grid after the page has finished loading
 document.addEventListener('DOMContentLoaded', () => {
     const gridDiv = document.querySelector('#myGrid');
-    new agGrid.Grid(gridDiv, gridOptions);
+    gridApi = agGrid.createGrid(gridDiv, gridOptions);
     sendPostRequest();    
 });
 async function sendPostRequest() {
@@ -197,7 +205,8 @@ async function sendPostRequest() {
                 FR=JSON.parse(FRT); 
                 rowData.push(FR);
             })	  
-            gridOptions.api.setRowData(rowData); 
+            //gridOptions.rowData = result.data.items; 
+            gridApi.setGridOption("rowData", result.data.items);
     }
 	</script>
 </form>

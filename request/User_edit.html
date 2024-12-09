@@ -43,11 +43,6 @@
                                 <div class="col-sm-4">
                                   <select  class='form-control' name="Grade" id="Grade" placeholder="User Grade" >
                                     <option value='' selected="selected">Select</option>
-                                    <option value="Viewer" >viewer</option>
-							        <option value="Administrator" >Administrator</option>
-	                                <option value="FullControl" >FullControl</option>                                    
-                                    <option value="PLM" >PLM</option>
-                                    <option value="R&D" >R&D</option> 
 								  </select> 
                                 </div> 
                                 </div>
@@ -78,8 +73,14 @@
     <!-- ȫ��js -->
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.7"></script>
+    <script src="js/addon.js"></script>
 	<script language="javascript">
-	
+   
+   window.onload = initialize_page();
+
+    function initialize_page() {
+        fetch_role(document.formxl.Grade);
+    }
    var tid = location.search;  
    var S = tid.split('=');
   

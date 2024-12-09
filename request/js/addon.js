@@ -323,3 +323,18 @@ $(document).ready(function () {
         });
     });
 });
+
+function fetch_role(elem){
+    $.ajaxSetup({
+        async: false
+    });       
+    $.getJSON("gpi/user/role_list", {type: "all"}, function (data) {
+        for(var i = 0; i < data.data.items.length; i++){ 
+            let grade = data.data.items[i]['Grade'].trim();
+            elem.options[elem.length]=new Option(grade);
+        };
+    });
+    $.ajaxSetup({
+        async: true
+    });       
+};
