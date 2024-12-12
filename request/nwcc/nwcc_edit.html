@@ -104,27 +104,29 @@
                         <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_alive_date">How long is this
                                 tenant expected to be alive?</label>
-                            <div class="col-2">
+                            <div class="col-4">
                                 <input type="date" class="form-control" name="field_alive_date" id="field_alive_date"
                                     value=''>
                             </div>
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_dedicated_region">Hosting
-                                region</label>
-                            <div class="col-2">
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_dedicated_region">Hosting region</label>
+                            <div class="col-4">
                                 <select class="form-select" name='field_dedicated_region' id='field_dedicated_region'>
                                     <option value='' selected="selected"></option>
-                                    <option value="EMEA">EMEA</option>
-                                    <option value="APAC">APAC</option>
-                                    <option value="NAR">NAR</option>
-                                    <option value="Oceania">Oceania</option>
-                                    <option value="CaNAda">CaNAda</option>
-                                    <option value="LAT">LAT</option>
+                                    <option value="Ireland">Ireland</option>
+                                    <option value="London, United Kingdom">London, United Kingdom</option>
+                                    <option value="Montréal,Canada">Montréal,Canada</option>
+                                    <option value="N.Virginia">N.Virginia</option>
+                                    <option value="Singapore">Singapore</option>
+                                    <option value="Stockholm">Stockholm</option>
+                                    <option value="United Arab Emirates (UAE)">United Arab Emirates (UAE)</option>
                                 </select>
                             </div>
                             <label class="col-2 col-form-label text-end fw-bold"
                                 for="field_dedicated_legal_clearance">Legal clearance of customer to host data outside
                                 of country</label>
-                            <div class="col-2">
+                            <div class="col-4">
                                 <select class="form-select" name='field_dedicated_legal_clearance'
                                     id='field_dedicated_legal_clearance'>
                                     <option value='' selected="selected"></option>
@@ -207,26 +209,34 @@
                     </div>
                     <div id="flag_a">
                         <div class="form-group row p-1">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller</label>
-                            <div class="col-3">
-                                <input type="text" class="form-control" name="field_3_month" placeholder="3 months"
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller in 3 months</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_3_month" placeholder=""
                                     id="field_3_month" value=''>
                             </div>
-                            <div class="col-3">
-                                <input type="text" class="form-control" name="field_6_month" placeholder="6 months"
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller in 6 months</label>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="field_6_month" placeholder=""
                                     id="field_6_month" value=''>
                             </div>
+                        </div>
+                        <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller in 12 months</label>
                             <div class="col-4">
-                                <input type="text" class="form-control" name="field_12_month" placeholder="12 months"
+                                <input type="text" class="form-control" name="field_12_month" placeholder=""
                                     id="field_12_month" value=''>
                             </div>
                         </div>
                         <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_committed_1st_year">Committed 1st year volume</label>
                             <div class="col-4">
-                                <input type="text" class="form-control" name="field_committed_1st_year" placeholder="Commit 1st year volumne"
+                                <input type="text" class="form-control" name="field_committed_1st_year" placeholder=""
                                     id="field_committed_1st_year" value=''>
                             </div>
+                        </div>
+                        <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_fcc_compilance">FCC compliance (RDOF) required (US only)</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_fcc_compilance'
@@ -247,6 +257,8 @@
                                     <option value="Standard">Standard</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_deploy_region">Provide the Region and Area where devices will be deployed (L2 only)</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_deploy_region"
@@ -282,6 +294,8 @@
                                     <option value="Yes. Provided by fingerprint application (based on MAC, DHCP options, UPnP and mDNS)">Yes. Provided by fingerprint application (based on MAC, DHCP options, UPnP and mDNS)</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_customer_responsible">Customer project responsible</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_customer_responsible"
