@@ -17,9 +17,9 @@ function show_hide(){
 } 
 
 //var global_id = decode_id(location.search);
-var global_id = global_url_param.get('ID');
-var global_customer = global_url_param.get('field_customer');
-var global_controlled_by_hc = global_url_param.get('field_managed_by_hc');
+var global_id = global_url_param.get('ID') || "";
+var global_customer = global_url_param.get('field_customer') || "";
+var global_controlled_by_hc = global_url_param.get('field_managed_by_hc') || "";
 var global_status_value = {};
 
 //var nwcc_saas = new Map();
