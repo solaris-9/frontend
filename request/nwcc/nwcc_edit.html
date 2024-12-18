@@ -78,8 +78,17 @@
                         </div>
                     </div>
                     <div class="form-group row p-1">
-                        <label class="col-2 col-form-label text-end fw-bold" for="field_tenant_type">Type of
-                            tenant</label>
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_hosted_by">Will this Home Controller deployment be hosted by Nokia or hosted by the CSP?</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_hosted_by' id='field_hosted_by'>
+                                <option value='' selected="selected"></option>
+                                <option value="Nokia hosted">Nokia hosted</option>
+                                <option value="CSP hosted">CSP hosted</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_tenant_type">Which Home Controller license tier is requested?</label>
                         <div class="col-4">
                             <select class="form-select" name='field_tenant_type' id='field_tenant_type'>
                                 <option value='' selected="selected"></option>
@@ -110,6 +119,14 @@
                             </div>
                         </div>
                         <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_hosting_platform">Which hosting platform is requested?</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_hosting_platform' id='field_hosting_platform'>
+                                    <option value="GCP" selected="selected">GCP</option>
+                                    <option value="AWS">AWS</option>
+                                    <option value="Azure">Azure</option>
+                                </select>
+                            </div>
                             <label class="col-2 col-form-label text-end fw-bold" for="field_dedicated_region">Hosting region</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_dedicated_region' id='field_dedicated_region'>
@@ -123,9 +140,10 @@
                                     <option value="United Arab Emirates (UAE)">United Arab Emirates (UAE)</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold"
-                                for="field_dedicated_legal_clearance">Legal clearance of customer to host data outside
-                                of country</label>
+                                for="field_dedicated_legal_clearance">Was legal clearance obtained of this customer to host data outside of the country?</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_dedicated_legal_clearance'
                                     id='field_dedicated_legal_clearance'>
@@ -149,8 +167,7 @@
                                     <option value="Ireland (EMEA, APAC, Oceania)">Ireland (EMEA, APAC, Oceania)</option>
                                 </select>
                             </div>
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_multi_legal_clearance">Legal
-                                clearance of customer to host data outside of country</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_multi_legal_clearance">Was legal clearance obtained of this customer to host data outside of the country?</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_multi_legal_clearance'
                                     id='field_multi_legal_clearance'>
@@ -163,6 +180,16 @@
                     </div>
                     <div id="flag_trial_instance">
                         <div class="form-group row p-1">
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_trial_type">Do you want a dedicated or multi-tenant trial instance?</label>
+                            <div class="col-4">
+                                <select class="form-select" name='field_trial_type' id='field_trial_type'>
+                                    <option value='' selected="selected"></option>
+                                    <option value="Dedicated">Dedicated</option>
+                                    <option value="Multi-tenant">Multi-tenant</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row p-1" id="flag_trial_type">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_trial_tenant">Tenant on
                                 which instance?</label>
                             <div class="col-4">
@@ -209,13 +236,17 @@
                     </div>
                     <div id="flag_a">
                         <div class="form-group row p-1">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller in 3 months</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller</label>
                             <div class="col-4">
-                                <input type="text" class="form-control" name="field_3_month" placeholder=""
+                                <input type="text" class="form-control" name="field_3_month" placeholder="in 3 months"
                                     id="field_3_month" value=''>
+                                <input type="text" class="form-control" name="field_6_month" placeholder="in 6 months"
+                                    id="field_6_month" value=''>
+                                <input type="text" class="form-control" name="field_12_month" placeholder="in 12 months"
+                                    id="field_12_month" value=''>
                             </div>
                         </div>
-                        <div class="form-group row p-1">
+                        <!-- <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_3_month">Total number of devices expected to be managed by the Home Controller in 6 months</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_6_month" placeholder=""
@@ -228,7 +259,7 @@
                                 <input type="text" class="form-control" name="field_12_month" placeholder=""
                                     id="field_12_month" value=''>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row p-1">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_committed_1st_year">Committed 1st year volume</label>
                             <div class="col-4">
@@ -237,7 +268,7 @@
                             </div>
                         </div>
                         <div class="form-group row p-1">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_fcc_compilance">FCC compliance (RDOF) required (US only)</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_fcc_compilance">Do you need Nokia to host a TR143 server for FCC compliance (RDOF) (only applicable to US customers)</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_fcc_compilance'
                                     id='field_fcc_compilance'>
@@ -248,7 +279,7 @@
                             </div>
                         </div>
                         <div class="form-group row p-1">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_support_level">Support level SLA</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_support_level">What is the required service level agreement?</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_support_level'
                                     id='field_support_level'>
@@ -258,7 +289,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row p-1">
+                        <div class="form-group row p-1" id="flag_d">
                             <label class="col-2 col-form-label text-end fw-bold" for="field_deploy_region">Provide the Region and Area where devices will be deployed (L2 only)</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_deploy_region"
@@ -269,7 +300,7 @@
                     </div>
                     <div id="flag_b">
                         <div class="form-group row p-1">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_integration_hdm">HDM integration with Corteca Controller</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_integration_hdm">Do  you want HDM integration in this Home Controller instance?</label>
                             <div class="col-4">
                                 <select class="form-select" name='field_integration_corteca' id='field_integration_corteca'>
                                     <option value='' selected="selected"></option>
@@ -296,14 +327,14 @@
                             </div>
                         </div>
                         <div class="form-group row p-1">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_customer_responsible">Customer project responsible</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_customer_responsible">Provide the email address of the customer responsible for this Home Controller.</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_customer_responsible"
                                     id="field_customer_responsible" value=''>
                             </div>
                         </div>
                         <div class="form-group row p-1">
-                            <label class="col-2 col-form-label text-end fw-bold" for="field_wbs_billing">WBS number for billing</label>
+                            <label class="col-2 col-form-label text-end fw-bold" for="field_wbs_billing">Provide the WBS number to which Home Controller licenses can be billed to.</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="field_wbs_billing"
                                     id="field_wbs_billing" value=''>

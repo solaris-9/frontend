@@ -1,8 +1,10 @@
 function show_hide(){ 	         
     show_hc_type();
-    show_other_tenant_instance();
     show_flag_a();
     show_flag_b();
+    show_flag_d();
+    show_flag_trial_type();
+    show_other_tenant_instance();
 } 
 
 //var global_id = decode_id(location.search);
@@ -558,12 +560,15 @@ function show_flag_a() {
         clear_child_value("flag_b");
         $("#field_advance_fingerprinting").val("Disabled");
     };
+    show_flag_d();
 };
 $("#field_dedicated_legal_clearance").change(function() {
     show_flag_a();
+    handle_stop(this.id);
 });
 $("#field_multi_legal_clearance").change(function() {
     show_flag_a();
+    handle_stop(this.id);
 });
 function show_flag_b() {
     let val = $("#field_hc_type").val();
@@ -590,8 +595,66 @@ function show_hdm_po_license() {
 $("#field_integration_corteca").change(function() {
     show_hdm_po_license();
 });
-
-
+$("#field_hosted_by").change(function() {
+    handle_stop(this.id);
+});
+function handle_stop(elem) {
+    let val = $("#"+elem).val();
+    let target = ""
+    let msg = ""
+    switch (elem) {
+        case "field_hosted_by":
+            target = "CSP hosted"
+            msg = "Please contact the FN professional services team."
+            break;
+        case "field_dedicated_legal_clearance":
+        case "field_multi_legal_clearance":
+            target = "No"
+            msg = "Please contact your regional PLM"
+    }
+    if (val == target) {
+        alert(msg);
+        toggle_fields_disabled(elem, true);
+    } else {
+        toggle_fields_disabled(elem, false)
+    };
+};
+function toggle_fields_disabled(elem, flag) {
+    $("form[name='formxl']").find(":input:visible").each(function() {
+        let id = this.id;
+        let $elem = $(this);
+        let exemption = ["field_customer_id", elem];
+        if (!exemption.includes(id)) {
+            $elem.prop("disabled", flag);
+        }
+    })
+    $("#btn_submit").prop('disabled', flag);
+};
+$("#field_tenant_type").change(function (){
+    show_flag_d();
+});
+function show_flag_d(){
+    let val = $("#field_tenant_type").val();
+    if (val == "L1+L2") {
+        $("#flag_d").show();
+    } else {
+        $("#flag_d").hide();
+        clear_child_value("flag_d");
+    };
+};
+$("#field_trial_type").change(function () {
+    show_flag_trial_type();
+    show_other_tenant_instance();
+});
+function show_flag_trial_type() {
+    let val = $("#field_trial_type").val();
+    if (val == "Multi-tenant") {
+        $("#flag_trial_type").show();
+    } else {
+        $("#flag_trial_type").hide();
+        clear_child_value("flag_trial_type");
+    };
+}
 
 function show_status() {
     let $elem = $("#flag_status")
