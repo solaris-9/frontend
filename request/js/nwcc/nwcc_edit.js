@@ -213,7 +213,7 @@ function pre_validation() {
                     };
                 };
             } else {
-                if (id != "field_additional") {
+                if (id != "field_additional" && id != "field_customer_id") {
                     let val = $elem.val();
                     if (val) {
                         // if (id == "field_customer_id") {
@@ -525,6 +525,9 @@ function show_hc_type(flag = false) {
         $("#"+elem).hide();
         if (flag) {
             clear_child_value(elem);
+            if (elem == "flag_dedicated_instance") {
+                $("#field_hosting_platform").val("GCP");
+            }
         };
     });
     if (ttype == "Dedicated instance") {
@@ -558,7 +561,7 @@ function show_flag_a() {
         clear_child_value("flag_a");
         $("#flag_b").hide();
         clear_child_value("flag_b");
-        $("#field_advance_fingerprinting").val("Disabled");
+        $("#field_advance_fingerprinting").val("No");
     };
     show_flag_d();
 };
@@ -578,7 +581,7 @@ function show_flag_b() {
     } else if (val === "") {
         $("#flag_b").hide();
         clear_child_value("flag_b");
-        $("#field_advance_fingerprinting").val("Disabled");
+        $("#field_advance_fingerprinting").val("No");
     };
     show_hdm_po_license();
 };
