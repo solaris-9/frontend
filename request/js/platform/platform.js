@@ -4,55 +4,29 @@
  */
 
 
+var FR ={};
 var rowData = [];
 
 function onCellDoubleClick(event) {
     if (cookie_grades.Edit == "Yes") {
         const query = new URLSearchParams(event.data).toString();
         console.log("query = ", query);
-        location.href = "nwcc_edit.html?"+query;
+        location.href = "platform_edit.html?"+query;
     };
 };
 
 const columnDefs = [ 
-    { field: 'ID', }, 
-    { field: 'field_customer', headerName: 'Customer'}, 
-    { field: 'field_customer_id', headerName: 'Customer Id'},
-    { field: 'field_status', headerName: 'Status'},
-    { field: 'field_assignee', headerName: 'Assignee'},
-    { field: 'field_country', headerName: 'Country'},
-    { field: 'field_hosted_by', headerName: 'Hosting Platform'},
-    { field: 'field_tenant_type', headerName: 'Tenant Type'},
-    { field: 'field_hc_type', headerName: 'Home Controller Type'},
-    { field: 'field_alive_date', headerName: 'Tenant Alive Date'},
-    { field: 'field_dedicated_region', headerName: 'Hosting Region'},
-    { field: 'field_dedicated_legal_clearance', headerName: 'Legal Clearance'},
-    { field: 'field_multi_region', headerName: 'Host Region (multi)'},
-    { field: 'field_multi_legal_clearance', headerName: 'Legal Clearance (multi)'},
-    { field: 'field_trial_type', headerName: 'Trial Instance Type'},
-    { field: 'field_trial_tenant', headerName: 'Trial Tenant'},
-    { field: 'field_trial_other_tenant', headerName: 'Trial Other Tenant'},
-    { field: 'field_trial_date', headerName: 'Trial Duration'},
-    { field: 'field_trial_device_number', headerName: 'Trial Device Number'},
-    { field: 'field_trial_test_plan', headerName: 'Trial Test Plan'},
-    { field: 'field_3_month', headerName: '3 Months Number'},
-    { field: 'field_6_month', headerName: '6 Months Number'},
-    { field: 'field_12_month', headerName: '12 Months Number'},
-    { field: 'field_committed_1st_year', headerName: 'Commited 1 Year Volume'},
-    { field: 'field_fcc_compilance', headerName: 'FCC Compilance'},
-    { field: 'field_support_level', headerName: 'Support Level'},
-    { field: 'field_deploy_region', headerName: 'Deploy Region'},
-    { field: 'field_integration_corteca', headerName: 'HDM Integration with Corteca'},
-    { field: 'field_hdm_po', headerName: 'HDM PO'},
-    { field: 'field_advance_fingerprinting', headerName: 'Device Fingerprinting'},
-    { field: 'field_customer_responsible', headerName: 'Customer Responsible'},
-    { field: 'field_wbs_billing', headerName: 'WBS Billing'},
-    { field: 'field_additional', headerName: 'Addtional Info'},
-    { field: 'creator'},
-    { field: 'createon'},
-    { field: 'modifier'},
-    { field: 'modifiedon'},
-    { field: 'field_jira_id', headerName: 'Jira Id', hide: true},
+    { field: 'ID',}, 
+    { field: 'field_platform', headerName: 'Platform'}, 
+    { field: 'field_type', headerName: 'Type'}, 
+    { field: 'field_customer_trials', headerName: 'Customer/Trials'}, 
+    { field: 'field_public_cloud', headerName: 'Public Cloud'}, 
+    { field: 'field_cloud_sw', headerName: 'Cloud SW'}, 
+    { field: 'field_region', headerName: 'Region'}, 
+    { field: 'creator', hide: true}, 
+    { field: 'createon', hide: true}, 
+    { field: 'modifier', hide: true}, 
+    { field: 'modifiedon', hide: true}, 
 ];
 
 // let the grid know which columns and what data to use
@@ -60,7 +34,9 @@ const gridOptions = {
     defaultColDef: {
         sortable: true,
         resizable: true,	
+        //wrapText: true,
         autoHeight: true, 
+        //floatingFilter: true,
         autoHeight: true,
         filter: true,
         menuTabs: ['filterMenuTab','generalMenuTab','columnsMenuTab'],
@@ -71,14 +47,19 @@ const gridOptions = {
     rowHeight: 30,
     suppressMenuHide: true,
     suppressAutoSize: true,
+    //rowSelection: 'single',
     rowSelection: {
         mode: "multiRow",
         headerCheckbox: true,
     },
+    //rowMultiSelectWithClick: true,  
     onSelectionChanged: onSelectionChanged,
     onCellDoubleClicked: onCellDoubleClick,
     pagination: true,
     paginationAutoPageSize: true,
+    //paginationPageSizeSelector: [10, 20, 50, 100],
+    //paginationPageSize: 5,
+
     columnDefs: columnDefs,
     rowData: rowData,
     loading: true,
@@ -86,7 +67,6 @@ const gridOptions = {
         type: 'fitCellContents'
     },
 };
-
 
 function onSelectionChanged(event) {
     var selectedRows = event.api.getSelectedRows();
@@ -111,23 +91,34 @@ function onBtExport() {
     let hour=d.getHours();                    
     let minutes=d.getMinutes();      
     var excelParams = {
-        fileName: 'NWCC_Deployment-' + year + month + date+ hour + minutes + '.xlsx',
+        fileName: 'Corteca_Platform-' + year + month + date+ hour + minutes + '.xlsx',
         sheetName: 'request',	   
     }
     gridApi.exportDataAsExcel(excelParams);
 };
 
 var gridApi;
+
 // setup the grid after the page has finished loading
 document.addEventListener('DOMContentLoaded', () => {
     const gridDiv = document.querySelector('#myGrid');
     gridApi = agGrid.createGrid(gridDiv, gridOptions);
     mail = $.cookie(cookie_mail)
     level = $.cookie(cookie_level)
-
-    $.getJSON("../gpi/nwcc/list",{mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},function(result){      	
-        gridApi.setGridOption("rowData", result.data.items);
-        gridApi.setGridOption("loading", false);
+       
+    $.ajax({
+        url: "../gpi/platform/list",
+        type: "GET",
+        dataType: "json",
+        data: {mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},
+        contentType: "application/json; charset=utf-8",
+        success: function(result){      	
+            gridApi.setGridOption("rowData", result.data.items);
+            gridApi.setGridOption("loading", false);
+        },
+        error: function (xhr, status, error) {
+            console.error("Failed to load data:", error);
+        }
     });
 });
 
@@ -144,13 +135,13 @@ async function sendPostDelete() {
     } else {
         if (confirm("Are you sure you want to delete item(s) selected?")) {             
             Deletelist = document.formxl.ID.value;
-            const url = '../gpi/nwcc/edit';
+            const url = '../gpi/platform/delete';
             const data = {                               
                 type: 'delete',                
                 mail: mail,
                 level: level, 
                 grade: grade,
-                deletelist: Deletelist                
+                ids: Deletelist                
             };
             const response = await fetch(url, {
                 method: 'POST',
@@ -160,14 +151,16 @@ async function sendPostDelete() {
                 body: JSON.stringify(data)
             });            
             const result = await response.json();
-            resp = result.data.status;                    
-            if (resp.includes('successful')) {
+            const code = result.code;                    
+            if (code === 20000) {
                 alert("Delete successful!");
                 window.location.reload();	
             }else{
                 alert("Delete failure!");
             }
-        }
+        } //else {
+        //     alert ("Delete cancelled!")
+        // }
     }
 };
 
@@ -190,6 +183,3 @@ function show_div(){
     };
 };
 
-window.addEventListener("beforeload",function(e){
-    document.body.className = "page-loading";
-},false);

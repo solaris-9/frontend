@@ -85,42 +85,16 @@ var cookie_name = "username";
    
 const columnDefs = [      
 		
-        { field: 'ID', width: 80, suppressSizeToFit: true, headerName: 'ID',
-		onCellDoubleClicked: function(event) {
-	    const selectedRows = gridOptions.api.getSelectedRows();
-        document.querySelector('#selectedRows').innerHTML =
-       selectedRows.length === 1 ? selectedRows[0].ID : '';	
-	   location.href = "User_edit.html?id="+selectedRows[0].ID+"="+selectedRows[0].Username+"="+selectedRows[0].Email+"="+selectedRows[0].Roles+"="+selectedRows[0].Level;
-            }
-		},
-        { field: 'Username', width: 120, suppressSizeToFit: true, headerName: 'User Name',
-		onCellDoubleClicked: function(event) {
-	    const selectedRows = gridOptions.api.getSelectedRows();
-        document.querySelector('#selectedRows').innerHTML =
-       selectedRows.length === 1 ? selectedRows[0].ID : '';	
-	   location.href = "User_edit.html?id="+selectedRows[0].ID+"="+selectedRows[0].Username+"="+selectedRows[0].Email+"="+selectedRows[0].Roles+"="+selectedRows[0].Level;
-            }
-		},      	
+        { field: 'ID', width: 80, },
+        { field: 'Username', width: 120,},      	
 			
-		{ field: 'Email', width: 200, headerName: 'Email'},
-		{ field: 'Roles', width: 140, headerName: 'Roles'},
-		{ field: 'Level', width: 180, headerName: 'Level'},
-		{ field: 'FirstName', width: 110, headerName: 'FirstName'},
-        { field: 'LastName', width: 100, headerName: 'LastName'},
-        { field: 'FullName', width: 140, headerName: 'FullName'},
-		{ field: 'LastLogin', width: 200, headerName: 'Last login'},
-		
-	//	{ field: 'View', width:100,
-	 //   onCellClicked: function(event) { 
-	 //  const selectedRows = gridOptions.api.getSelectedRows();
-     //  document.querySelector('#selectedRows').innerHTML =
-     //  selectedRows.length === 1 ? selectedRows[0].USID : '';	
-	 //  location.href = "user_edit.asp?id="+selectedRows[0].USID;
-     //       },
-	 //   cellRenderer: function(params) {
-     //     return '<span><i class="btn btn-info btn-sm">Detail</i>' + '</span>'
-     //    }
-	//   }
+		{ field: 'Email', width: 200, },
+		{ field: 'Roles', width: 140,},
+		{ field: 'Level', width: 180, },
+		{ field: 'FirstName', width: 110, },
+        { field: 'LastName', width: 100, },
+        { field: 'FullName', width: 140, },
+		{ field: 'LastLogin', width: 200, },
 ];
 
 // let the grid know which columns and what data to use
@@ -139,7 +113,7 @@ const gridOptions = {
             },
   },
   rowHeight: 30,
-  
+  onCellDoubleClicked: onCellDoubleClick,
   suppressMenuHide: true,
   suppressAutoSize: true,
   rowSelection: {
@@ -163,6 +137,13 @@ const gridOptions = {
   rowData: rowData
 };
 
+function onCellDoubleClick(event) {
+    const data = event.data; 
+    location.href = "User_edit.html?id="+data.ID+"="+data.Username+"="+data.Email+"="+data.Roles+"="+data.Level;
+
+};
+
+
 function onBtExport() {
     var d = new Date();
     let year=d.getFullYear();                 
@@ -174,7 +155,7 @@ function onBtExport() {
        fileName: 'User Info-' + year + month + date+ hour + minutes + '.xlsx',
     sheetName: 'User_List',	   
   }
-  gridOptions.api.exportDataAsExcel(excelParams);
+  gridApi.exportDataAsExcel(excelParams);
 
 }
 var gridApi = undefined

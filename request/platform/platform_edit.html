@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Platform</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style_addon.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="loader-container" id="preloader">
+        <div class="bouncing-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div style="display:none;" id="mainpart" class="wrapper wrapper-content animated fadeInRight">
+        <form class="form-horizontal" role="form" name="formxl" enctype="multipart/form-data">
+            <div class="ibox bg-white">
+                <div class="ibox-title rounded">
+
+                </div>
+                <div class="ibox-content rounded">
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_platform">Platform</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="field_platform" id="field_platform"
+                                value=''>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_type">Type</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_type' id='field_type'>
+                                <option value='' selected="selected"></option>
+                                <option value="Single Tenant">Single Tenant</option>
+                                <option value="Multitenant">Multitenant</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_customer_trials">Customer/Trials</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_customer_trials' id='field_customer_trials'>
+                                <option value='' selected="selected"></option>
+                                <option value="Customer">Customer</option>
+                                <option value="Customer Trials">Customer Trials</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_public_cloud">Public Cloud</label>
+                        <div class="col-4">
+                            <select class="form-select" name='field_public_cloud' id='field_public_cloud'>
+                                <option value='' selected="selected"></option>
+                                <option value="AWS">AWS</option>
+                                <option value="GCP">GCP</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_cloud_sw">Cloud SW</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="field_cloud_sw" id="field_cloud_sw"
+                                value=''>
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-1">
+                        <label class="col-2 col-form-label text-end fw-bold" for="field_region">Region</label>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="field_region" id="field_region"
+                                value=''>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- <div class="hr-line-dashed"></div> -->
+                    <hr class="mt-1 mb-1" />
+                    <div class="form-group row text-left">
+                        <div class="col-2"></div>
+                        <div class="errorValidation col-3" id="error_all"></div>
+                    </div>
+
+                    <div class="form-group row p-2">
+                        <div class="col-2">
+                        </div>
+                        <button class="btn btn-success col-1 mx-2" type="submit" value='Submit' name='btn_submit'
+                            id='btn_submit' onClick="save(); return false;">Submit</button>
+                        <input class='btn btn-secondary col-1 mx-2' type="button" name="Cancel" value="Cancel"
+                            onClick="history.go(-1);"></td>
+                    </div>
+                </div> <!--ibox-content -->
+            </div>
+        </form>
+    </div>
+    <script src="../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script src="../bootstrap5/js/bootstrap.min.js"></script>
+    <script src="../js/addon.js"></script>
+    <script src="../js/check_login.js"></script>
+    <script>
+        check_login('platform/platform_edit.html')
+    </script>
+    <script src="../js/platform/platform_edit.js"></script>
+
+    <script language="javascript">
+        window.onload = show_hide();
+    </script>
+    <script>
+        var myVar;
+
+        function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        }
+    </script>
+</body>
+
+</html>

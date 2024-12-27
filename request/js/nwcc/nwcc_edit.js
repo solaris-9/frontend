@@ -5,10 +5,21 @@ function show_hide(){
     show_flag_d();
     show_flag_trial_type();
     show_other_tenant_instance();
+    show_status();
 } 
 
 //var global_id = decode_id(location.search);
 var global_id = global_url_param.get('ID');
+
+function decode_fields() {
+    if (location.search.length > 0) {
+        for ([key, attr] of Object.entries(nwcc_fields)) {
+            $("#"+key).val(global_url_param.get(key));
+        };
+        document.formxl.title_id.value = global_id;
+    };
+};
+
 
 var global_status_value = {};
 
@@ -26,6 +37,7 @@ var nwcc_fields = {
     field_jira_id: {type: 'text', flag: false},
     field_customer_id: {type: 'text', flag: false},
     field_country: {type: 'text', flag: false},
+    field_hosted_by: {type: 'list', flag: false},
     field_tenant_type: {type: 'list', flag: false},
     field_hc_type: {type: 'list', flag: false},
     field_alive_date: {type: 'text', flag: false},
@@ -33,6 +45,7 @@ var nwcc_fields = {
     field_dedicated_legal_clearance: {type: 'list', flag: false},
     field_multi_region: {type: 'list', flag: false},
     field_multi_legal_clearance: {type: 'list', flag: false},
+    field_trial_type: {type: 'list', flag: false},
     field_trial_tenant: {type: 'list', flag: false},
     field_trial_other_tenant: {type: 'text', flag: false},
     field_trial_date: {type: 'text', flag: false},
@@ -57,13 +70,9 @@ window.onload = initialize_page();
 
 function initialize_page() {
     fetch_customer(document.formxl.field_customer);
-    //fetch_device([document.formxl.field_root_device], "all");
-    // render_beacon([document.formxl.field_extender_beacon]);
-    //fetch_nwcc_saas();
-    //fetch_customer_contacts();
-    // fetch_opid();
-    if (global_id.length > 0) {
-        fetch_nwcc();
+
+    if (location.search.length > 0) {
+        decode_fields();
     }
     
     $("#preloader").hide();
@@ -74,74 +83,74 @@ function initialize_page() {
     //document.body.style.cursor='default';
 }
 
-function fetch_nwcc() {
-    $.getJSON("../gpi/nwcc/list",{
-        "ID": global_id, 
-        'type': 'single', 
-        level: $.cookie(cookie_level), 
-        mail: $.cookie(cookie_mail)}, function (data) {
-            for ([key, attr] of Object.entries(nwcc_fields)) {
-                let ttype = attr.type;
-                let val = data.data.items[0][key];
-                switch(ttype) {
-                    case "text":
-                        document.formxl[key].value = val;
-                        if (key == "field_assignee") {
-                            global_status_value = {};
-                            global_status_value[document.formxl.field_status.value] = val;
-                        }
-                        break;
-                    case "list":
-                        document.formxl[key].value = val;
-                        break;
-                    case "radio":
-                        switch(val) {
-                            case "":
-                                break;
-                            case "Yes":
-                                let elem_y = key + "_yes";
-                                $("#" + elem_y).prop("checked", true);
-                                break;
-                            case "No":
-                                let elem_n = key + "_no";
-                                $("#" + elem_n).prop("checked", true);
-                                break;
-                        };
-                        break;
-                    case "multi":
-                        if (val) {
-                            val.split(",").forEach(v => {
-                                $("#" + key + " option[value='" + v + "']").prop("selected", true);
-                            });
-                        };
-                        break;
-                    case "file":
-                        //
-                        if (val.length > 0) {
-                            let html = '<p><a href="../gpi/allocate/file_download?file=' +
-                                val + '" download>' + val.split('____')[1] + '</a></p>';
-                            $("#" + key.replace("field_", "url_")).html(html);
-                            global_file_uploaded[key] = val;
-                        };
+// function fetch_nwcc() {
+//     $.getJSON("../gpi/nwcc/list",{
+//         "ID": global_id, 
+//         'type': 'single', 
+//         level: $.cookie(cookie_level), 
+//         mail: $.cookie(cookie_mail)}, function (data) {
+//             for ([key, attr] of Object.entries(nwcc_fields)) {
+//                 let ttype = attr.type;
+//                 let val = data.data.items[0][key];
+//                 switch(ttype) {
+//                     case "text":
+//                         document.formxl[key].value = val;
+//                         if (key == "field_assignee") {
+//                             global_status_value = {};
+//                             global_status_value[document.formxl.field_status.value] = val;
+//                         }
+//                         break;
+//                     case "list":
+//                         document.formxl[key].value = val;
+//                         break;
+//                     case "radio":
+//                         switch(val) {
+//                             case "":
+//                                 break;
+//                             case "Yes":
+//                                 let elem_y = key + "_yes";
+//                                 $("#" + elem_y).prop("checked", true);
+//                                 break;
+//                             case "No":
+//                                 let elem_n = key + "_no";
+//                                 $("#" + elem_n).prop("checked", true);
+//                                 break;
+//                         };
+//                         break;
+//                     case "multi":
+//                         if (val) {
+//                             val.split(",").forEach(v => {
+//                                 $("#" + key + " option[value='" + v + "']").prop("selected", true);
+//                             });
+//                         };
+//                         break;
+//                     case "file":
+//                         //
+//                         if (val.length > 0) {
+//                             let html = '<p><a href="../gpi/allocate/file_download?file=' +
+//                                 val + '" download>' + val.split('____')[1] + '</a></p>';
+//                             $("#" + key.replace("field_", "url_")).html(html);
+//                             global_file_uploaded[key] = val;
+//                         };
                         
-                        break;
-                    case "checkbox":
-                        if (val.length > 0) {
-                            let obj = attr.child;
-                            val.split(';').forEach(v => {
-                                let elem = get_key_by_val(obj, v);
-                                $("#"+elem).prop("checked", true);
-                            });
-                        }
-                        break;
-                };
-            };
+//                         break;
+//                     case "checkbox":
+//                         if (val.length > 0) {
+//                             let obj = attr.child;
+//                             val.split(';').forEach(v => {
+//                                 let elem = get_key_by_val(obj, v);
+//                                 $("#"+elem).prop("checked", true);
+//                             });
+//                         }
+//                         break;
+//                 };
+//             };
 
-            show_hide();
-        }
-    );
-    document.formxl.title_id.value = global_id;
-};
+//             show_hide();
+//         }
+//     );
+//     document.formxl.title_id.value = global_id;
+// };
 
 $(".form-control-file").change(function(e){
     upload(this.id);
@@ -392,7 +401,7 @@ function save(flag = false) {
 
 
     var action = ''
-    if (global_id.length > 0) {
+    if (location.search.length > 0) {
         // Edit mode
         data.type = 'edit';
         data.ID = global_id;
@@ -550,21 +559,52 @@ function show_other_tenant_instance() {
         clear_child_value("flag_other_tenant_instance");
     };
 };
+// function show_flag_a() {
+//     let val1 = $("#field_dedicated_legal_clearance").val();
+//     let val2 = $("#field_multi_legal_clearance").val();
+//     if ( val1 == "Yes" || val2 == "Yes") {
+//         $("#flag_a").show();
+//         $("#flag_b").show();
+//     } else {
+//         $("#flag_a").hide();
+//         clear_child_value("flag_a");
+//         $("#flag_b").hide();
+//         clear_child_value("flag_b");
+//         $("#field_advance_fingerprinting").val("No");
+//     };
+//     show_flag_d();
+// };
 function show_flag_a() {
+    let val0 = $("#field_hc_type").val();
     let val1 = $("#field_dedicated_legal_clearance").val();
     let val2 = $("#field_multi_legal_clearance").val();
-    if ( val1 == "Yes" || val2 == "Yes") {
+    if (
+        (val0 === "Dedicated instance" && val1 === "Yes") || 
+        (val0 === "Multi-tenant instance" && val2 === "Yes")
+    ) {
         $("#flag_a").show();
-        $("#flag_b").show();
     } else {
         $("#flag_a").hide();
         clear_child_value("flag_a");
-        $("#flag_b").hide();
-        clear_child_value("flag_b");
-        $("#field_advance_fingerprinting").val("No");
     };
     show_flag_d();
 };
+function show_flag_b() {
+    let val0 = $("#field_hc_type").val();
+    let val1 = $("#field_dedicated_legal_clearance").val();
+    let val2 = $("#field_multi_legal_clearance").val();
+    if (
+        (val0 === "Dedicated instance" && val1 === "Yes") || 
+        (val0 === "Multi-tenant instance" && val2 === "Yes") ||
+        (val0 === "Trial instance")
+    ) {
+        $("#flag_b").show();
+    } else {
+        $("#flag_b").hide();
+        clear_child_value("flag_b");
+    };
+    show_hdm_po_license();
+}
 $("#field_dedicated_legal_clearance").change(function() {
     show_flag_a();
     handle_stop(this.id);
@@ -573,18 +613,18 @@ $("#field_multi_legal_clearance").change(function() {
     show_flag_a();
     handle_stop(this.id);
 });
-function show_flag_b() {
-    let val = $("#field_hc_type").val();
+// function show_flag_b() {
+//     let val = $("#field_hc_type").val();
     
-    if ( val === "Trial instance") {
-        $("#flag_b").show();
-    } else if (val === "") {
-        $("#flag_b").hide();
-        clear_child_value("flag_b");
-        $("#field_advance_fingerprinting").val("No");
-    };
-    show_hdm_po_license();
-};
+//     if ( val === "Trial instance") {
+//         $("#flag_b").show();
+//     } else if (val === "") {
+//         $("#flag_b").hide();
+//         clear_child_value("flag_b");
+//         $("#field_advance_fingerprinting").val("No");
+//     };
+//     show_hdm_po_license();
+// };
 function show_hdm_po_license() {
     let val = $("#field_integration_corteca").val();
     if ( val == "Yes") {
@@ -661,7 +701,7 @@ function show_flag_trial_type() {
 
 function show_status() {
     let $elem = $("#flag_status")
-    if (global_id.length > 0) {
+    if (location.search.length > 0) {
         $elem.show();
     } else {
         $elem.hide();
