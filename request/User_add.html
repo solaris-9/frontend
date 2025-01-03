@@ -96,9 +96,9 @@
     {
 	$.getJSON("gpi/user/user_edit",{"type": "1","Username": nme,"Mail": mail,"Level": lev, "Roles": grd}, function (data) {
     
-	Result = JSON.stringify(data.data.items[0])    
-    alert(Result);
-    if (resp.includes('successful')) {
+	resp = JSON.stringify(data.data.items[0])    
+    alert(resp);
+    if (data.code === 20000) {
 
         if ('referrer' in document) {
             window.location = document.referrer;

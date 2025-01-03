@@ -13,20 +13,19 @@
     <link href="css/style.css" rel="stylesheet">
 
 </head>
-<script >
-var cookie_name = "username";
- 
- window.onload = function () {
-          
-		   if ( $.cookie(cookie_name) == null || $.cookie(cookie_name) == 'none'  )
-		   {
-             location.href = "login.html?id=User_manage.html";
-		   }else{              
-           //  alert('Log in already' );
-		   }		   
-       };
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.cookie.js"></script>
+<script src="bootstrap5/js/bootstrap.min.js"></script>
+<script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="js/ag-grid/ag-grid-enterprise4.js"></script> -->
+ <script src="js/dist/ag-grid-enterprise.js"></script>
 
- </script>
+<script src="js/addon.js"></script>
+<script src="js/check_login.js"></script>
+<script>
+    check_login('User_manage.html')
+</script>
+
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
 	<form class="form-horizontal" role="form" name="formxl" >
@@ -35,8 +34,26 @@ var cookie_name = "username";
             <div class="col-md-12">
 			<div class="ibox-title">
 			     
-					<input type='button' value=' Add ' onClick="location.href='User_add.html'" class="btn btn-primary btn-sm">&nbsp;&nbsp;<button onclick="onBtExport(); return false;" class='btn btn-info btn-sm'>Export</button>&nbsp;&nbsp;<a class="btn btn-white btn-bitbucket" onClick="location.href='?'"><i class="fa fa-refresh"></i></a><span id="selectedRows"></span>
-					
+					<!-- <input type='button' value=' Add ' onClick="location.href='User_add.html'" class="btn btn-primary btn-sm">&nbsp;&nbsp;
+                    <span id="grade_Delete">
+                        <input class="btn btn-danger col-1" type="submit" value='Delete' name='cmd' id='cmd' onClick="deleteitem(); return false;">
+                    </span>
+                    <button onclick="onBtExport(); return false;" class='btn btn-info btn-sm'>Export</button>&nbsp;&nbsp;
+                    <a class="btn btn-white btn-bitbucket" onClick="location.href='?'"><i class="fa fa-refresh"></i></a><span id="selectedRows"></span> -->
+                    <input type="hidden" class="form-control" name='ID' id='ID' value='' style="height: 30px; width: 160px;">
+                    <span id="grade_Add">
+                        <input type='button' value='Add' onClick="location.href='User_add.html'" class="btn btn-success col-1">
+                    </span>
+                    <span id="grade_Delete">
+                        <input class="btn btn-danger col-1" type="submit" value='Delete' name='cmd' id='cmd' onClick="deleteitem(); return false;">
+                    </span>
+                    <span id="grade_Export">
+                        <button onclick="onBtExport(); return false;" class='btn btn-secondary col-1'>Export</button>
+                    </span>
+                    <a class="btn btn-white btn-bitbucket" onClick="location.href='?'">
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                        
           </div>                        
 	  </div>
 	</div>
@@ -69,13 +86,6 @@ var cookie_name = "username";
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
     <!-- ȫ��js -->
-    <script src="js/jquery.min.js"></script> 
-	<script src="js/jquery.cookie.js"></script>
-    <script src="bootstrap5/js/bootstrap.min.js"></script>
-    <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="js/ag-grid/ag-grid-enterprise4.js"></script> -->
-     <script src="js/dist/ag-grid-enterprise.js"></script>
- 
 
   <script >
  
@@ -113,6 +123,7 @@ const gridOptions = {
             },
   },
   rowHeight: 30,
+  onSelectionChanged: onSelectionChanged,
   onCellDoubleClicked: onCellDoubleClick,
   suppressMenuHide: true,
   suppressAutoSize: true,
@@ -190,6 +201,63 @@ async function sendPostRequest() {
             gridApi.setGridOption("rowData", result.data.items);
             gridApi.setGridOption("loading", false);
     }
+
+function onSelectionChanged(event) {
+    var selectedRows = event.api.getSelectedRows();
+    var selectedRowsString = '';
+
+    selectedRows.forEach(function (item, index) {        
+        //console.log(item, index)
+        if (index > 0) {
+            selectedRowsString += ',';
+        }
+        selectedRowsString += item.ID;
+    });
+
+    document.formxl.ID.value =selectedRowsString;
+};
+
+
+function deleteitem(){ 
+    sendPostDelete()                    
+};
+
+async function sendPostDelete() {
+    mail = $.cookie(cookie_mail)    
+    grade = $.cookie(cookie_grade)
+    level = $.cookie(cookie_level)           
+    if (document.formxl.ID.value == ""){
+        alert ("No item selected for deletion!")
+    } else {
+        if (confirm("Are you sure you want to delete item(s) selected?")) {             
+            Deletelist = document.formxl.ID.value;
+            const url = 'gpi/user/delete';
+            const data = {                               
+                type: 'delete',                
+                mail: mail,
+                level: level, 
+                grade: grade,
+                ids: Deletelist                
+            };
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });            
+            const result = await response.json();
+                              
+            if (result.code === 20000) {
+                alert("Delete successful!");
+                window.location.reload();	
+            }else{
+                alert("Delete failure!");
+            }
+        }
+    }
+};
+    
 	</script>
 </form>
 </body>
