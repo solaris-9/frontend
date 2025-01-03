@@ -95,6 +95,7 @@ function initialize_page() {
         };
         if (global_controlled_by_hc) {
             document.formxl.field_managed_by_hc.value = global_controlled_by_hc;
+            render_nwcc(global_customer, document.formxl.field_home_controller);
         };
     };
     
@@ -627,11 +628,11 @@ function show_managed_by_hdm() {
         $("#flag_managed_by_hdm").hide();
         return;
     };
-    if(global_nwcc_saas.get(customer).Platform.includes(item)) {
-        $("#flag_managed_by_hdm").show();
-    } else {
-        $("#flag_managed_by_hdm").hide();
-    };
+    // if(global_nwcc_saas.get(customer).Platform.includes(item)) {
+    //     $("#flag_managed_by_hdm").show();
+    // } else {
+    //     $("#flag_managed_by_hdm").hide();
+    // };
 };
 $("#field_home_controller").change(function(){    
     show_managed_by_hdm();

@@ -141,24 +141,53 @@ function render_beacon(elems) {
 
 
 var global_nwcc_saas = new Map();
+// function fetch_nwcc_saas(){
+//     $.ajaxSetup({
+//         async: false
+//     });       
+//     $.getJSON("../gpi/allocate/nwcc_list", {"type": "4"}, function (data) {
+//         for(let i=0; i<data.data.items.length; i++){
+//              let Customer = data.data.items[i]['Customer'];
+//              let Platform = data.data.items[i]['Platform'];
+//              let tenant_id = data.data.items[i]['TenantID'];
+//              let hdm = data.data.items[i]['HDM'];
+//              let item = Platform + "/" + tenant_id + ":" + hdm
+//              if (global_nwcc_saas.has(Customer)) {
+//                 if (!global_nwcc_saas.get(Customer).Platform.includes(item)) {
+//                     global_nwcc_saas.get(Customer).Platform.push(item)
+//                 }
+//              } else {
+//                 global_nwcc_saas.set(Customer,{
+//                     Platform: [item]
+//                 });
+//              }
+//         };  
+//     });
+//     $.ajaxSetup({
+//         async: true
+//     });
+// };
 function fetch_nwcc_saas(){
     $.ajaxSetup({
         async: false
     });       
     $.getJSON("../gpi/allocate/nwcc_list", {"type": "4"}, function (data) {
         for(let i=0; i<data.data.items.length; i++){
-             let Customer = data.data.items[i]['Customer'];
-             let Platform = data.data.items[i]['Platform'];
-             let tenant_id = data.data.items[i]['TenantID'];
-             let hdm = data.data.items[i]['HDM'];
-             let item = Platform + "/" + tenant_id + ":" + hdm
+             let Customer = data.data.items[i]['field_customer'];
+             let ID = data.data.items[i]['ID'];
+             let Status = data.data.items[i]['field_status'];
+
+             if (['Rejected', 'Closed'].includes(Status)) {
+                continue;
+             }
+             //let item = Platform + "/" + tenant_id + ":" + hdm
              if (global_nwcc_saas.has(Customer)) {
-                if (!global_nwcc_saas.get(Customer).Platform.includes(item)) {
-                    global_nwcc_saas.get(Customer).Platform.push(item)
+                if (!global_nwcc_saas.get(Customer).ID.includes(ID)) {
+                    global_nwcc_saas.get(Customer).ID.push(ID)
                 }
              } else {
                 global_nwcc_saas.set(Customer,{
-                    Platform: [item]
+                    ID: [ID]
                 });
              }
         };  
@@ -189,13 +218,29 @@ function fetch_customer_contacts() {
     });
 };
 
+// function render_nwcc(cus, elem) {
+//     clear_options(elem);
+//     if (global_nwcc_saas.has(cus)) {
+//         for (let i=0; i<global_nwcc_saas.get(cus).Platform.length; i++) {
+//             let val = global_nwcc_saas.get(cus).Platform[i];
+//             if (val != "") {
+//                 elem.options[elem.length]=new Option(val.split(':')[0]);
+//             };
+//         };
+//     }  else {
+//         // if (elem.id == "field_home_controller") {
+//         //     $("#error_home_controller").show();
+//         //     show_elements_for_home_controller(false);
+//         // };
+//     };
+// };
 function render_nwcc(cus, elem) {
     clear_options(elem);
     if (global_nwcc_saas.has(cus)) {
-        for (let i=0; i<global_nwcc_saas.get(cus).Platform.length; i++) {
-            let val = global_nwcc_saas.get(cus).Platform[i];
+        for (let i=0; i<global_nwcc_saas.get(cus).ID.length; i++) {
+            let val = global_nwcc_saas.get(cus).ID[i];
             if (val != "") {
-                elem.options[elem.length]=new Option(val.split(':')[0]);
+                elem.options[elem.length]=new Option(val);
             };
         };
     }  else {
@@ -205,7 +250,6 @@ function render_nwcc(cus, elem) {
         // };
     };
 };
-
 function check_pattern(elem, pattern) {
     let val = document.formxl[elem].value;
     count = 0;
