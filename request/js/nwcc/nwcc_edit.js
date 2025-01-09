@@ -70,6 +70,8 @@ window.onload = initialize_page();
 
 function initialize_page() {
     fetch_customer(document.formxl.field_customer);
+    fetch_country(document.formxl.field_country);
+    fetch_hosting_platform();
 
     if (location.search.length > 0) {
         decode_fields();
@@ -536,6 +538,7 @@ function show_hc_type(flag = false) {
             clear_child_value(elem);
             if (elem == "flag_dedicated_instance") {
                 $("#field_hosting_platform").val("GCP");
+                render_region("GCP", document.formxl.field_dedicated_region);
             }
         };
     });
@@ -711,6 +714,10 @@ $("#field_status").change(function(){
     status_change();
 });
 
+$("#field_hosting_platform").change(function() {
+    const val = $("#field_hosting_platform").val();
+    render_region(val, document.formxl.field_dedicated_region);
+});
 //var global_status = "";
 
 $("#field_assignee").change(function(){

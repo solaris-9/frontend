@@ -139,6 +139,86 @@ function render_beacon(elems) {
     });
 };
 
+var global_country = new Map();
+function fetch_country(elem){
+    mail = $.cookie(cookie_mail)
+    $.ajaxSetup({
+        async: false
+    });       
+    $.getJSON("../gpi/allocate/country_list", {"type": 'all'},function(data){      	
+        for(var i = 0; i < data.data.items.length; i++){  
+            const country = data.data.items[i]['country'].trim();
+            const iso = data.data.items[i]['iso'].trim();
+            global_country.set(
+                iso,
+                {
+                    country: country,
+                    iso: iso
+                }
+            );
+
+        };
+        render_country(elem);  	
+    });
+    $.ajaxSetup({
+        async: true
+    });       
+};
+function render_country(elem) {
+    const isos = Array.from(global_country.keys()).sort();
+    clear_options(elem);
+    for (let i=0; i<isos.length; i++) {
+        if (isos[i] != "") {
+            elem.options[elem.length]=new Option(
+                isos[i]
+            );
+        };
+    };            
+};
+
+var global_hosting_platform = new Map();
+function fetch_hosting_platform(){
+    mail = $.cookie(cookie_mail)
+    $.ajaxSetup({
+        async: false
+    });       
+    $.getJSON("../gpi/allocate/hosting_list", {"type": 'all'},function(data){      	
+        for(var i = 0; i < data.data.items.length; i++){  
+            const cloud = data.data.items[i]['cloud'].trim();
+            const region = data.data.items[i]['region'].trim();
+            
+            if (global_hosting_platform.has(cloud)) {
+                if (!global_hosting_platform.get(cloud).region.includes(region)) {
+                    global_hosting_platform.get(cloud).region.push(region);
+                };
+            } else {
+                global_hosting_platform.set(
+                    cloud,
+                    {
+                        cloud: cloud,
+                        region: [region]
+                    }
+                );
+            }
+
+        };
+        //render_country(elem);  	
+    });
+    $.ajaxSetup({
+        async: true
+    });       
+};
+function render_region(cloud, elem) {
+    clear_options(elem);
+    if (global_hosting_platform.has(cloud)) {
+        for (let i=0; i<global_hosting_platform.get(cloud).region.length; i++) {
+            const val = global_hosting_platform.get(cloud).region[i];
+            if (val != "") {
+                elem.options[elem.length]=new Option(val);
+            };
+        };
+    }
+};
 
 var global_nwcc_saas = new Map();
 // function fetch_nwcc_saas(){

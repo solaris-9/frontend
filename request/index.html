@@ -51,7 +51,7 @@
                             <li>
                                 <a class="J_menuItem" href="devicedp/device_deployment.html">Device Deployments</span></a>
                             </li>  
-                            <li>
+                            <li id="admBoeng">
                                 <a class="J_menuItem" href="boeng/BoengRule.html">New BoENG Rule</span></a>
                             </li>  
                             <li id="admPlatform">
@@ -92,7 +92,7 @@
                 <ul class="nav navbar-top-links navbar-right"> 
                         <li class="dropdown hidden-xs">
                         <a class="right-sidebar-toggle" >
-                                <font size= 4 color=#004C9A ><i class="fa fa-ge"></i>Nokia Corteca Cloud Operations(V1.0.20250103)</font>
+                                <font size= 4 color=#004C9A ><i class="fa fa-ge"></i>Nokia Corteca Cloud Operations(V1.0.20250109)</font>
                         </a>						
                         </li>
                     </ul> 
@@ -133,10 +133,12 @@
     function show_div(){       
         $("#admAdministrator").hide(); 
         $("#admPlatform").hide();
+        $("#admBoeng").hide();
         if ($.cookie(cookie_level) > '7' && $.cookie(cookie_level) != 'undefined')
         { 
             $("#admAdministrator").show();
             $("#admPlatform").show();
+            $("#admBoeng").show();
         } 
     }
 </script>

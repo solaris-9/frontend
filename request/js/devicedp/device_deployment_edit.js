@@ -10,10 +10,11 @@ function show_hide(){
     show_mesh_extended();
     show_extender_update_method();
     show_status();
-    status_toggle();
     show_managed_by_hdm();
     show_boeng_option_config();
     toggle_nwcc(document.formxl.field_home_controller);
+    show_ouid();
+    status_toggle();
 } 
 
 //var global_id = decode_id(location.search);
@@ -43,6 +44,7 @@ var dd_fields = {
     field_assignee: {type: 'text', flag: false},
     field_mail: {type: 'text', flag: false},
     field_jira_id: {type: 'text', flag: false},
+    field_customer_id: {type: 'text', flag: false},
     field_root_device: {type: 'list', flag: false},
     field_product_variant: {type: 'list', flag: false},
     field_managed_by_hc: {type: 'list', flag: false},
@@ -73,6 +75,7 @@ var dd_fields = {
     field_extender_separate_license: {type: 'list', flag: true},
     field_extender_auto_ota: {type: 'list', flag: true},
     field_extender_waiver: {type: 'file', flag: true},
+    field_ouid: {type: 'text', flag: false},
     field_additional: {type: 'text', flag: false}
 };
 
@@ -253,7 +256,7 @@ function pre_validation() {
                     };
                 };
             } else {
-                if (id != "field_additional") {
+                if (id != "field_additional" && id != "field_customer_id") {
                     let val = $elem.val();
                     if (val) {
                         if (id == "field_customer_id") {
@@ -525,8 +528,18 @@ $("#field_customer").change(function(){
     render_nwcc(cus, document.formxl.field_home_controller);
     show_managed_by_hdm();
     toggle_nwcc(document.formxl.field_home_controller);
+    show_customer_id();
 });
 
+function show_customer_id() {
+    let cus = $("#field_customer").val();
+    let cus_id = "";
+    if (global_customers.has(cus)) {
+        cus_id = global_customers.get(cus).cid;
+    };
+    $("#field_customer_id").val(cus_id);
+
+};
 $("#field_root_device").change(function(){    
     var prod = ($("#field_root_device").val());
 
@@ -923,7 +936,25 @@ function show_status() {
 };
 $("#field_status").change(function(){
     status_change();
+    show_ouid();
 });
+
+function show_ouid() {
+    const val1 = $("#field_status").val();
+    const val2 = $("#field_root_update_method").val();
+    const val3 = $("#field_extender_update_method").val();
+    if (
+        val1 !== "New" && (
+            val2 === 'OTA' ||
+            val3 === 'ONT'
+        )
+    ) {
+        $("#flag_ouid").show();
+    } else {
+        $("#flag_ouid").hide();
+        clear_child_value('flag_ouid')
+    }
+};
 
 //var global_status = "";
 
@@ -981,7 +1012,7 @@ function status_toggle() {
         flag = true;
     };
     for ([key, attr] of Object.entries(dd_fields)) {
-        let l_exceptions = ['field_status', 'field_assignee', 'field_additional'];
+        let l_exceptions = ['field_status', 'field_assignee', 'field_additional', 'field_ouid', 'field_customer_id'];
         if (l_exceptions.includes(key)) {
             continue;
         }

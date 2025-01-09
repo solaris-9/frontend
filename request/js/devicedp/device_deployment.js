@@ -69,8 +69,8 @@ const columnDefs = [
     { field: 'field_extender_separate_license', width: 200, headerName: 'Extender OTA License', onCellDoubleClicked: onCellDoubleClick},
     { field: 'field_extender_auto_ota', width: 200, headerName: 'Extender Auto OTA', onCellDoubleClicked: onCellDoubleClick},
     { field: 'field_extender_waiver', width: 200, headerName: 'Extender OTA Waiver', onCellDoubleClicked: onCellDoubleClick},
+    { field: 'field_ouid', width: 200, headerName: 'OUID', onCellDoubleClicked: onCellDoubleClick},
     { field: 'field_additional', width: 200, headerName: 'Addtional Info', onCellDoubleClicked: onCellDoubleClick},
-    { field: 'additional', width: 200, headerName: 'Commnents', onCellDoubleClicked: onCellDoubleClick},
     { field: 'creator', width: 150, headerName: 'Creator', onCellDoubleClicked: onCellDoubleClick},
     { field: 'createon', width: 150, headerName: 'Created On', onCellDoubleClicked: onCellDoubleClick},
     { field: 'modifier', width: 150, headerName: 'Modifier', onCellDoubleClicked: onCellDoubleClick},
@@ -145,18 +145,18 @@ document.addEventListener('DOMContentLoaded', () => {
     new agGrid.Grid(gridDiv, gridOptions);
     mail = $.cookie(cookie_mail)
     level = $.cookie(cookie_level)
-    fetch_customer("");
-    $.ajaxSetup({
-            async: false
-        });       
+    //fetch_customer("");
+    // $.ajaxSetup({
+    //         async: false
+    //     });       
         
     $.getJSON("../gpi/allocate/devicedp_list",{mail: $.cookie(cookie_mail), level: $.cookie(cookie_level), type: "all"},function(data){      	
         $(data.data.items).each(function(){
-            if (global_customers.has(this.field_customer)) {
-                this.field_customer_id = global_customers.get(this.field_customer).cid;
-            } else {
-                this.field_customer_id = '';
-            }
+            // if (global_customers.has(this.field_customer)) {
+            //     this.field_customer_id = global_customers.get(this.field_customer).cid;
+            // } else {
+            //     this.field_customer_id = '';
+            // }
             FRT = JSON.stringify(this);	
             FRT = FRT.replace("[{", "{");
             FRT = FRT.replace("}]", "}");	
@@ -166,9 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
         gridOptions.api.setRowData(rowData);
 
     });
-    $.ajaxSetup({
-            async: true
-        });       
+    // $.ajaxSetup({
+    //         async: true
+    //     });       
         
     $("#preloader").hide();
     $("#mainpart").show();
