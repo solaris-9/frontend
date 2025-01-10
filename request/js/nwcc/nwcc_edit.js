@@ -610,10 +610,12 @@ function show_flag_b() {
 }
 $("#field_dedicated_legal_clearance").change(function() {
     show_flag_a();
+    show_flag_b();
     handle_stop(this.id);
 });
 $("#field_multi_legal_clearance").change(function() {
     show_flag_a();
+    show_flag_b();
     handle_stop(this.id);
 });
 // function show_flag_b() {

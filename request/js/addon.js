@@ -150,7 +150,7 @@ function fetch_country(elem){
             const country = data.data.items[i]['country'].trim();
             const iso = data.data.items[i]['iso'].trim();
             global_country.set(
-                iso,
+                country,
                 {
                     country: country,
                     iso: iso
@@ -165,12 +165,12 @@ function fetch_country(elem){
     });       
 };
 function render_country(elem) {
-    const isos = Array.from(global_country.keys()).sort();
+    const countries = Array.from(global_country.keys()).sort();
     clear_options(elem);
-    for (let i=0; i<isos.length; i++) {
-        if (isos[i] != "") {
+    for (let i=0; i<countries.length; i++) {
+        if (countries[i] != "") {
             elem.options[elem.length]=new Option(
-                isos[i]
+                countries[i]
             );
         };
     };            
